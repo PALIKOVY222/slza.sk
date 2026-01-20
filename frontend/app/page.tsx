@@ -4,7 +4,6 @@ import Services from './components/Services';
 import Kalkulacie from './components/Kalkulacie';
 import Products from './components/Products';
 import About from './components/About';
-import Newsletter from './components/Newsletter';
 import Footer from './components/Footer';
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <Kalkulacie />
       <Products />
       <About />
-      <Newsletter />
       <Footer />
     </div>
   );

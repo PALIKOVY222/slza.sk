@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 820 720">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        font-size: 11.5px;
+      }
+
+      .cls-2, .cls-3 {
+        font-family: Montserrat-Bold, Montserrat;
+        font-weight: 700;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #244e7d;
+      }
+
+      .cls-5 {
+        fill: #050e17;
+      }
+
+      .cls-5, .cls-6, .cls-7, .cls-4, .cls-8, .cls-9 {
+        fill-rule: evenodd;
+      }
+
+      .cls-6, .cls-10 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        font-size: 13.2px;
+        letter-spacing: .3em;
+      }
+
+      .cls-3, .cls-9, .cls-11 {
+        fill: #1d4066;
+      }
+
+      .cls-12 {
+        mix-blend-mode: multiply;
+        opacity: .5;
+      }
+
+      .cls-13 {
+        fill: #666766;
+        font-family: Montserrat-Light, Montserrat;
+        font-size: 4.7px;
+        font-weight: 300;
+        letter-spacing: 0em;
+      }
+
+      .cls-14 {
+        font-size: 7.6px;
+      }
+
+      .cls-14, .cls-15 {
+        font-family: ArialNarrow, 'Arial Narrow';
+      }
+
+      .cls-14, .cls-7 {
+        fill: #0f2238;
+      }
+
+      .cls-16 {
+        isolation: isolate;
+      }
+
+      .cls-17 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-18 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-15 {
+        font-size: 5.8px;
+      }
+
+      .cls-15, .cls-19 {
+        fill: #112f52;
+      }
+
+      .cls-20 {
+        fill: #f4f6f8;
+      }
+
+      .cls-21, .cls-8 {
+        fill: #265385;
+      }
+
+      .cls-22 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="309" y="358.6" width="266.7" height="175.9" transform="translate(-80.2 97.2) rotate(-11.5)"></rect>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-1" x="241.2" y="182.6" width="264" height="167.5" transform="translate(-47 82.9) rotate(-11.9)"></rect>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-1" x="238.6" y="178.6" width="266.7" height="175.9" transform="translate(-47.1 82.6) rotate(-11.9)"></rect>
+    </clipPath>
+  </defs>
+  <g class="cls-16">
+    <g id="BACKGROUND">
+      <rect class="cls-20" x="0" width="820" height="720"></rect>
+    </g>
+    <g id="OBJECTS">
+      <g>
+        <g>
+          <g>
+            <g>
+              <g class="cls-12">
+                <image width="205" height="99" transform="translate(424.2 468.4)"></image>
+              </g>
+              <g class="cls-12">
+                <image width="204" height="114" transform="translate(293.2 494.4)"></image>
+              </g>
+            </g>
+            <g>
+              <g class="cls-12">
+                <image width="205" height="99" transform="translate(424.2 468.4)"></image>
+              </g>
+              <g class="cls-12">
+                <image width="204" height="114" transform="translate(293.2 494.4)"></image>
+              </g>
+            </g>
+          </g>
+          <g class="cls-22">
+            <rect class="cls-10" x="309" y="358.6" width="266.7" height="175.9" transform="translate(-80.2 97.2) rotate(-11.5)"></rect>
+            <path class="cls-9" d="M386.8,442.1c-26.1,5.3-42.9,30.8-37.6,56.8,5.3,26.1,30.8,42.9,56.8,37.6,26.1-5.3,42.9-30.8,37.6-56.8-5.3-26.1-30.8-42.9-56.8-37.6ZM402.5,519.3c-15.8,3.2-31.3-7-34.5-22.8-3.2-15.8,7-31.3,22.8-34.5,15.8-3.2,31.3,7,34.5,22.8,3.2,15.8-7,31.3-22.8,34.5Z"></path>
+            <path class="cls-8" d="M485.5,542.8c-4.1-20.1,8.9-39.6,28.9-43.7h0c20.1-4.1,39.6,8.9,43.7,28.9l-72.6,14.8Z"></path>
+            <rect class="cls-19" x="274.3" y="373.5" width="70.4" height="70.4" transform="translate(-29.2 793.5) rotate(-101.5)"></rect>
+            <polygon class="cls-8" points="253.9 455.4 379.6 429.8 405.1 555.5 253.9 455.4"></polygon>
+            <polygon class="cls-7" points="279.5 581 253.9 455.4 379.6 429.8 279.5 581"></polygon>
+            <polygon class="cls-6" points="405.1 555.5 279.5 581 329.5 505.4 405.1 555.5"></polygon>
+            <circle class="cls-10" cx="395" cy="490.9" r="30.7" transform="translate(-182.8 742.2) rotate(-74.7)"></circle>
+            <rect class="cls-19" x="356.6" y="341" width="70.4" height="101.9" transform="translate(85.9 854) rotate(-101.5)"></rect>
+            <path class="cls-4" d="M444.6,444.3c-19.7,4-38.9-8.7-42.9-28.4-4-19.7,8.7-38.9,28.4-42.9,19.7-4,38.9,8.7,42.9,28.4,4,19.7-8.7,38.9-28.4,42.9Z"></path>
+            <rect class="cls-1" x="309" y="358.6" width="266.7" height="175.9" transform="translate(-80.2 97.2) rotate(-11.5)"></rect>
+            <rect class="cls-1" x="311.6" y="362.6" width="264" height="167.5" transform="translate(-80.1 97.4) rotate(-11.5)"></rect>
+            <path class="cls-9" d="M334.1,447.9c-14.7,3-29-6.5-32-21.2-3-14.7,6.5-29,21.2-32,14.7-3,29,6.5,32,21.2,3,14.7-6.5,29-21.2,32Z"></path>
+            <path class="cls-8" d="M555.2,326.3c2.6,12.7-5.6,25.1-18.4,27.7h0c-12.7,2.6-25.1-5.6-27.7-18.4l46.1-9.4Z"></path>
+          </g>
+        </g>
+        <g>
+          <text class="cls-2" transform="translate(474.7 465.5) rotate(-11.5)">
+            <tspan x="0" y="0">ARCHITECTURE</tspan>
+          </text>
+          <text class="cls-15" transform="translate(476.3 479.3) rotate(-11.5)">
+            <tspan x="0" y="0" xml:space="preserve">NEW YORK  .  JAPAN  .  LONDON  .  PARIS</tspan>
+          </text>
+        </g>
+      </g>
+      <g>
+        <g>
+          <g>
+            <g class="cls-12">
+              <image width="205" height="100" transform="translate(356.3 283.6)"></image>
+            </g>
+            <g class="cls-12">
+              <image width="204" height="115" transform="translate(225.3 310.6)"></image>
+            </g>
+          </g>
+          <g>
+            <g class="cls-12">
+              <image width="205" height="100" transform="translate(356.3 283.6)"></image>
+            </g>
+            <g class="cls-12">
+              <image width="204" height="115" transform="translate(225.3 310.6)"></image>
+            </g>
+          </g>
+        </g>
+        <g>
+          <g class="cls-17">
+            <rect class="cls-10" x="241.2" y="182.6" width="264" height="167.5" transform="translate(-47 82.9) rotate(-11.9)"></rect>
+            <g class="cls-18">
+              <rect class="cls-10" x="238.6" y="178.6" width="266.7" height="175.9" transform="translate(-47.1 82.6) rotate(-11.9)"></rect>
+              <polygon class="cls-9" points="309 250.3 407.6 310.6 519.4 287 530.2 334.8 251.5 395.1 309 250.3"></polygon>
+              <path class="cls-6" d="M417.4,370.1c-4.2-20,8.6-39.7,28.6-43.9h0c20-4.2,39.7,8.6,43.9,28.6l-72.5,15.3Z"></path>
+              <rect class="cls-19" x="203.6" y="194.5" width="70.4" height="70.4" transform="translate(63.4 510.8) rotate(-101.9)"></rect>
+              <polygon class="cls-8" points="183.6 276.8 309 250.3 335.5 375.7 183.6 276.8"></polygon>
+              <polygon class="cls-7" points="210.1 402.3 183.6 276.8 309 250.3 210.1 402.3"></polygon>
+              <polygon class="cls-6" points="335.5 375.7 210.1 402.3 259.5 326.3 335.5 375.7"></polygon>
+              <circle class="cls-10" cx="327.2" cy="332.9" r="20.2" transform="translate(-100.9 519.1) rotate(-69)"></circle>
+              <path class="cls-9" d="M511,256.5c-17.3,3.6-28.3,20.6-24.6,37.8,3.6,17.3,20.6,28.3,37.8,24.6,17.3-3.6,28.3-20.6,24.6-37.8-3.6-17.3-20.6-28.3-37.8-24.6ZM521.7,307.6c-10.5,2.2-20.8-4.5-23-15-2.2-10.5,4.5-20.8,15-23,10.5-2.2,20.8,4.5,23,15,2.2,10.5-4.5,20.8-15,23Z"></path>
+              <polygon class="cls-5" points="309 250.3 266 188 280.5 256.9 309 250.3"></polygon>
+              <circle class="cls-11" cx="258" cy="242.2" r="27.1" transform="translate(-94.4 274.2) rotate(-48.4)"></circle>
+            </g>
+          </g>
+          <text class="cls-3" transform="translate(419.3 203.9) rotate(-11.9)">
+            <tspan x="0" y="0">LIRNY</tspan>
+          </text>
+          <text class="cls-14" transform="translate(431.5 213.7) rotate(-11.9)">
+            <tspan x="0" y="0">ARCHITECTURE</tspan>
+          </text>
+          <g>
+            <text class="cls-13" transform="translate(431.7 233.3) rotate(-11.9)">
+              <tspan x="0" y="0">+34 123 456 789</tspan>
+            </text>
+            <text class="cls-13" transform="translate(401.2 267.7) rotate(-11.9)">
+              <tspan x="0" y="0">YOURCOMPANY@EMAIL.COM</tspan>
+            </text>
+            <text class="cls-13" transform="translate(402.2 254.2) rotate(-11.9)">
+              <tspan x="0" y="0">WWW.YOURCOMPANY.COM</tspan>
+            </text>
+            <g>
+              <path class="cls-8" d="M476.4,220.6c0-.3,0-.7.2-.9,0-.1.2-.3.3-.3.2,0,.3.1.4.2.2.2.5.4.3.7,0,.1-.2.2-.3.4,0,.1,0,.3.1.4.2.2.5.5.8.6.1,0,.3.1.4,0,.1,0,.2-.2.3-.4.2-.3.6,0,.9.1.1,0,.3.2.3.3,0,.1-.1.3-.2.4-.2.3-.6.4-.9.4-.4,0-.8-.2-1.1-.3-.3-.2-.7-.4-.9-.7-.1-.1-.3-.3-.3-.4-.1-.2-.2-.3-.2-.5,0-.2,0,0,0,0Z"></path>
+              <path class="cls-8" d="M477.5,217.7c-1.8.4-3,2.2-2.6,4,.4,1.8,2.2,3,4,2.6,1.8-.4,3-2.2,2.6-4-.4-1.8-2.2-3-4-2.6ZM478.7,223.6c-1.4.3-2.8-.6-3.1-2-.3-1.4.6-2.8,2-3.1,1.4-.3,2.8.6,3.1,2,.3,1.4-.6,2.8-2,3.1Z"></path>
+            </g>
+            <g>
+              <path class="cls-21" d="M484,248.7l-1-.5-1.9,2.5c.1,0,.2,0,.3,0l5.6-1.2c.1,0,.2,0,.3-.2l-2.7-1.5-.7.9ZM484,248.7"></path>
+              <path class="cls-21" d="M486.5,244.9c0,0-.2,0-.3,0l-5.6,1.2c-.1,0-.2,0-.3.2l3.7,2,2.6-3.3ZM486.5,244.9"></path>
+              <path class="cls-21" d="M480.2,246.5l.8,3.9,1.9-2.4-2.7-1.5ZM480.2,246.5"></path>
+              <path class="cls-21" d="M484.9,247.6l2.7,1.4-.8-3.9-1.8,2.4ZM484.9,247.6"></path>
+            </g>
+            <g>
+              <path class="cls-21" d="M480.5,231.9c-1.7.4-2.9,2.1-2.5,3.8s2.1,2.9,3.8,2.5c1.7-.4,2.9-2.1,2.5-3.8s-2.1-2.9-3.8-2.5ZM480.3,232.5c0,.2,0,.5.1.7.4.5.7.3.6.9,0,.6.1,1.2.5,1,.4-.2.2-.7.7-.6.5,0,1,.2.9-.4,0-.2.1-.4.2-.5.1.2.3.5.3.8,0,.4,0,.9,0,1.3-.2,0-.4.2-.6.3-.4.2-.2.6-.1.9-.3.3-.8.6-1.3.7-.4,0-.9,0-1.3,0,.1-.2.4-.4.6-.6.5-.5,0-.6-.2-1-.2-.4-1,.2-1.4-.1-.3-.2-.5,0-.6.1,0-.1,0-.3-.1-.4-.3-1.3.5-2.6,1.8-3Z"></path>
+              <path class="cls-21" d="M480.2,235.1c.3,0,.9-.2.5-.6-.4-.4-.2-1.1-.7-.8-.4.3-.3.3-.4.6,0,.3,0,.4,0,.4,0,0-.2.4,0,.5.3,0,.3,0,.6,0Z"></path>
+            </g>
+            <text class="cls-13" transform="translate(418 277.5) rotate(-11.9)">
+              <tspan x="0" y="0">STREET NAME, DISTRICT</tspan>
+            </text>
+            <path class="cls-21" d="M488,257.5c-1.3-.9-3.1-.5-3.9.8h0c-.9,1.3-.5,3.1.8,3.9l2.4,1.6,1.6-2.4c.9-1.3.5-3.1-.8-3.9ZM487.8,260.8c-.5.8-1.5,1-2.3.5-.8-.5-1-1.5-.5-2.3.5-.8,1.5-1,2.3-.5.8.5,1,1.5.5,2.3Z"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
