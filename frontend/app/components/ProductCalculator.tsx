@@ -1,0 +1,462 @@
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
+
+interface ProductCalculatorProps {
+  product: any;
+}
+
+const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
+  const [selectedOptions, setSelectedOptions] = useState<any>({});
+  const [customSize, setCustomSize] = useState({ width: '', height: '' });
+  const [totalPrice, setTotalPrice] = useState(product.basePrice || product.basePricePerCm2 || 0);
+
+  // Inicializácia prvých možností
+  useEffect(() => {
+    const initialOptions: any = {};
+    Object.keys(product.options).forEach(category => {
+      if (category === 'quantity') {
+        const defaultQuantity = product.defaultQuantity || product.options[category][0]?.amount || 1;
+        initialOptions[category] = { amount: defaultQuantity };
+      } else {
+        initialOptions[category] = product.options[category][0];
+      }
+    });
+    setSelectedOptions(initialOptions);
+  }, [product]);
+
+  const calculatePrice = useCallback(() => {
+    let price = 0;
+    let area = 0; // cm²
+    const sizeUnit = product.sizeUnit || 'cm';
+    const toCm = (value: number) => (sizeUnit === 'mm' ? value / 10 : value);
+    const getPricePerCm2 = (amount: number) => {
+      const table = product.pricePerCm2ByQuantity || {};
+      const entries = Object.entries(table)
+        .map(([qty, val]) => ({ qty: Number(qty), val: Number(val) }))
+        .filter(entry => Number.isFinite(entry.qty) && Number.isFinite(entry.val))
+        .sort((a, b) => a.qty - b.qty);
+
+      if (!entries.length) {
+        return 0;
+      }
+
+      const exact = entries.find(entry => entry.qty === amount);
+      if (exact) {
+        return exact.val;
+      }
+
+      let lower = [...entries].reverse().find(entry => entry.qty < amount) || entries[0];
+      let upper = entries.find(entry => entry.qty > amount) || entries[entries.length - 1];
+
+      if (amount < entries[0].qty && entries.length > 1) {
+        lower = entries[0];
+        upper = entries[1];
+      }
+
+      if (amount > entries[entries.length - 1].qty && entries.length > 1) {
+        lower = entries[entries.length - 2];
+        upper = entries[entries.length - 1];
+      }
+
+      if (lower.qty === upper.qty) {
+        return lower.val;
+      }
+
+      const logLowerQty = Math.log(lower.qty);
+      const logUpperQty = Math.log(upper.qty);
+      const logAmount = Math.log(amount);
+      const ratio = (logAmount - logLowerQty) / (logUpperQty - logLowerQty);
+
+      const logLowerVal = Math.log(lower.val);
+      const logUpperVal = Math.log(upper.val);
+      const logInterpolated = logLowerVal + ratio * (logUpperVal - logLowerVal);
+
+      return Math.exp(logInterpolated);
+    };
+    
+    // Získame rozmery
+    const sizeOption = selectedOptions['size'];
+    if (sizeOption) {
+      if (sizeOption.custom && customSize.width && customSize.height) {
+        const width = parseFloat(customSize.width);
+        const height = parseFloat(customSize.height);
+        if (!isNaN(width) && !isNaN(height)) {
+          area = toCm(width) * toCm(height);
+        }
+      } else if (sizeOption.width && sizeOption.height) {
+        area = toCm(sizeOption.width) * toCm(sizeOption.height);
+      }
+    }
+
+    // Použijeme nový cenový systém pre nálepky (s pricePerCm2ByQuantity lookup tabuľkou)
+    if (product.useTotalPriceTable && product.totalPriceByQuantityAndArea && area > 0) {
+      const quantityOption = selectedOptions['quantity'];
+      const amount = Math.max(1, Number(quantityOption?.amount || 1));
+
+      const table: Record<string, Record<string, number>> = product.totalPriceByQuantityAndArea;
+      const qtyKeys = Object.keys(table)
+        .map((k) => Number(k))
+        .filter((n) => Number.isFinite(n))
+        .sort((a, b) => a - b);
+
+      const interpolateByArea = (qty: number) => {
+        const areaTable = table[String(qty)] || {};
+        const points = Object.entries(areaTable)
+          .map(([a, v]) => ({ area: Number(a), value: Number(v) }))
+          .filter((p) => Number.isFinite(p.area) && Number.isFinite(p.value))
+          .sort((a, b) => a.area - b.area);
+
+        if (!points.length) return 0;
+        const exact = points.find((p) => p.area === area);
+        if (exact) return exact.value;
+
+        const lower = [...points].reverse().find((p) => p.area < area) || points[0];
+        const upper = points.find((p) => p.area > area) || points[points.length - 1];
+        if (lower.area === upper.area) return lower.value;
+
+        const ratio = (area - lower.area) / (upper.area - lower.area);
+        return lower.value + ratio * (upper.value - lower.value);
+      };
+
+      const interpolateByQty = () => {
+        if (!qtyKeys.length) return 0;
+        const exact = qtyKeys.find((q) => q === amount);
+        if (exact) return interpolateByArea(exact);
+
+        const lower = [...qtyKeys].reverse().find((q) => q < amount) || qtyKeys[0];
+        const upper = qtyKeys.find((q) => q > amount) || qtyKeys[qtyKeys.length - 1];
+        if (lower === upper) return interpolateByArea(lower);
+
+        // Interpolate on log-qty axis (prices tend to follow a curve).
+        const logLower = Math.log(lower);
+        const logUpper = Math.log(upper);
+        const logAmount = Math.log(amount);
+        const ratio = (logAmount - logLower) / (logUpper - logLower);
+
+        const vLower = interpolateByArea(lower);
+        const vUpper = interpolateByArea(upper);
+        return vLower + ratio * (vUpper - vLower);
+      };
+
+      price = interpolateByQty();
+
+      const materialOption = selectedOptions['material'];
+      if (materialOption && materialOption.multiplier) {
+        price = price * materialOption.multiplier;
+      }
+
+      const laminationOption = selectedOptions['lamination'];
+      if (laminationOption && laminationOption.multiplier) {
+        price = price * laminationOption.multiplier;
+      }
+
+      const cuttingOption = selectedOptions['cutting'];
+      if (cuttingOption && cuttingOption.multiplier) {
+        price = price * cuttingOption.multiplier;
+      }
+    }
+    if (product.usePriceLookup && product.pricePerCm2ByQuantity && area > 0) {
+      const quantityOption = selectedOptions['quantity'];
+      const amount = Math.max(1, Number(quantityOption?.amount || 1));
+
+      // Získame cenu za cm² pre dané množstvo (interpolácia medzi bodmi)
+      const pricePerCm2 = getPricePerCm2(amount);
+      
+      // Základná cena = plocha × cena za cm² (pre dané množstvo)
+      price = area * pricePerCm2;
+      
+      // Multiplikátor materiálu
+      const materialOption = selectedOptions['material'];
+      if (materialOption && materialOption.multiplier) {
+        price = price * materialOption.multiplier;
+      }
+      
+      // Multiplikátor laminácie
+      const laminationOption = selectedOptions['lamination'];
+      if (laminationOption && laminationOption.multiplier) {
+        price = price * laminationOption.multiplier;
+      }
+      
+      // Multiplikátor narezania
+      const cuttingOption = selectedOptions['cutting'];
+      if (cuttingOption && cuttingOption.multiplier) {
+        price = price * cuttingOption.multiplier;
+      }
+      
+      // Vynásobíme počtom kusov (lookup tabuľka už obsahuje cenu za kus)
+      price = price * amount;
+    }
+    // Použijeme nový cenový systém pre nálepky (s basePricePerCm2)
+    else if (product.basePricePerCm2 && area > 0) {
+      // Základná cena = plocha × cena za cm²
+      price = area * product.basePricePerCm2;
+      
+      // Multiplikátor materiálu
+      const materialOption = selectedOptions['material'];
+      if (materialOption && materialOption.multiplier) {
+        price = price * materialOption.multiplier;
+      }
+      
+      // Multiplikátor laminácie
+      const laminationOption = selectedOptions['lamination'];
+      if (laminationOption && laminationOption.multiplier) {
+        price = price * laminationOption.multiplier;
+      }
+      
+      // Multiplikátor narezania
+      const cuttingOption = selectedOptions['cutting'];
+      if (cuttingOption && cuttingOption.multiplier) {
+        price = price * cuttingOption.multiplier;
+      }
+      
+      // Množstevné zľavy a počet kusov
+      const quantityOption = selectedOptions['quantity'];
+      if (quantityOption) {
+        // Aplikujeme zľavu
+        const discount = quantityOption.discount || 0;
+        price = price * (1 - discount / 100);
+        // Vynásobíme počtom kusov
+        price = price * quantityOption.amount;
+      }
+    }
+    // Pre ostatné produkty použijeme pôvodný systém (basePrice)
+    else if (product.basePrice) {
+      price = product.basePrice;
+      let multiplier = 1;
+
+      Object.keys(selectedOptions).forEach(category => {
+        const option = selectedOptions[category];
+        
+        if (category === 'quantity') {
+          const discount = option.discount || 0;
+          price = price * (1 - discount / 100);
+          price = price * option.amount;
+        } else if (category === 'size' && option.multiplier) {
+          multiplier *= option.multiplier;
+          
+          if (option.custom && customSize.width && customSize.height) {
+            const width = parseFloat(customSize.width);
+            const height = parseFloat(customSize.height);
+            if (!isNaN(width) && !isNaN(height)) {
+              const baseArea = 2;
+              const customArea = (width / 100) * (height / 100);
+              multiplier *= customArea / baseArea;
+            }
+          }
+        } else if (option.price) {
+          price += option.price;
+        }
+      });
+
+      price *= multiplier;
+    }
+
+    setTotalPrice(Math.round(price * 100) / 100);
+  }, [customSize.height, customSize.width, product, selectedOptions]);
+
+  // Prepočet ceny pri zmene možností
+  useEffect(() => {
+    calculatePrice();
+  }, [calculatePrice]);
+
+  const handleOptionChange = (category: string, option: any) => {
+    setSelectedOptions({
+      ...selectedOptions,
+      [category]: option
+    });
+  };
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: Date.now().toString(),
+      productName: product.title,
+      options: selectedOptions,
+      quantity: 1,
+      price: totalPrice,
+      image: product.image
+    };
+
+    // Načítanie existujúceho košíka
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    existingCart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+
+    alert('Produkt pridaný do košíka!');
+    window.location.href = '/kosik';
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor produktu</h2>
+      
+      <div className="space-y-8">
+        {/* Všetky kategórie možností */}
+        {Object.keys(product.options).map(category => {
+          const options = product.options[category];
+          const categoryNames: any = {
+            material: 'Materiál',
+            paper: 'Papier',
+            size: 'Veľkosť',
+            type: 'Typ',
+            shape: 'Tvar',
+            finishing: 'Dokončenie',
+            lamination: 'Laminácia',
+            cutting: 'Narezanie',
+            corners: 'Rohy',
+            ink: 'Farba atramentu',
+            quantity: 'Množstvo'
+          };
+
+          const sizeUnit = product.sizeUnit || 'cm';
+          const sizeLabel = sizeUnit === 'mm' ? 'mm' : 'cm';
+          const sizeMin = product.sizeMin || (sizeUnit === 'mm' ? 5 : 1);
+          const sizeMax = product.sizeMax || (sizeUnit === 'mm' ? 1000 : 500);
+
+          return (
+            <div key={category}>
+              <h3 className="text-xl font-bold text-[#111518] mb-4">{categoryNames[category]}</h3>
+              
+              {category === 'quantity' ? (
+                // Pre množstvo - špeciálne zobrazenie s množstevnými zľavami
+                <div className="space-y-4">
+                  {product.quantityInput && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
+                        <input
+                          type="number"
+                          min={1}
+                          value={selectedOptions[category]?.amount ?? ''}
+                          onChange={(e) =>
+                            handleOptionChange(category, { amount: Number(e.target.value) || 1 })
+                          }
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                          placeholder="napr. 100"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {options.map((option: any, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => handleOptionChange(category, option)}
+                        className={`p-4 rounded-lg border-2 transition-all text-left ${
+                          selectedOptions[category]?.amount === option.amount
+                            ? 'border-[#0087E3] bg-[#0087E3]/5'
+                            : 'border-gray-200 hover:border-[#0087E3]/50'
+                        }`}
+                      >
+                        <div className="font-bold text-lg text-[#111518]">{option.amount} ks</div>
+                        {option.discount > 0 && (
+                          <div className="text-sm text-[#0087E3] font-semibold">-{option.discount}%</div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                // Pre ostatné možnosti
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {options.map((option: any, index: number) => (
+                    <div key={index}>
+                      <button
+                        onClick={() => handleOptionChange(category, option)}
+                        className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                          selectedOptions[category]?.name === option.name
+                            ? 'border-[#0087E3] bg-[#0087E3]/5'
+                            : 'border-gray-200 hover:border-[#0087E3]/50'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <div className="font-semibold text-[#111518]">{option.name}</div>
+                            {option.description && (
+                              <div className="text-sm text-[#4d5d6d] mt-1">{option.description}</div>
+                            )}
+                          </div>
+                          {option.price > 0 && (
+                            <div className="text-[#0087E3] font-semibold ml-2">+{option.price}€</div>
+                          )}
+                        </div>
+                      </button>
+                      
+                      {/* Vlastné rozmery */}
+                      {option.custom && selectedOptions[category]?.custom && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-sm font-medium text-[#111518] mb-2">
+                                Šírka ({sizeLabel})
+                              </label>
+                              <input
+                                type="number"
+                                min={sizeMin}
+                                max={sizeMax}
+                                value={customSize.width}
+                                onChange={(e) => setCustomSize({ ...customSize, width: e.target.value })}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                                placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 150'}
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-[#111518] mb-2">
+                                Výška ({sizeLabel})
+                              </label>
+                              <input
+                                type="number"
+                                min={sizeMin}
+                                max={sizeMax}
+                                value={customSize.height}
+                                onChange={(e) => setCustomSize({ ...customSize, height: e.target.value })}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                                placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 300'}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Celková cena a tlačidlo */}
+      <div className="mt-10 pt-8 border-t-2 border-gray-200">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
+            <div className="text-4xl font-bold text-[#0087E3]">{(totalPrice || 0).toFixed(2)} €</div>
+            <div className="text-sm text-[#4d5d6d] mt-1">+ DPH</div>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="bg-[#0087E3] text-white py-4 px-12 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Pridať do košíka
+          </button>
+        </div>
+      </div>
+
+      {/* Informačný box */}
+      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="flex items-start gap-4">
+          <svg className="w-6 h-6 text-[#0087E3] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div className="text-sm text-[#4d5d6d]">
+            <p className="font-semibold text-[#111518] mb-2">Potrebujete pomoc s objednávkou?</p>
+            <p>Kontaktujte nás na <a href="tel:0911536671" className="text-[#0087E3] hover:underline">0911 536 671</a> alebo <a href="mailto:slza@slza.sk" className="text-[#0087E3] hover:underline">slza@slza.sk</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductCalculator;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CookieBanner from "./components/CookieBanner";
 
 export const metadata: Metadata = {
   title: "SLZA Print - Tlačiareň | Digitálna a Ofsetová Tlač",
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="sk">
       <body>
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

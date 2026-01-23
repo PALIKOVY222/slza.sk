@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "benchmark:plotbase": "node tools/price-benchmark/run.mjs --site=plotbase"
   },
   "dependencies": {
     "next": "16.1.4",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "nodemailer": "^6.9.15"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,6 +22,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "puppeteer": "^24.35.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
