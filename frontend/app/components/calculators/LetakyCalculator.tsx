@@ -1,19 +1,24 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
 
 export type LetakyPriceResult = {
   priceExVat: number;
   priceIncVat?: number;
 };
 
-// Paper cost per sheet (EUR, bez DPH) z podkladov; použijeme ich ako faktor k 115g cenníku.
 const paperOptions = [
-  { label: '115g', costPerSheet: 0.0414, description: 'Ekonomický leták' },
-  { label: '150g', costPerSheet: 0.054, description: 'Univerzálny kompromis' },
-  { label: '200g', costPerSheet: 0.072, description: 'Pevnejší papier' },
-  { label: '250g', costPerSheet: 0.09, description: 'Prémiovejší feel' },
-  { label: '300g', costPerSheet: 0.108, description: 'Najpevnejší z ponuky' }
+  { label: '115g matná', grammage: 115, description: 'Ekonomický leták' },
+  { label: '115g lesklá', grammage: 115, description: 'Ekonomický leták' },
+  { label: '150g matná', grammage: 150, description: 'Univerzálny kompromis' },
+  { label: '150g lesklá', grammage: 150, description: 'Univerzálny kompromis' },
+  { label: '200g matná', grammage: 200, description: 'Pevnejší papier' },
+  { label: '200g lesklá', grammage: 200, description: 'Pevnejší papier' },
+  { label: '250g matná', grammage: 250, description: 'Prémiovejší feel' },
+  { label: '250g lesklá', grammage: 250, description: 'Prémiovejší feel' },
+  { label: '300g matná', grammage: 300, description: 'Najpevnejší z ponuky' },
+  { label: '300g lesklá', grammage: 300, description: 'Najpevnejší z ponuky' }
 ] as const;
 
 type PaperOption = (typeof paperOptions)[number];
@@ -49,153 +54,102 @@ const quantityOptions: QuantityOption[] = [
 ];
 
 const colorOptions = [
-  { label: '1/0 (čb jednostranne)', value: '1/0' as const },
-  { label: '1/1 (čb obojstranne)', value: '1/1' as const },
-  { label: '4/0 (farba jednostranne)', value: '4/0' as const },
-  { label: '4/4 (farba obojstranne)', value: '4/4' as const }
+  { label: 'Obojstranná farebná (4/4)', value: '4/4' as const },
+  { label: 'Obojstranná čiernobiela (1/1)', value: '1/1' as const },
+  { label: 'Jednostranná farebná (4/0)', value: '4/0' as const },
+  { label: 'Jednostranná čiernobiela (1/0)', value: '1/0' as const }
 ];
 
 type ColorKey = '1/0' | '1/1' | '4/0' | '4/4';
 
-// 115g tabuľka (cena za zákazku, bez DPH) – kalibrovaná podľa onlinetlac referencií.
-// Štruktúra: formát -> množstvo -> farba -> cena
-const basePriceTable: Record<FormatKey, Record<number, Record<ColorKey, number>>> = {
-  A6: {
-    25: { '1/0': 11.3, '1/1': 11.63, '4/0': 16.18, '4/4': 16.83 },
-    50: { '1/0': 14.63, '1/1': 15.2, '4/0': 20.08, '4/4': 21.22 },
-    100: { '1/0': 19.02, '1/1': 20.08, '4/0': 24.84, '4/4': 26.95 }
-  },
-  A5: {
-    25: { '1/0': 13.61, '1/1': 14.98, '4/0': 17.81, '4/4': 20.48 },
-    50: { '1/0': 16.59, '1/1': 17.64, '4/0': 22.4, '4/4': 24.51 },
-    100: { '1/0': 21.95, '1/1': 23.98, '4/0': 28.25, '4/4': 32.32 }
-  },
-  A4: {
-    25: { '1/0': 16.02, '1/1': 17.08, '4/0': 21.84, '4/4': 23.95 },
-    50: { '1/0': 19.51, '1/1': 21.54, '4/0': 25.81, '4/4': 29.88 },
-    100: { '1/0': 28.05, '1/1': 32.11, '4/0': 35.37, '4/4': 43.5 }
-  },
-  DL: {
-    25: { '1/0': 12.6, '1/1': 13.01, '4/0': 17.89, '4/4': 18.7 },
-    50: { '1/0': 15.45, '1/1': 16.18, '4/0': 21.06, '4/4': 22.52 },
-    100: { '1/0': 20, '1/1': 21.38, '4/0': 25.98, '4/4': 28.74 }
-  },
-  A3: {
-    25: { '1/0': 18.29, '1/1': 20.33, '4/0': 24.59, '4/4': 28.66 },
-    50: { '1/0': 25.61, '1/1': 29.67, '4/0': 32.93, '4/4': 41.06 },
-    100: { '1/0': 38.21, '1/1': 45.34, '4/0': 46.75, '4/4': 60.98 }
-  }
-};
-
-const basePaperCost115 = paperOptions[0].costPerSheet;
-
-// Kalibračné multiplikátory pre papiere relatívne k 115g, odvodené z onlinetlac referencií.
-// Tieto faktory nahrádzajú pôvodný costPerSheet / basePaperCost115 výpočet pre lepšiu presnosť.
-const paperCalibrationFactors: Record<string, number> = {
-  '115g': 1.0,
-  '150g': 1.3,      // odhadnutý medzi 115g a 200g
-  '200g': 1.74,     // odvodené z onlinetlac A5 100ks 4/4: 30.89 / (32.32 / 1.74) ≈ 1.74
-  '250g': 2.17,     // odhadnutý medzi 200g a 300g
-  '300g': 2.61      // odvodené z onlinetlac A4 25ks 4/4: 23.95 / (23.95 / 2.61) ≈ 2.61
-};
-
 function formatCurrency(value: number) {
   return `${value.toFixed(2)} €`;
 }
+export default function LetakyCalculator({
+  onPriceChange,
+  artwork
+}: {
+  onPriceChange?: (price: LetakyPriceResult) => void;
+  artwork?: ArtworkInfo;
+}) {
+  const [paper, setPaper] = useState<PaperOption>(paperOptions[0]);
+  const [format, setFormat] = useState<FormatOption>(formatOptions[3]);
+  const [quantity, setQuantity] = useState<number>(100);
+  const [color, setColor] = useState<ColorKey>('4/0');
+  const [price, setPrice] = useState<LetakyPriceResult>({ priceExVat: 0, priceIncVat: 0 });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
 
-function interpolateOrExtrapolate(format: FormatKey, color: ColorKey, qty: number) {
-  const table = basePriceTable[format];
-  const points = Object.keys(table)
-    .map((k) => Number(k))
-    .filter((n) => Number.isFinite(n))
-    .sort((a, b) => a - b);
+  useEffect(() => {
+    let cancelled = false;
 
-  if (points.includes(qty)) return table[qty]?.[color] ?? null;
+    async function fetchPrice() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/flyer-price', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            format: format.key,
+            grammage: paper.grammage,
+            colorKey: color,
+            quantity
+          })
+        });
 
-  const first = points[0];
-  const last = points[points.length - 1];
+        if (!res.ok) {
+          throw new Error('Chyba pri načítaní ceny');
+        }
 
-  const valAt = (q: number) => table[q]?.[color];
-
-  if (qty < first && points.length >= 2) {
-    const q1 = points[0];
-    const q2 = points[1];
-    const p1 = valAt(q1);
-    const p2 = valAt(q2);
-    if (p1 !== undefined && p2 !== undefined) {
-      const slope = (p2 - p1) / (Math.log(q2) - Math.log(q1));
-      return p1 + slope * (Math.log(qty) - Math.log(q1));
-    }
-  }
-
-  if (qty > last && points.length >= 2) {
-    const q1 = points[points.length - 2];
-    const q2 = points[points.length - 1];
-    const p1 = valAt(q1);
-    const p2 = valAt(q2);
-    if (p1 !== undefined && p2 !== undefined) {
-      const slope = (p2 - p1) / (Math.log(q2) - Math.log(q1));
-      return p2 + slope * (Math.log(qty) - Math.log(q2));
-    }
-  }
-
-  // Medzi bodmi – lineárne na log-qty osi.
-  for (let i = 0; i < points.length - 1; i += 1) {
-    const q1 = points[i];
-    const q2 = points[i + 1];
-    if (qty > q1 && qty < q2) {
-      const p1 = valAt(q1);
-      const p2 = valAt(q2);
-      if (p1 !== undefined && p2 !== undefined) {
-        const ratio = (Math.log(qty) - Math.log(q1)) / (Math.log(q2) - Math.log(q1));
-        return p1 + (p2 - p1) * ratio;
+        const data = (await res.json()) as LetakyPriceResult;
+        if (!cancelled) {
+          setPrice(data);
+          if (onPriceChange) onPriceChange(data);
+        }
+      } catch (err) {
+        console.error(err);
+        if (!cancelled) {
+          setError('Nepodarilo sa načítať cenu. Skúste to prosím znova.');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
-  }
 
-  return null;
-}
+    fetchPrice();
 
-function calculateLetakyPrice({
-  paper,
-  format,
-  quantity,
-  color
-}: {
-  paper: PaperOption;
-  format: FormatOption;
-  quantity: number;
-  color: ColorKey;
-}): LetakyPriceResult {
-  const base115 = interpolateOrExtrapolate(format.key, color, quantity) ?? 0;
-  const gramFactor = paperCalibrationFactors[paper.label] ?? 1.0;
-  const priceExVat = Math.max(0, Math.round(base115 * gramFactor * 100) / 100);
-  return { priceExVat };
-}
-
-export default function LetakyCalculator({ onPriceChange }: { onPriceChange?: (price: LetakyPriceResult) => void }) {
-  const [paper, setPaper] = useState<PaperOption>(paperOptions[0]);
-  const [format, setFormat] = useState<FormatOption>(formatOptions[0]);
-  const [quantity, setQuantity] = useState<number>(quantityOptions[0].amount);
-  const [color, setColor] = useState<ColorKey>('1/0');
-
-  const price = useMemo(() => {
-    return calculateLetakyPrice({ paper, format, quantity, color });
-  }, [paper, format, quantity, color]);
-
-  React.useEffect(() => {
-    if (onPriceChange) onPriceChange(price);
-  }, [price, onPriceChange]);
+    return () => {
+      cancelled = true;
+    };
+  }, [paper, format, quantity, color, onPriceChange]);
 
   const handleAddToCart = () => {
     const cartItem = {
       id: Date.now().toString(),
       productName: 'Letáky',
+      productSlug: 'letaky',
       options: {
         paper,
         format,
-        quantity: { amount: quantity }
+        quantity: { amount: quantity },
+        ...(artworkFile
+          ? {
+              artwork: {
+                name: artworkFile.name,
+                size: artworkFile.size,
+                base64: artworkBase64
+              }
+            }
+          : {})
       },
+      artworkFileName: artworkFile?.name || null,
       quantity: 1,
       price: price.priceExVat,
       image: '/images/letaky.svg'
@@ -231,12 +185,11 @@ export default function LetakyCalculator({ onPriceChange }: { onPriceChange?: (p
               </option>
             ))}
           </select>
-          <p className="text-sm text-[#4d5d6d] mt-2">Cena sa odvíja od gramáže (najlacnejšie 115g).</p>
         </div>
 
-        {/* Farebnosť (dropdown) */}
+        {/* Tlač / farebnosť (dropdown) */}
         <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Farebnosť</h3>
+          <h3 className="text-xl font-bold text-[#111518] mb-2">Tlač</h3>
           <select
             className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base"
             value={color}
@@ -305,12 +258,33 @@ export default function LetakyCalculator({ onPriceChange }: { onPriceChange?: (p
         </div>
       </div>
 
+      <ArtworkUpload
+        info={artwork}
+        onFileChange={(file) => {
+          setArtworkFile(file);
+          setArtworkBase64(null);
+          if (!file) return;
+          const maxBytes = 6 * 1024 * 1024;
+          if (file.size > maxBytes) return;
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = typeof reader.result === 'string' ? reader.result : null;
+            setArtworkBase64(result);
+          };
+          reader.readAsDataURL(file);
+        }}
+      />
+
       {/* Cena a tlačidlo */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">
+        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
-            <div className="text-4xl font-bold text-[#0087E3]">{formatCurrency(price.priceExVat)}</div>
+            <div className="text-4xl font-bold text-[#0087E3]">
+              {loading ? '…' : formatCurrency(price.priceExVat ?? 0)}
+            </div>
             <div className="text-sm text-[#4d5d6d] mt-1">bez DPH</div>
           </div>
           <button

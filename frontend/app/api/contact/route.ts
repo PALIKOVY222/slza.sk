@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import prisma from '@/lib/prisma';
+
+export const runtime = 'nodejs';
 
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 const SMTP_HOST = process.env.SMTP_HOST;
@@ -91,6 +94,22 @@ export async function POST(req: Request) {
       'Správa:',
       normalized.message,
     ].join('\n');
+
+    // Save to database
+    try {
+      await prisma.contactMessage.create({
+        data: {
+          name: `${normalized.firstName} ${normalized.lastName}`,
+          email: normalized.email,
+          phone: normalized.phone || null,
+          subject: normalized.subject || null,
+          message: normalized.message,
+        },
+      });
+    } catch (dbError) {
+      console.error('Failed to save contact message to database:', dbError);
+      // Continue anyway to send email
+    }
 
     if (hasSmtpConfig) {
       const transporter = nodemailer.createTransport({

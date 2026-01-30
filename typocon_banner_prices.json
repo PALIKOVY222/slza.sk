@@ -1,0 +1,1082 @@
+[
+  {
+    "id": 1,
+    "width": 500,
+    "height": 500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:05.085Z"
+  },
+  {
+    "id": 2,
+    "width": 500,
+    "height": 500,
+    "quantity": 2,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:08.107Z"
+  },
+  {
+    "id": 3,
+    "width": 500,
+    "height": 500,
+    "quantity": 5,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:11.119Z"
+  },
+  {
+    "id": 4,
+    "width": 500,
+    "height": 500,
+    "quantity": 10,
+    "priceText": "34,23",
+    "priceEur": 34.23,
+    "timestamp": "2026-01-26T20:20:14.140Z"
+  },
+  {
+    "id": 5,
+    "width": 500,
+    "height": 500,
+    "quantity": 20,
+    "priceText": "67,35",
+    "priceEur": 67.35,
+    "timestamp": "2026-01-26T20:20:17.149Z"
+  },
+  {
+    "id": 6,
+    "width": 500,
+    "height": 500,
+    "quantity": 50,
+    "priceText": "157,69",
+    "priceEur": 157.69,
+    "timestamp": "2026-01-26T20:20:20.165Z"
+  },
+  {
+    "id": 7,
+    "width": 500,
+    "height": 1000,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:23.188Z"
+  },
+  {
+    "id": 8,
+    "width": 500,
+    "height": 1000,
+    "quantity": 2,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:26.210Z"
+  },
+  {
+    "id": 9,
+    "width": 500,
+    "height": 1000,
+    "quantity": 5,
+    "priceText": "33,06",
+    "priceEur": 33.06,
+    "timestamp": "2026-01-26T20:20:29.222Z"
+  },
+  {
+    "id": 10,
+    "width": 500,
+    "height": 1000,
+    "quantity": 10,
+    "priceText": "65,02",
+    "priceEur": 65.02,
+    "timestamp": "2026-01-26T20:20:32.236Z"
+  },
+  {
+    "id": 11,
+    "width": 500,
+    "height": 1000,
+    "quantity": 20,
+    "priceText": "122,50",
+    "priceEur": 122.5,
+    "timestamp": "2026-01-26T20:20:35.251Z"
+  },
+  {
+    "id": 12,
+    "width": 500,
+    "height": 1000,
+    "quantity": 50,
+    "priceText": "293,75",
+    "priceEur": 293.75,
+    "timestamp": "2026-01-26T20:20:38.267Z"
+  },
+  {
+    "id": 13,
+    "width": 500,
+    "height": 1500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:41.277Z"
+  },
+  {
+    "id": 14,
+    "width": 500,
+    "height": 1500,
+    "quantity": 2,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:44.292Z"
+  },
+  {
+    "id": 15,
+    "width": 500,
+    "height": 1500,
+    "quantity": 5,
+    "priceText": "48,31",
+    "priceEur": 48.31,
+    "timestamp": "2026-01-26T20:20:47.311Z"
+  },
+  {
+    "id": 16,
+    "width": 500,
+    "height": 1500,
+    "quantity": 10,
+    "priceText": "92,99",
+    "priceEur": 92.99,
+    "timestamp": "2026-01-26T20:20:50.332Z"
+  },
+  {
+    "id": 17,
+    "width": 500,
+    "height": 1500,
+    "quantity": 20,
+    "priceText": "177,93",
+    "priceEur": 177.93,
+    "timestamp": "2026-01-26T20:20:53.347Z"
+  },
+  {
+    "id": 18,
+    "width": 500,
+    "height": 1500,
+    "quantity": 50,
+    "priceText": "421,16",
+    "priceEur": 421.16,
+    "timestamp": "2026-01-26T20:20:56.366Z"
+  },
+  {
+    "id": 19,
+    "width": 500,
+    "height": 2000,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:20:59.387Z"
+  },
+  {
+    "id": 20,
+    "width": 500,
+    "height": 2000,
+    "quantity": 2,
+    "priceText": "26,05",
+    "priceEur": 26.05,
+    "timestamp": "2026-01-26T20:21:02.410Z"
+  },
+  {
+    "id": 21,
+    "width": 500,
+    "height": 2000,
+    "quantity": 5,
+    "priceText": "66,44",
+    "priceEur": 66.44,
+    "timestamp": "2026-01-26T20:21:05.430Z"
+  },
+  {
+    "id": 22,
+    "width": 500,
+    "height": 2000,
+    "quantity": 10,
+    "priceText": "120,16",
+    "priceEur": 120.16,
+    "timestamp": "2026-01-26T20:21:08.446Z"
+  },
+  {
+    "id": 23,
+    "width": 500,
+    "height": 2000,
+    "quantity": 20,
+    "priceText": "233,85",
+    "priceEur": 233.85,
+    "timestamp": "2026-01-26T20:21:11.465Z"
+  },
+  {
+    "id": 24,
+    "width": 500,
+    "height": 2000,
+    "quantity": 50,
+    "priceText": "534,75",
+    "priceEur": 534.75,
+    "timestamp": "2026-01-26T20:21:14.489Z"
+  },
+  {
+    "id": 25,
+    "width": 1000,
+    "height": 500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:21:17.510Z"
+  },
+  {
+    "id": 26,
+    "width": 1000,
+    "height": 500,
+    "quantity": 2,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:21:20.536Z"
+  },
+  {
+    "id": 27,
+    "width": 1000,
+    "height": 500,
+    "quantity": 5,
+    "priceText": "33,06",
+    "priceEur": 33.06,
+    "timestamp": "2026-01-26T20:21:23.553Z"
+  },
+  {
+    "id": 28,
+    "width": 1000,
+    "height": 500,
+    "quantity": 10,
+    "priceText": "65,02",
+    "priceEur": 65.02,
+    "timestamp": "2026-01-26T20:21:26.576Z"
+  },
+  {
+    "id": 29,
+    "width": 1000,
+    "height": 500,
+    "quantity": 20,
+    "priceText": "122,50",
+    "priceEur": 122.5,
+    "timestamp": "2026-01-26T20:21:29.600Z"
+  },
+  {
+    "id": 30,
+    "width": 1000,
+    "height": 500,
+    "quantity": 50,
+    "priceText": "293,75",
+    "priceEur": 293.75,
+    "timestamp": "2026-01-26T20:21:32.619Z"
+  },
+  {
+    "id": 31,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:21:35.644Z"
+  },
+  {
+    "id": 32,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 2,
+    "priceText": "26,05",
+    "priceEur": 26.05,
+    "timestamp": "2026-01-26T20:21:38.662Z"
+  },
+  {
+    "id": 33,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 5,
+    "priceText": "63,85",
+    "priceEur": 63.85,
+    "timestamp": "2026-01-26T20:21:41.683Z"
+  },
+  {
+    "id": 34,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 10,
+    "priceText": "120,16",
+    "priceEur": 120.16,
+    "timestamp": "2026-01-26T20:21:44.703Z"
+  },
+  {
+    "id": 35,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 20,
+    "priceText": "233,85",
+    "priceEur": 233.85,
+    "timestamp": "2026-01-26T20:21:47.725Z"
+  },
+  {
+    "id": 36,
+    "width": 1000,
+    "height": 1000,
+    "quantity": 50,
+    "priceText": "534,75",
+    "priceEur": 534.75,
+    "timestamp": "2026-01-26T20:21:50.755Z"
+  },
+  {
+    "id": 37,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:21:53.779Z"
+  },
+  {
+    "id": 38,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 2,
+    "priceText": "38,34",
+    "priceEur": 38.34,
+    "timestamp": "2026-01-26T20:21:56.795Z"
+  },
+  {
+    "id": 39,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 5,
+    "priceText": "91,82",
+    "priceEur": 91.82,
+    "timestamp": "2026-01-26T20:21:59.819Z"
+  },
+  {
+    "id": 40,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 10,
+    "priceText": "175,59",
+    "priceEur": 175.59,
+    "timestamp": "2026-01-26T20:22:02.837Z"
+  },
+  {
+    "id": 41,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 20,
+    "priceText": "335,61",
+    "priceEur": 335.61,
+    "timestamp": "2026-01-26T20:22:05.861Z"
+  },
+  {
+    "id": 42,
+    "width": 1000,
+    "height": 1500,
+    "quantity": 50,
+    "priceText": "781,14",
+    "priceEur": 781.14,
+    "timestamp": "2026-01-26T20:22:08.880Z"
+  },
+  {
+    "id": 43,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 1,
+    "priceText": "25,82",
+    "priceEur": 25.82,
+    "timestamp": "2026-01-26T20:22:11.904Z"
+  },
+  {
+    "id": 44,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 2,
+    "priceText": "51,08",
+    "priceEur": 51.08,
+    "timestamp": "2026-01-26T20:22:14.925Z"
+  },
+  {
+    "id": 45,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 5,
+    "priceText": "118,99",
+    "priceEur": 118.99,
+    "timestamp": "2026-01-26T20:22:17.947Z"
+  },
+  {
+    "id": 46,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 10,
+    "priceText": "231,51",
+    "priceEur": 231.51,
+    "timestamp": "2026-01-26T20:22:20.967Z"
+  },
+  {
+    "id": 47,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 20,
+    "priceText": "441,58",
+    "priceEur": 441.58,
+    "timestamp": "2026-01-26T20:22:23.986Z"
+  },
+  {
+    "id": 48,
+    "width": 1000,
+    "height": 2000,
+    "quantity": 50,
+    "priceText": "1 042,49",
+    "priceEur": 1042.49,
+    "timestamp": "2026-01-26T20:22:27.008Z"
+  },
+  {
+    "id": 49,
+    "width": 2000,
+    "height": 500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:22:30.028Z"
+  },
+  {
+    "id": 50,
+    "width": 2000,
+    "height": 500,
+    "quantity": 2,
+    "priceText": "26,05",
+    "priceEur": 26.05,
+    "timestamp": "2026-01-26T20:22:33.048Z"
+  },
+  {
+    "id": 51,
+    "width": 2000,
+    "height": 500,
+    "quantity": 5,
+    "priceText": "66,44",
+    "priceEur": 66.44,
+    "timestamp": "2026-01-26T20:22:36.070Z"
+  },
+  {
+    "id": 52,
+    "width": 2000,
+    "height": 500,
+    "quantity": 10,
+    "priceText": "120,16",
+    "priceEur": 120.16,
+    "timestamp": "2026-01-26T20:22:39.090Z"
+  },
+  {
+    "id": 53,
+    "width": 2000,
+    "height": 500,
+    "quantity": 20,
+    "priceText": "233,85",
+    "priceEur": 233.85,
+    "timestamp": "2026-01-26T20:22:42.110Z"
+  },
+  {
+    "id": 54,
+    "width": 2000,
+    "height": 500,
+    "quantity": 50,
+    "priceText": "534,75",
+    "priceEur": 534.75,
+    "timestamp": "2026-01-26T20:22:45.135Z"
+  },
+  {
+    "id": 55,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 1,
+    "priceText": "25,82",
+    "priceEur": 25.82,
+    "timestamp": "2026-01-26T20:22:48.154Z"
+  },
+  {
+    "id": 56,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 2,
+    "priceText": "51,08",
+    "priceEur": 51.08,
+    "timestamp": "2026-01-26T20:22:51.175Z"
+  },
+  {
+    "id": 57,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 5,
+    "priceText": "118,99",
+    "priceEur": 118.99,
+    "timestamp": "2026-01-26T20:22:54.198Z"
+  },
+  {
+    "id": 58,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 10,
+    "priceText": "231,51",
+    "priceEur": 231.51,
+    "timestamp": "2026-01-26T20:22:57.213Z"
+  },
+  {
+    "id": 59,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 20,
+    "priceText": "441,58",
+    "priceEur": 441.58,
+    "timestamp": "2026-01-26T20:23:00.232Z"
+  },
+  {
+    "id": 60,
+    "width": 2000,
+    "height": 1000,
+    "quantity": 50,
+    "priceText": "1 042,49",
+    "priceEur": 1042.49,
+    "timestamp": "2026-01-26T20:23:03.250Z"
+  },
+  {
+    "id": 61,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 1,
+    "priceText": "38,11",
+    "priceEur": 38.11,
+    "timestamp": "2026-01-26T20:23:06.268Z"
+  },
+  {
+    "id": 62,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 2,
+    "priceText": "74,26",
+    "priceEur": 74.26,
+    "timestamp": "2026-01-26T20:23:09.283Z"
+  },
+  {
+    "id": 63,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 5,
+    "priceText": "174,43",
+    "priceEur": 174.43,
+    "timestamp": "2026-01-26T20:23:12.309Z"
+  },
+  {
+    "id": 64,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 10,
+    "priceText": "333,27",
+    "priceEur": 333.27,
+    "timestamp": "2026-01-26T20:23:15.332Z"
+  },
+  {
+    "id": 65,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 20,
+    "priceText": "620,34",
+    "priceEur": 620.34,
+    "timestamp": "2026-01-26T20:23:18.350Z"
+  },
+  {
+    "id": 66,
+    "width": 2000,
+    "height": 1500,
+    "quantity": 50,
+    "priceText": "1 549,36",
+    "priceEur": 1549.36,
+    "timestamp": "2026-01-26T20:23:21.372Z"
+  },
+  {
+    "id": 67,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 1,
+    "priceText": "56,43",
+    "priceEur": 56.43,
+    "timestamp": "2026-01-26T20:23:24.392Z"
+  },
+  {
+    "id": 68,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 2,
+    "priceText": "108,36",
+    "priceEur": 108.36,
+    "timestamp": "2026-01-26T20:23:27.416Z"
+  },
+  {
+    "id": 69,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 5,
+    "priceText": "256,82",
+    "priceEur": 256.82,
+    "timestamp": "2026-01-26T20:23:30.428Z"
+  },
+  {
+    "id": 70,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 10,
+    "priceText": "475,32",
+    "priceEur": 475.32,
+    "timestamp": "2026-01-26T20:23:33.439Z"
+  },
+  {
+    "id": 71,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 20,
+    "priceText": "928,19",
+    "priceEur": 928.19,
+    "timestamp": "2026-01-26T20:23:36.450Z"
+  },
+  {
+    "id": 72,
+    "width": 2000,
+    "height": 2000,
+    "quantity": 50,
+    "priceText": "2 314,53",
+    "priceEur": 2314.53,
+    "timestamp": "2026-01-26T20:23:39.468Z"
+  },
+  {
+    "id": 73,
+    "width": 3000,
+    "height": 500,
+    "quantity": 1,
+    "priceText": "19,99",
+    "priceEur": 19.99,
+    "timestamp": "2026-01-26T20:23:42.478Z"
+  },
+  {
+    "id": 74,
+    "width": 3000,
+    "height": 500,
+    "quantity": 2,
+    "priceText": "38,34",
+    "priceEur": 38.34,
+    "timestamp": "2026-01-26T20:23:45.495Z"
+  },
+  {
+    "id": 75,
+    "width": 3000,
+    "height": 500,
+    "quantity": 5,
+    "priceText": "91,82",
+    "priceEur": 91.82,
+    "timestamp": "2026-01-26T20:23:48.510Z"
+  },
+  {
+    "id": 76,
+    "width": 3000,
+    "height": 500,
+    "quantity": 10,
+    "priceText": "175,59",
+    "priceEur": 175.59,
+    "timestamp": "2026-01-26T20:23:51.526Z"
+  },
+  {
+    "id": 77,
+    "width": 3000,
+    "height": 500,
+    "quantity": 20,
+    "priceText": "335,61",
+    "priceEur": 335.61,
+    "timestamp": "2026-01-26T20:23:54.542Z"
+  },
+  {
+    "id": 78,
+    "width": 3000,
+    "height": 500,
+    "quantity": 50,
+    "priceText": "781,14",
+    "priceEur": 781.14,
+    "timestamp": "2026-01-26T20:23:57.556Z"
+  },
+  {
+    "id": 79,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 1,
+    "priceText": "38,11",
+    "priceEur": 38.11,
+    "timestamp": "2026-01-26T20:24:00.570Z"
+  },
+  {
+    "id": 80,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 2,
+    "priceText": "74,26",
+    "priceEur": 74.26,
+    "timestamp": "2026-01-26T20:24:03.582Z"
+  },
+  {
+    "id": 81,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 5,
+    "priceText": "174,43",
+    "priceEur": 174.43,
+    "timestamp": "2026-01-26T20:24:06.597Z"
+  },
+  {
+    "id": 82,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 10,
+    "priceText": "333,27",
+    "priceEur": 333.27,
+    "timestamp": "2026-01-26T20:24:09.609Z"
+  },
+  {
+    "id": 83,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 20,
+    "priceText": "620,34",
+    "priceEur": 620.34,
+    "timestamp": "2026-01-26T20:24:12.622Z"
+  },
+  {
+    "id": 84,
+    "width": 3000,
+    "height": 1000,
+    "quantity": 50,
+    "priceText": "1 549,36",
+    "priceEur": 1549.36,
+    "timestamp": "2026-01-26T20:24:15.633Z"
+  },
+  {
+    "id": 85,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 1,
+    "priceText": "56,58",
+    "priceEur": 56.58,
+    "timestamp": "2026-01-26T20:24:18.644Z"
+  },
+  {
+    "id": 86,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 2,
+    "priceText": "107,35",
+    "priceEur": 107.35,
+    "timestamp": "2026-01-26T20:24:21.660Z"
+  },
+  {
+    "id": 87,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 5,
+    "priceText": "255,29",
+    "priceEur": 255.29,
+    "timestamp": "2026-01-26T20:24:24.676Z"
+  },
+  {
+    "id": 88,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 10,
+    "priceText": "487,01",
+    "priceEur": 487.01,
+    "timestamp": "2026-01-26T20:24:27.692Z"
+  },
+  {
+    "id": 89,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 20,
+    "priceText": "927,88",
+    "priceEur": 927.88,
+    "timestamp": "2026-01-26T20:24:30.709Z"
+  },
+  {
+    "id": 90,
+    "width": 3000,
+    "height": 1500,
+    "quantity": 50,
+    "priceText": "2 316,32",
+    "priceEur": 2316.32,
+    "timestamp": "2026-01-26T20:24:33.727Z"
+  },
+  {
+    "id": 91,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 1,
+    "priceText": "74,02",
+    "priceEur": 74.02,
+    "timestamp": "2026-01-26T20:24:36.745Z"
+  },
+  {
+    "id": 92,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 2,
+    "priceText": "140,06",
+    "priceEur": 140.06,
+    "timestamp": "2026-01-26T20:24:39.755Z"
+  },
+  {
+    "id": 93,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 5,
+    "priceText": "332,10",
+    "priceEur": 332.1,
+    "timestamp": "2026-01-26T20:24:42.776Z"
+  },
+  {
+    "id": 94,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 10,
+    "priceText": "618,00",
+    "priceEur": 618,
+    "timestamp": "2026-01-26T20:24:45.787Z"
+  },
+  {
+    "id": 95,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 20,
+    "priceText": "1 235,20",
+    "priceEur": 1235.2,
+    "timestamp": "2026-01-26T20:24:48.801Z"
+  },
+  {
+    "id": 96,
+    "width": 3000,
+    "height": 2000,
+    "quantity": 50,
+    "priceText": "3 082,05",
+    "priceEur": 3082.05,
+    "timestamp": "2026-01-26T20:24:51.817Z"
+  },
+  {
+    "id": 97,
+    "width": 5000,
+    "height": 500,
+    "quantity": 1,
+    "priceText": "39,96",
+    "priceEur": 39.96,
+    "timestamp": "2026-01-26T20:24:54.837Z"
+  },
+  {
+    "id": 98,
+    "width": 5000,
+    "height": 500,
+    "quantity": 2,
+    "priceText": "63,15",
+    "priceEur": 63.15,
+    "timestamp": "2026-01-26T20:24:57.858Z"
+  },
+  {
+    "id": 99,
+    "width": 5000,
+    "height": 500,
+    "quantity": 5,
+    "priceText": "154,00",
+    "priceEur": 154,
+    "timestamp": "2026-01-26T20:25:00.874Z"
+  },
+  {
+    "id": 100,
+    "width": 5000,
+    "height": 500,
+    "quantity": 10,
+    "priceText": "285,25",
+    "priceEur": 285.25,
+    "timestamp": "2026-01-26T20:25:03.896Z"
+  },
+  {
+    "id": 101,
+    "width": 5000,
+    "height": 500,
+    "quantity": 20,
+    "priceText": "529,20",
+    "priceEur": 529.2,
+    "timestamp": "2026-01-26T20:25:06.919Z"
+  },
+  {
+    "id": 102,
+    "width": 5000,
+    "height": 500,
+    "quantity": 50,
+    "priceText": "1 299,83",
+    "priceEur": 1299.83,
+    "timestamp": "2026-01-26T20:25:09.938Z"
+  },
+  {
+    "id": 103,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 1,
+    "priceText": "62,91",
+    "priceEur": 62.91,
+    "timestamp": "2026-01-26T20:25:12.951Z"
+  },
+  {
+    "id": 104,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 2,
+    "priceText": "118,29",
+    "priceEur": 118.29,
+    "timestamp": "2026-01-26T20:25:15.963Z"
+  },
+  {
+    "id": 105,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 5,
+    "priceText": "284,08",
+    "priceEur": 284.08,
+    "timestamp": "2026-01-26T20:25:18.987Z"
+  },
+  {
+    "id": 106,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 10,
+    "priceText": "526,86",
+    "priceEur": 526.86,
+    "timestamp": "2026-01-26T20:25:22.007Z"
+  },
+  {
+    "id": 107,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 20,
+    "priceText": "1 038,37",
+    "priceEur": 1038.37,
+    "timestamp": "2026-01-26T20:25:25.020Z"
+  },
+  {
+    "id": 108,
+    "width": 5000,
+    "height": 1000,
+    "quantity": 50,
+    "priceText": "2 584,38",
+    "priceEur": 2584.38,
+    "timestamp": "2026-01-26T20:25:28.041Z"
+  },
+  {
+    "id": 109,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 1,
+    "priceText": "90,88",
+    "priceEur": 90.88,
+    "timestamp": "2026-01-26T20:25:31.058Z"
+  },
+  {
+    "id": 110,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 2,
+    "priceText": "173,73",
+    "priceEur": 173.73,
+    "timestamp": "2026-01-26T20:25:34.078Z"
+  },
+  {
+    "id": 111,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 5,
+    "priceText": "410,65",
+    "priceEur": 410.65,
+    "timestamp": "2026-01-26T20:25:37.089Z"
+  },
+  {
+    "id": 112,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 10,
+    "priceText": "771,79",
+    "priceEur": 771.79,
+    "timestamp": "2026-01-26T20:25:40.112Z"
+  },
+  {
+    "id": 113,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 20,
+    "priceText": "1 542,35",
+    "priceEur": 1542.35,
+    "timestamp": "2026-01-26T20:25:43.129Z"
+  },
+  {
+    "id": 114,
+    "width": 5000,
+    "height": 1500,
+    "quantity": 50,
+    "priceText": "3 846,52",
+    "priceEur": 3846.52,
+    "timestamp": "2026-01-26T20:25:46.149Z"
+  },
+  {
+    "id": 115,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 1,
+    "priceText": "132,29",
+    "priceEur": 132.29,
+    "timestamp": "2026-01-26T20:25:49.169Z"
+  },
+  {
+    "id": 116,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 2,
+    "priceText": "256,12",
+    "priceEur": 256.12,
+    "timestamp": "2026-01-26T20:25:52.188Z"
+  },
+  {
+    "id": 117,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 5,
+    "priceText": "586,12",
+    "priceEur": 586.12,
+    "timestamp": "2026-01-26T20:25:55.205Z"
+  },
+  {
+    "id": 118,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 10,
+    "priceText": "1 156,25",
+    "priceEur": 1156.25,
+    "timestamp": "2026-01-26T20:25:58.226Z"
+  },
+  {
+    "id": 119,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 20,
+    "priceText": "2 307,52",
+    "priceEur": 2307.52,
+    "timestamp": "2026-01-26T20:26:01.242Z"
+  },
+  {
+    "id": 120,
+    "width": 5000,
+    "height": 2000,
+    "quantity": 50,
+    "priceText": "5 731,44",
+    "priceEur": 5731.44,
+    "timestamp": "2026-01-26T20:26:04.252Z"
+  }
+]

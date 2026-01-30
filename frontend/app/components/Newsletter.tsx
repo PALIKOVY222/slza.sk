@@ -25,7 +25,7 @@ const Newsletter = () => {
               required
               className="flex-1 py-5 px-[25px] border-none text-base bg-white text-[#111518] font-['Poppins',sans-serif] placeholder:text-[#4d5d6d] focus:outline-none"
             />
-            <button type="submit" className="py-5 px-[35px] border-none bg-[#5B38ED] text-white text-base font-semibold font-['Poppins',sans-serif] cursor-pointer transition-all duration-300 uppercase tracking-[0.5px] hover:bg-[#4928cf]">SUBSCRIBE</button>
+            <button type="submit" className="py-5 px-[35px] border-none bg-[#0087E3] text-white text-base font-semibold font-['Poppins',sans-serif] cursor-pointer transition-all duration-300 uppercase tracking-[0.5px] hover:bg-[#006bb3]">SUBSCRIBE</button>
           </form>
         </div>
       </div>

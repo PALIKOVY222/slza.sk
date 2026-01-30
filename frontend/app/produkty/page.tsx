@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,7 +10,7 @@ const ProduktyPage = () => {
   const queryRaw = (searchParams?.get('search') || '').trim();
   const normalize = (v: string) => v.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
   const query = normalize(queryRaw);
-  const products = [
+  const defaultProducts = [
     {
       title: 'Baner',
       price: '40,00 €',
@@ -60,6 +60,30 @@ const ProduktyPage = () => {
       slug: 'plagaty'
     }
   ];
+
+  const [products, setProducts] = useState(defaultProducts);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('products');
+    if (!stored) return;
+    try {
+      const parsed = JSON.parse(stored) as Array<any>;
+      const merged = new Map(defaultProducts.map((p) => [p.slug, p]));
+      parsed.forEach((p) => {
+        merged.set(p.slug, {
+          title: p.title,
+          price: p.price ? `${Number(p.price).toFixed(2)} €` : '',
+          category: p.category,
+          image: p.image,
+          scale: 'scale-115',
+          slug: p.slug
+        });
+      });
+      setProducts(Array.from(merged.values()));
+    } catch (err) {
+      console.error('Products list load error', err);
+    }
+  }, []);
 
   const filtered = useMemo(() => {
     if (!query) return products;

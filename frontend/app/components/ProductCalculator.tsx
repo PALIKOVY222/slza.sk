@@ -1,15 +1,19 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import ArtworkUpload, { ArtworkInfo } from './ArtworkUpload';
 
 interface ProductCalculatorProps {
   product: any;
+  slug?: string;
 }
 
-const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
+const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) => {
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   const [customSize, setCustomSize] = useState({ width: '', height: '' });
   const [totalPrice, setTotalPrice] = useState(product.basePrice || product.basePricePerCm2 || 0);
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
 
   // Inicializácia prvých možností
   useEffect(() => {
@@ -26,6 +30,9 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
   }, [product]);
 
   const calculatePrice = useCallback(() => {
+    if (slug === 'nalepky') {
+      return;
+    }
     let price = 0;
     let area = 0; // cm²
     const sizeUnit = product.sizeUnit || 'cm';
@@ -253,12 +260,80 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
     }
 
     setTotalPrice(Math.round(price * 100) / 100);
-  }, [customSize.height, customSize.width, product, selectedOptions]);
+  }, [customSize.height, customSize.width, product, selectedOptions, slug]);
 
   // Prepočet ceny pri zmene možností
   useEffect(() => {
     calculatePrice();
   }, [calculatePrice]);
+
+  // Backend výpočet ceny pre nálepky
+  useEffect(() => {
+    if (slug !== 'nalepky') return;
+
+    const sizeOption = selectedOptions['size'];
+    const quantityOption = selectedOptions['quantity'];
+
+    let widthMm = 0;
+    let heightMm = 0;
+
+    const toMm = (value: number) => (product.sizeUnit === 'mm' ? value : value * 10);
+
+    if (sizeOption) {
+      if (sizeOption.custom && customSize.width && customSize.height) {
+        const w = parseFloat(customSize.width);
+        const h = parseFloat(customSize.height);
+        if (!Number.isNaN(w) && !Number.isNaN(h)) {
+          widthMm = toMm(w);
+          heightMm = toMm(h);
+        }
+      } else if (sizeOption.width && sizeOption.height) {
+        widthMm = toMm(sizeOption.width);
+        heightMm = toMm(sizeOption.height);
+      }
+    }
+
+    const amount = Math.max(1, Number(quantityOption?.amount || product.defaultQuantity || 1));
+
+    const materialName = selectedOptions['material']?.name || 'Lesklý vinyl';
+    const laminationName = selectedOptions['lamination']?.name || 'Bez laminácie';
+    const cuttingName = selectedOptions['cutting']?.name || 'Bez výrezu';
+
+    if (!widthMm || !heightMm || !amount) return;
+
+    const controller = new AbortController();
+
+    async function fetchStickerPrice() {
+      try {
+        const res = await fetch('/api/sticker-price', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            widthMm,
+            heightMm,
+            quantity: amount,
+            materialName,
+            laminationName,
+            cuttingName,
+          }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) return;
+        const data = (await res.json()) as { priceExVat: number };
+        setTotalPrice(Math.round((data.priceExVat || 0) * 100) / 100);
+      } catch (err) {
+        if ((err as any).name === 'AbortError') return;
+        console.error('Sticker price fetch error', err);
+      }
+    }
+
+    fetchStickerPrice();
+
+    return () => {
+      controller.abort();
+    };
+  }, [slug, selectedOptions, customSize, product.sizeUnit, product.defaultQuantity]);
 
   const handleOptionChange = (category: string, option: any) => {
     setSelectedOptions({
@@ -271,7 +346,20 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
     const cartItem = {
       id: Date.now().toString(),
       productName: product.title,
-      options: selectedOptions,
+      productSlug: slug || product.slug,
+      options: {
+        ...selectedOptions,
+        ...(artworkFile
+          ? {
+              artwork: {
+                name: artworkFile.name,
+                size: artworkFile.size,
+                base64: artworkBase64
+              }
+            }
+          : {})
+      },
+      artworkFileName: artworkFile?.name || null,
       quantity: 1,
       price: totalPrice,
       image: product.image
@@ -313,118 +401,245 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product }) => {
           const sizeMin = product.sizeMin || (sizeUnit === 'mm' ? 5 : 1);
           const sizeMax = product.sizeMax || (sizeUnit === 'mm' ? 1000 : 500);
 
+          const isSticker = slug === 'nalepky';
+          const isStickerDropdowns = isSticker && category !== 'quantity';
+
+          const handleSelectChange = (value: string) => {
+            if (category === 'quantity') {
+              const amount = Number(value);
+              const found = options.find((opt: any) => Number(opt.amount) === amount);
+              handleOptionChange(category, found || { amount });
+              return;
+            }
+
+            const found = options.find((opt: any) => opt.name === value);
+            if (found) handleOptionChange(category, found);
+          };
+
           return (
             <div key={category}>
               <h3 className="text-xl font-bold text-[#111518] mb-4">{categoryNames[category]}</h3>
-              
+
               {category === 'quantity' ? (
-                // Pre množstvo - špeciálne zobrazenie s množstevnými zľavami
-                <div className="space-y-4">
-                  {product.quantityInput && (
+                isStickerDropdowns ? (
+                  <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
-                        <input
-                          type="number"
-                          min={1}
-                          value={selectedOptions[category]?.amount ?? ''}
-                          onChange={(e) =>
-                            handleOptionChange(category, { amount: Number(e.target.value) || 1 })
-                          }
+                        <select
+                          value={String(selectedOptions[category]?.amount ?? options[0]?.amount ?? 1)}
+                          onChange={(e) => handleSelectChange(e.target.value)}
                           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
-                          placeholder="napr. 100"
-                        />
+                        >
+                          {options.map((option: any, index: number) => (
+                            <option key={index} value={String(option.amount)}>
+                              {option.amount} ks
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                    </div>
-                  )}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {options.map((option: any, index: number) => (
-                      <button
-                        key={index}
-                        onClick={() => handleOptionChange(category, option)}
-                        className={`p-4 rounded-lg border-2 transition-all text-left ${
-                          selectedOptions[category]?.amount === option.amount
-                            ? 'border-[#0087E3] bg-[#0087E3]/5'
-                            : 'border-gray-200 hover:border-[#0087E3]/50'
-                        }`}
-                      >
-                        <div className="font-bold text-lg text-[#111518]">{option.amount} ks</div>
-                        {option.discount > 0 && (
-                          <div className="text-sm text-[#0087E3] font-semibold">-{option.discount}%</div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                // Pre ostatné možnosti
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {options.map((option: any, index: number) => (
-                    <div key={index}>
-                      <button
-                        onClick={() => handleOptionChange(category, option)}
-                        className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
-                          selectedOptions[category]?.name === option.name
-                            ? 'border-[#0087E3] bg-[#0087E3]/5'
-                            : 'border-gray-200 hover:border-[#0087E3]/50'
-                        }`}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <div className="font-semibold text-[#111518]">{option.name}</div>
-                            {option.description && (
-                              <div className="text-sm text-[#4d5d6d] mt-1">{option.description}</div>
-                            )}
-                          </div>
-                          {option.price > 0 && (
-                            <div className="text-[#0087E3] font-semibold ml-2">+{option.price}€</div>
-                          )}
-                        </div>
-                      </button>
-                      
-                      {/* Vlastné rozmery */}
-                      {option.custom && selectedOptions[category]?.custom && (
-                        <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <label className="block text-sm font-medium text-[#111518] mb-2">
-                                Šírka ({sizeLabel})
-                              </label>
-                              <input
-                                type="number"
-                                min={sizeMin}
-                                max={sizeMax}
-                                value={customSize.width}
-                                onChange={(e) => setCustomSize({ ...customSize, width: e.target.value })}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
-                                placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 150'}
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-sm font-medium text-[#111518] mb-2">
-                                Výška ({sizeLabel})
-                              </label>
-                              <input
-                                type="number"
-                                min={sizeMin}
-                                max={sizeMax}
-                                value={customSize.height}
-                                onChange={(e) => setCustomSize({ ...customSize, height: e.target.value })}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
-                                placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 300'}
-                              />
-                            </div>
-                          </div>
+                      {product.quantityInput && (
+                        <div>
+                          <label className="block text-sm font-medium text-[#111518] mb-2">Vlastné množstvo</label>
+                          <input
+                            type="number"
+                            min={1}
+                            value={selectedOptions[category]?.amount ?? ''}
+                            onChange={(e) =>
+                              handleOptionChange(category, { amount: Number(e.target.value) || 1 })
+                            }
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                            placeholder="napr. 100"
+                          />
                         </div>
                       )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ) : (
+                  // Pre množstvo - špeciálne zobrazenie s množstevnými zľavami
+                  <div className="space-y-4">
+                    {product.quantityInput && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
+                          <input
+                            type="number"
+                            min={1}
+                            value={selectedOptions[category]?.amount ?? ''}
+                            onChange={(e) =>
+                              handleOptionChange(category, { amount: Number(e.target.value) || 1 })
+                            }
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                            placeholder="napr. 100"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {options.map((option: any, index: number) => (
+                        <button
+                          key={index}
+                          onClick={() => handleOptionChange(category, option)}
+                          className={`p-4 rounded-lg border-2 transition-all text-left ${
+                            selectedOptions[category]?.amount === option.amount
+                              ? 'border-[#0087E3] bg-[#0087E3]/5'
+                              : 'border-gray-200 hover:border-[#0087E3]/50'
+                          }`}
+                        >
+                          <div className="font-bold text-lg text-[#111518]">{option.amount} ks</div>
+                          {option.discount > 0 && (
+                            <div className="text-sm text-[#0087E3] font-semibold">-{option.discount}%</div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )
+              ) : (
+                isStickerDropdowns ? (
+                  <div>
+                    <select
+                      value={selectedOptions[category]?.name ?? options[0]?.name ?? ''}
+                      onChange={(e) => handleSelectChange(e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                    >
+                      {options.map((option: any, index: number) => (
+                        <option key={index} value={option.name}>
+                          {option.name}
+                        </option>
+                      ))}
+                    </select>
+
+                    {selectedOptions[category]?.description && (
+                      <div className="text-sm text-[#4d5d6d] mt-2">
+                        {selectedOptions[category]?.description}
+                      </div>
+                    )}
+
+                    {/* Vlastné rozmery */}
+                    {selectedOptions[category]?.custom && category === 'size' && (
+                      <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-[#111518] mb-2">
+                              Šírka ({sizeLabel})
+                            </label>
+                            <input
+                              type="number"
+                              min={sizeMin}
+                              max={sizeMax}
+                              value={customSize.width}
+                              onChange={(e) => setCustomSize({ ...customSize, width: e.target.value })}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                              placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 150'}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-[#111518] mb-2">
+                              Výška ({sizeLabel})
+                            </label>
+                            <input
+                              type="number"
+                              min={sizeMin}
+                              max={sizeMax}
+                              value={customSize.height}
+                              onChange={(e) => setCustomSize({ ...customSize, height: e.target.value })}
+                              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                              placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 300'}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  // Pre ostatné možnosti
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {options.map((option: any, index: number) => (
+                      <div key={index}>
+                        <button
+                          onClick={() => handleOptionChange(category, option)}
+                          className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                            selectedOptions[category]?.name === option.name
+                              ? 'border-[#0087E3] bg-[#0087E3]/5'
+                              : 'border-gray-200 hover:border-[#0087E3]/50'
+                          }`}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <div className="font-semibold text-[#111518]">{option.name}</div>
+                              {option.description && (
+                                <div className="text-sm text-[#4d5d6d] mt-1">{option.description}</div>
+                              )}
+                            </div>
+                            {option.price > 0 && (
+                              <div className="text-[#0087E3] font-semibold ml-2">+{option.price}€</div>
+                            )}
+                          </div>
+                        </button>
+                        
+                        {/* Vlastné rozmery */}
+                        {option.custom && selectedOptions[category]?.custom && (
+                          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-[#111518] mb-2">
+                                  Šírka ({sizeLabel})
+                                </label>
+                                <input
+                                  type="number"
+                                  min={sizeMin}
+                                  max={sizeMax}
+                                  value={customSize.width}
+                                  onChange={(e) => setCustomSize({ ...customSize, width: e.target.value })}
+                                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                                  placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 150'}
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-[#111518] mb-2">
+                                  Výška ({sizeLabel})
+                                </label>
+                                <input
+                                  type="number"
+                                  min={sizeMin}
+                                  max={sizeMax}
+                                  value={customSize.height}
+                                  onChange={(e) => setCustomSize({ ...customSize, height: e.target.value })}
+                                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                                  placeholder={sizeLabel === 'mm' ? 'napr. 1000' : 'napr. 300'}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )
               )}
             </div>
           );
         })}
       </div>
+
+      <ArtworkUpload
+        info={product.artwork as ArtworkInfo}
+        onFileChange={(file) => {
+          setArtworkFile(file);
+          setArtworkBase64(null);
+          if (!file) return;
+          const maxBytes = 6 * 1024 * 1024;
+          if (file.size > maxBytes) return;
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = typeof reader.result === 'string' ? reader.result : null;
+            setArtworkBase64(result);
+          };
+          reader.readAsDataURL(file);
+        }}
+      />
 
       {/* Celková cena a tlačidlo */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">

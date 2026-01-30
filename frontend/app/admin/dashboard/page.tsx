@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { productsData } from '../../data/productsData';
 
 const AdminDashboard = () => {
   const router = useRouter();
@@ -32,6 +33,11 @@ const AdminDashboard = () => {
       localStorage.setItem('products', JSON.stringify(initialProducts));
       setProducts(initialProducts);
     }
+
+    const storedConfigs = localStorage.getItem('productConfigs');
+    if (!storedConfigs) {
+      localStorage.setItem('productConfigs', JSON.stringify(productsData));
+    }
   }, [router]);
 
   const handleLogout = () => {
@@ -41,9 +47,19 @@ const AdminDashboard = () => {
 
   const handleDelete = (id: number) => {
     if (confirm('Naozaj chcete odstrániť tento produkt?')) {
+      const removed = products.find((p) => p.id === id);
       const updated = products.filter(p => p.id !== id);
       setProducts(updated);
       localStorage.setItem('products', JSON.stringify(updated));
+
+      if (removed?.slug) {
+        const storedConfigs = localStorage.getItem('productConfigs');
+        if (storedConfigs) {
+          const parsed = JSON.parse(storedConfigs) as Record<string, any>;
+          delete parsed[removed.slug];
+          localStorage.setItem('productConfigs', JSON.stringify(parsed));
+        }
+      }
     }
   };
 
@@ -60,6 +76,9 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-4">
               <a href="/" className="text-[#4d5d6d] hover:text-[#0087E3] transition-colors">
                 Zobraziť stránku
+              </a>
+              <a href="/admin" className="text-[#4d5d6d] hover:text-[#0087E3] transition-colors">
+                Objednávky
               </a>
               <button
                 onClick={handleLogout}

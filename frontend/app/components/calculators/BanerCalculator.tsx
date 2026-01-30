@@ -1,69 +1,108 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-
-type PriceTier = {
-  upTo: number; // m2 threshold (inclusive)
-  pricePerM2: number;
-};
+import React, { useEffect, useState } from 'react';
+import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
 
 type EyeletOption = {
   label: string;
-  price: number; // flat surcharge per piece
+  price: number; // flat surcharge per piece (bez DPH)
 };
-
-const priceTiers: PriceTier[] = [
-  { upTo: 2, pricePerM2: 20 },
-  { upTo: 5, pricePerM2: 17 },
-  { upTo: 10, pricePerM2: 15 },
-  { upTo: Infinity, pricePerM2: 13 }
-];
 
 const eyeletOptions: EyeletOption[] = [
   { label: 'Bez očiek', price: 0 },
   { label: 'S očkovaním', price: 8 }
 ];
 
-function getPricePerM2(areaM2: number) {
-  for (const tier of priceTiers) {
-    if (areaM2 <= tier.upTo) return tier.pricePerM2;
-  }
-  return priceTiers[priceTiers.length - 1].pricePerM2;
-}
+type PriceState = {
+  areaM2Single: number;
+  pricePerM2: number;
+  subtotal: number;
+};
 
-export default function BanerCalculator() {
+export default function BanerCalculator({ artwork }: { artwork?: ArtworkInfo }) {
   const [widthMm, setWidthMm] = useState<number>(1000);
   const [heightMm, setHeightMm] = useState<number>(1000);
   const [quantity, setQuantity] = useState<number>(1);
   const [eyelet, setEyelet] = useState<EyeletOption>(eyeletOptions[0]);
+  const [price, setPrice] = useState<PriceState>({ areaM2Single: 1, pricePerM2: 0, subtotal: 0 });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
 
-  const price = useMemo(() => {
+  useEffect(() => {
     const w = Math.max(1, Number(widthMm) || 1);
     const h = Math.max(1, Number(heightMm) || 1);
     const qty = Math.max(1, Math.floor(Number(quantity) || 1));
 
-    const areaM2Single = (w / 1000) * (h / 1000);
-    const pricePerM2 = getPricePerM2(areaM2Single);
-    const base = areaM2Single * pricePerM2;
-    const subtotal = (base + eyelet.price) * qty;
+    const controller = new AbortController();
 
-    return {
-      areaM2Single,
-      pricePerM2,
-      subtotal: Math.round(subtotal * 100) / 100
+    const fetchPrice = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch('/api/banner-price', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ widthMm: w, heightMm: h, quantity: qty }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          throw new Error('Chyba pri načítaní ceny');
+        }
+
+        const data: {
+          areaM2Single: number;
+          pricePerM2WithVat: number;
+          totalWithVat: number;
+          totalWithoutVat: number;
+        } = await res.json();
+
+        const baseWithoutVat = data.totalWithoutVat;
+        const subtotal = baseWithoutVat + eyelet.price * qty;
+
+        setPrice({
+          areaM2Single: data.areaM2Single,
+          pricePerM2: baseWithoutVat / (data.areaM2Single * qty),
+          subtotal: Math.round(subtotal * 100) / 100,
+        });
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        console.error(err);
+        setError('Nepodarilo sa načítať cenu');
+      } finally {
+        setLoading(false);
+      }
     };
+
+    fetchPrice();
+
+    return () => controller.abort();
   }, [widthMm, heightMm, quantity, eyelet]);
 
   const handleAddToCart = () => {
     const cartItem = {
       id: Date.now().toString(),
       productName: 'Baner',
+      productSlug: 'baner',
       options: {
         widthMm,
         heightMm,
         quantity,
-        eyelet: eyelet.label
+        eyelet: eyelet.label,
+        ...(artworkFile
+          ? {
+              artwork: {
+                name: artworkFile.name,
+                size: artworkFile.size,
+                base64: artworkBase64
+              }
+            }
+          : {})
       },
+      artworkFileName: artworkFile?.name || null,
       quantity: 1,
       price: price.subtotal,
       image: '/images/banner.svg'
@@ -139,16 +178,37 @@ export default function BanerCalculator() {
         </div>
       </div>
 
+      <ArtworkUpload
+        info={artwork}
+        onFileChange={(file) => {
+          setArtworkFile(file);
+          setArtworkBase64(null);
+          if (!file) return;
+          const maxBytes = 6 * 1024 * 1024;
+          if (file.size > maxBytes) return;
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = typeof reader.result === 'string' ? reader.result : null;
+            setArtworkBase64(result);
+          };
+          reader.readAsDataURL(file);
+        }}
+      />
+
       {/* Cena */}
       <div className="mt-10 pt-8 border-top-2 border-gray-200">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
-            <div className="text-4xl font-bold text-[#0087E3]">{price.subtotal.toFixed(2)} €</div>
+            <div className="text-4xl font-bold text-[#0087E3]">
+              {loading ? '…' : price.subtotal.toFixed(2)} €
+            </div>
             <div className="text-sm text-[#4d5d6d] mt-1">bez DPH</div>
             <div className="text-xs text-[#4d5d6d] mt-2">
               {price.areaM2Single.toFixed(2)} m² / ks · {price.pricePerM2.toFixed(2)} € za m²
             </div>
+            {error && <div className="text-xs text-red-500 mt-1">{error}</div>}
           </div>
           <button
             onClick={handleAddToCart}

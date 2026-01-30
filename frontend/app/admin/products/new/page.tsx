@@ -13,6 +13,8 @@ const NewProduct = () => {
     slug: '',
     description: ''
   });
+  const [configJson, setConfigJson] = useState('');
+  const [configError, setConfigError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
@@ -23,6 +25,8 @@ const NewProduct = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    setConfigError(null);
     
     const products = JSON.parse(localStorage.getItem('products') || '[]');
     const newProduct = {
@@ -33,6 +37,33 @@ const NewProduct = () => {
     
     products.push(newProduct);
     localStorage.setItem('products', JSON.stringify(products));
+
+    const storedConfigs = localStorage.getItem('productConfigs');
+    const configs = storedConfigs ? JSON.parse(storedConfigs) : {};
+
+    if (configJson.trim()) {
+      try {
+        const parsed = JSON.parse(configJson);
+        configs[formData.slug] = parsed;
+      } catch (err) {
+        setConfigError('Konfigurácia kalkulačky musí byť platný JSON.');
+        return;
+      }
+    } else {
+      configs[formData.slug] = {
+        title: formData.title,
+        category: formData.category,
+        description: formData.description,
+        image: formData.image,
+        basePrice: parseFloat(formData.price) || 0,
+        options: {
+          quantity: [{ amount: 1 }]
+        },
+        specs: []
+      };
+    }
+
+    localStorage.setItem('productConfigs', JSON.stringify(configs));
     
     alert('Produkt bol úspešne pridaný!');
     router.push('/admin/dashboard');
@@ -145,6 +176,24 @@ const NewProduct = () => {
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
                 placeholder="Krátky popis produktu..."
               ></textarea>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-[#111518] mb-2">
+                Konfigurácia kalkulačky (JSON)
+              </label>
+              <textarea
+                value={configJson}
+                onChange={(e) => setConfigJson(e.target.value)}
+                rows={10}
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg font-mono text-sm focus:outline-none focus:border-[#0087E3]"
+                placeholder='{"title":"...","options":{...},"specs":[],"artwork":{"description":"...","supportedFormats":["PDF","AI"],"maxFileSizeMb":100}}'
+              ></textarea>
+              {configError && <div className="text-sm text-red-600 mt-2">{configError}</div>}
+              <p className="text-xs text-[#4d5d6d] mt-2">
+                Ak necháte prázdne, použijú sa základné nastavenia. Pre univerzálnu kalkulačku
+                nastavte "calculatorType": "generic".
+              </p>
             </div>
 
             <div className="flex gap-4 pt-4">

@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 interface CartItem {
   id: string;
   productName: string;
+  productSlug?: string;
   options: any;
   quantity: number;
   price: number;
@@ -15,6 +16,27 @@ interface CartItem {
 
 const KosikPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const formatOptionValue = (value: any) => {
+    if (value == null) return '';
+    if (typeof value === 'string' || typeof value === 'number') return String(value);
+    if (typeof value === 'object') {
+      if (value.name) return value.name;
+      if (value.label) return value.label;
+      if (typeof value.amount !== 'undefined') return `${value.amount} ks`;
+      const parts: string[] = [];
+      if (value.width && value.height) parts.push(`${value.width} × ${value.height}`);
+      if (value.grammage) parts.push(`${value.grammage}g`);
+      if (parts.length) return parts.join(', ');
+    }
+    try {
+      return JSON.stringify(value);
+    } catch (err) {
+      return '';
+    }
+  };
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     email: '',
@@ -23,10 +45,37 @@ const KosikPage = () => {
     note: ''
   });
 
+  const [paymentMethod, setPaymentMethod] = useState('card'); // card, bank_transfer, cash_on_delivery
+  const [shippingMethod, setShippingMethod] = useState('packeta'); // packeta, courier, personal_pickup
+  const [packetaPoint, setPacketaPoint] = useState<{ id: string; name: string } | null>(null);
+
+  const shippingCosts = {
+    packeta: 3.50,
+    courier: 5.00,
+    personal_pickup: 0
+  };
+
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCartItems(JSON.parse(savedCart));
+    }
+
+    // Auto-fill customer info if user is logged in
+    const authUser = localStorage.getItem('authUser');
+    if (authUser) {
+      try {
+        const user = JSON.parse(authUser);
+        setCustomerInfo({
+          name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+          email: user.email || '',
+          phone: user.phone || '',
+          address: user.company?.address || user.address || '',
+          note: ''
+        });
+      } catch (err) {
+        console.error('Failed to parse authUser:', err);
+      }
     }
   }, []);
 
@@ -49,25 +98,136 @@ const KosikPage = () => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const itemsTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = shippingCosts[shippingMethod as keyof typeof shippingCosts];
+    return itemsTotal + shipping;
   };
 
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const order = {
-      items: cartItems,
-      customer: customerInfo,
-      total: calculateTotal(),
-      date: new Date().toISOString()
-    };
+    setSubmitting(true);
+    setSubmitError(null);
 
-    console.log('Objednávka:', order);
-    alert('Objednávka bola úspešne odoslaná! V krátkom čase vás budeme kontaktovať.');
-    
-    // Vyčistenie košíka
-    updateCart([]);
-    setCustomerInfo({ name: '', email: '', phone: '', address: '', note: '' });
+    try {
+      // Validate Packeta point selection
+      if (shippingMethod === 'packeta' && !packetaPoint) {
+        throw new Error('Vyberte výdajné miesto Packeta');
+      }
+
+      const itemsTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const shippingCost = shippingCosts[shippingMethod as keyof typeof shippingCosts];
+      const subtotal = itemsTotal + shippingCost;
+      const vatTotal = subtotal * 0.2;
+      const total = subtotal + vatTotal;
+
+      // Generate order number first
+      const orderNumberRes = await fetch('/api/orders/generate-number', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!orderNumberRes.ok) {
+        throw new Error('Nepodarilo sa vygenerovať číslo objednávky.');
+      }
+
+      const { orderNumber } = await orderNumberRes.json();
+
+      const uploads: Array<{ fileName: string; mimeType?: string; fileSize?: number; url: string }> = [];
+
+      for (const item of cartItems) {
+        const artwork = item.options?.artwork;
+        if (artwork?.name && !artwork?.base64) {
+          throw new Error('Súbor je príliš veľký na automatické odoslanie. Zmenši ho alebo použi menší súbor.');
+        }
+        if (artwork?.base64 && artwork?.name) {
+          const base64 = String(artwork.base64);
+          const stripped = base64.includes(',') ? base64.split(',')[1] : base64;
+
+          const res = await fetch('/api/uploads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: artwork.name,
+              base64: stripped,
+              mimeType: 'application/pdf',
+              productSlug: item.productSlug || item.productName.toLowerCase().replace(/\s+/g, '-'),
+              orderNumber
+            })
+          });
+
+          if (!res.ok) {
+            const errPayload = await res.json().catch(() => ({ error: 'Upload failed.' }));
+            throw new Error(errPayload.error || 'Nepodarilo sa nahrať súbor do cloudu.');
+          }
+
+          const data = (await res.json()) as { url: string; path: string };
+          uploads.push({
+            fileName: `${orderNumber}_${artwork.name}`,
+            mimeType: 'application/pdf',
+            fileSize: artwork.size,
+            url: data.url
+          });
+        }
+      }
+
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderNumber,
+          customer: {
+            email: customerInfo.email,
+            name: customerInfo.name,
+            phone: customerInfo.phone
+          },
+          billingAddress: {
+            name: customerInfo.name,
+            street: customerInfo.address
+          },
+          items: cartItems.map((item) => ({
+            productSlug: item.productSlug || item.productName.toLowerCase().replace(/\s+/g, '-'),
+            productName: item.productName,
+            quantity: item.quantity,
+            unitPrice: item.price,
+            totalPrice: item.price * item.quantity,
+            options: item.options
+          })),
+          uploads,
+          payment: {
+            method: paymentMethod,
+            status: paymentMethod === 'bank_transfer' ? 'pending' : 'pending'
+          },
+          shipping: {
+            method: shippingMethod,
+            cost: shippingCost,
+            packetaPointId: packetaPoint?.id,
+            packetaPointName: packetaPoint?.name
+          },
+          totals: {
+            subtotal,
+            vatTotal,
+            total,
+            vatRate: 0.2,
+            currency: 'EUR'
+          },
+          note: customerInfo.note
+        })
+      });
+
+      if (!res.ok) {
+        const errPayload = await res.json().catch(() => ({ error: 'Order failed.' }));
+        throw new Error(errPayload.error || 'Nepodarilo sa odoslať objednávku.');
+      }
+
+      alert('Objednávka bola úspešne odoslaná! V krátkom čase vás budeme kontaktovať.');
+      updateCart([]);
+      setCustomerInfo({ name: '', email: '', phone: '', address: '', note: '' });
+    } catch (err) {
+      console.error(err);
+      setSubmitError((err as Error).message || 'Objednávku sa nepodarilo odoslať. Skúste to prosím znova.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -120,7 +280,7 @@ const KosikPage = () => {
                               if (key === 'quantity') return null;
                               return (
                                 <p key={key} className="text-sm text-[#4d5d6d]">
-                                  <span className="font-medium">{key}:</span> {value?.name || value}
+                                  <span className="font-medium">{key}:</span> {formatOptionValue(value)}
                                 </p>
                               );
                             })}
@@ -169,6 +329,14 @@ const KosikPage = () => {
                   
                   <div className="space-y-3 mb-6 pb-6 border-b">
                     <div className="flex justify-between text-[#4d5d6d]">
+                      <span>Produkty:</span>
+                      <span className="font-semibold">{cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} €</span>
+                    </div>
+                    <div className="flex justify-between text-[#4d5d6d]">
+                      <span>Doprava:</span>
+                      <span className="font-semibold">{shippingCosts[shippingMethod as keyof typeof shippingCosts].toFixed(2)} €</span>
+                    </div>
+                    <div className="flex justify-between text-[#4d5d6d]">
                       <span>Medzisúčet:</span>
                       <span className="font-semibold">{calculateTotal().toFixed(2)} €</span>
                     </div>
@@ -183,6 +351,58 @@ const KosikPage = () => {
                   </div>
 
                   <form onSubmit={handleCheckout} className="space-y-4">
+                    {/* Doprava */}
+                    <div>
+                      <label className="block text-sm font-semibold text-[#111518] mb-2">Spôsob dopravy</label>
+                      <select
+                        value={shippingMethod}
+                        onChange={(e) => setShippingMethod(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                      >
+                        <option value="packeta">Packeta - 3,50 €</option>
+                        <option value="courier">Kuriér - 5,00 €</option>
+                        <option value="personal_pickup">Osobný odber - ZDARMA</option>
+                      </select>
+                    </div>
+
+                    {shippingMethod === 'packeta' && (
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            // @ts-ignore
+                            if (window.Packeta) {
+                              // @ts-ignore
+                              window.Packeta.Widget.pick('a88a0c1ffc3ba5fe', (point: any) => {
+                                if (point) {
+                                  setPacketaPoint({ id: point.id, name: point.name });
+                                }
+                              });
+                            } else {
+                              alert('Packeta widget nie je načítaný');
+                            }
+                          }}
+                          className="w-full px-4 py-3 border-2 border-[#0087E3] text-[#0087E3] rounded-lg hover:bg-[#0087E3] hover:text-white transition-colors"
+                        >
+                          {packetaPoint ? `Výdajné miesto: ${packetaPoint.name}` : 'Vybrať výdajné miesto Packeta'}
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Platba */}
+                    <div>
+                      <label className="block text-sm font-semibold text-[#111518] mb-2">Spôsob platby</label>
+                      <select
+                        value={paymentMethod}
+                        onChange={(e) => setPaymentMethod(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                      >
+                        <option value="card">Platobná karta</option>
+                        <option value="bank_transfer">Bankový prevod</option>
+                        <option value="cash_on_delivery">Dobierka</option>
+                      </select>
+                    </div>
+
                     <div>
                       <input
                         type="text"
@@ -235,10 +455,14 @@ const KosikPage = () => {
 
                     <button
                       type="submit"
+                      disabled={submitting}
                       className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-colors"
                     >
-                      Dokončiť objednávku
+                      {submitting ? 'Odosielam…' : 'Dokončiť objednávku'}
                     </button>
+                    {submitError && (
+                      <div className="text-sm text-red-600 mt-3">{submitError}</div>
+                    )}
                   </form>
                 </div>
               </div>

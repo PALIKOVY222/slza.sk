@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
 
 type ModelOption = {
   code: string;
@@ -42,10 +43,12 @@ const platePriceByModel: Record<string, number> = {
   '4913': 15.1
 };
 
-export default function PeciatkyCalculator() {
+export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo }) {
   const [model, setModel] = useState<ModelOption>(modelOptions[0]);
   const [variant, setVariant] = useState<VariantOption>(variantOptions[0]);
   const [quantity, setQuantity] = useState<number>(1);
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
 
   const price = useMemo(() => {
     const qty = Math.max(1, Math.floor(Number(quantity) || 1));
@@ -70,11 +73,22 @@ export default function PeciatkyCalculator() {
     const cartItem = {
       id: Date.now().toString(),
       productName: `Pečiatka ${model.code}`,
+      productSlug: 'peciatky',
       options: {
         model: `${model.label} (${model.size})`,
         variant: variant.label,
-        quantity: price.qty
+        quantity: price.qty,
+        ...(artworkFile
+          ? {
+              artwork: {
+                name: artworkFile.name,
+                size: artworkFile.size,
+                base64: artworkBase64
+              }
+            }
+          : {})
       },
+      artworkFileName: artworkFile?.name || null,
       quantity: 1,
       price: price.subtotal,
       image: '/images/trodat_peciatka.svg'
@@ -165,6 +179,24 @@ export default function PeciatkyCalculator() {
           </div>
         </div>
       </div>
+
+      <ArtworkUpload
+        info={artwork}
+        onFileChange={(file) => {
+          setArtworkFile(file);
+          setArtworkBase64(null);
+          if (!file) return;
+          const maxBytes = 6 * 1024 * 1024;
+          if (file.size > maxBytes) return;
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = typeof reader.result === 'string' ? reader.result : null;
+            setArtworkBase64(result);
+          };
+          reader.readAsDataURL(file);
+        }}
+      />
 
       {/* Cena */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">

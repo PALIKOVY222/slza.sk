@@ -1,7 +1,9 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 const Products = () => {
-  const products = [
+  const defaultProducts = [
     {
       title: 'Baner',
       price: '40,00 €',
@@ -49,16 +51,32 @@ const Products = () => {
       image: '/images/plagat.svg',
       scale: 'scale-115',
       slug: 'plagaty'
-    },
-    {
-      title: 'Brožúry',
-      price: 'od 0,80 €',
-      category: 'MÁLOFORMÁTOVÁ TLAČ',
-      image: '/images/brozura.svg',
-      scale: 'scale-115',
-      slug: 'brozury'
     }
   ];
+
+  const [products, setProducts] = useState(defaultProducts);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('products');
+    if (!stored) return;
+    try {
+      const parsed = JSON.parse(stored) as Array<any>;
+      const merged = new Map(defaultProducts.map((p) => [p.slug, p]));
+      parsed.forEach((p) => {
+        merged.set(p.slug, {
+          title: p.title,
+          price: p.price ? `${Number(p.price).toFixed(2)} €` : '',
+          category: p.category,
+          image: p.image,
+          scale: 'scale-115',
+          slug: p.slug
+        });
+      });
+      setProducts(Array.from(merged.values()));
+    } catch (err) {
+      console.error('Products list load error', err);
+    }
+  }, []);
 
   return (
     <section className="py-20 bg-white" id="products">

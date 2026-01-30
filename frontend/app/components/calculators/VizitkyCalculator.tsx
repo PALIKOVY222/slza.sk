@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import type { ArtworkInfo } from '../ArtworkUpload';
 
 type PaperOption = {
   label: string;
@@ -229,10 +230,12 @@ function formatBytes(bytes: number) {
 
 export default function VizitkyCalculator({
   config = defaultConfig,
-  onPriceChange
+  onPriceChange,
+  artwork
 }: {
   config?: VizitkyCalculatorConfig;
   onPriceChange?: (price: VizitkyPriceResult) => void;
+  artwork?: ArtworkInfo;
 }) {
   const initialPaper: PaperOption =
     config.paperOptions.find((o) => o.value === '300-leskly') ??
@@ -264,6 +267,7 @@ export default function VizitkyCalculator({
     const cartItem = {
       id: Date.now().toString(),
       productName: 'Vizitky',
+      productSlug: 'vizitky',
       options: {
         paper: { name: paper.label, value: paper.value },
         format: { name: format.label, value: format.value },
@@ -389,7 +393,16 @@ export default function VizitkyCalculator({
 
         {/* PDF */}
         <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Podklady (PDF)</h3>
+          <h3 className="text-xl font-bold text-[#111518] mb-2">Podklady (PDF)</h3>
+          {artwork?.description && (
+            <p className="text-sm text-[#4d5d6d] mb-3">{artwork.description}</p>
+          )}
+          <div className="text-sm text-[#4d5d6d] mb-3">
+            Podporovaný formát: <span className="font-semibold">PDF</span>
+          </div>
+          <div className="text-xs text-[#4d5d6d] mb-3">
+            Súbor sa nahrá na cloud až pri odoslaní objednávky.
+          </div>
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <input
               type="file"
@@ -406,11 +419,10 @@ export default function VizitkyCalculator({
                   return;
                 }
 
-                // Uloženie PDF do localStorage nie je ideálne pre veľké súbory.
-                // Pre basic flow uložíme base64 iba do ~2MB.
-                const maxBytes = 2 * 1024 * 1024;
+                // Súbor sa uloží do base64 a nahrá na cloud až pri checkout
+                const maxBytes = 6 * 1024 * 1024; // 6MB limit pre localStorage
                 if (file.size > maxBytes) {
-                  setArtworkError(`PDF je príliš veľké na uloženie do košíka (${formatBytes(file.size)}). Súbor si zatiaľ iba pamätáme názvom.`);
+                  setArtworkError(`PDF je príliš veľké (${formatBytes(file.size)}). Maximálna veľkosť je ${formatBytes(maxBytes)}.`);
                   return;
                 }
 
