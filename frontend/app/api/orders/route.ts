@@ -246,9 +246,9 @@ export async function POST(req: NextRequest) {
         // Upload invoice to ownCloud
         const now = new Date();
         const dateFolder = now.toISOString().split('T')[0]; // YYYY-MM-DD
-        const invoicePath = `/faktury/${dateFolder}/${invoiceNumber}.pdf`;
+        const invoicePath = `/faktury/${dateFolder}`;
         
-        await uploadToOwnCloud(pdfBuffer, invoicePath, 'application/pdf');
+        await uploadToOwnCloud(`${invoiceNumber}.pdf`, pdfBuffer, '/faktury', dateFolder);
 
         // Save invoice reference in database
         await prisma.upload.create({
@@ -257,7 +257,7 @@ export async function POST(req: NextRequest) {
             fileName: `${invoiceNumber}.pdf`,
             mimeType: 'application/pdf',
             fileSize: pdfBuffer.length,
-            url: invoicePath
+            url: `${invoicePath}/${invoiceNumber}.pdf`
           }
         });
 
