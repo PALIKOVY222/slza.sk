@@ -45,6 +45,8 @@ export async function POST(req: NextRequest) {
       items,
       totals,
       uploads,
+      payment,
+      shipping,
       note
     } = body as {
       orderNumber?: string;
