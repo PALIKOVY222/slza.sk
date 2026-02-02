@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // Set this to true to enable password protection
-const ENABLE_PASSWORD_PROTECTION = process.env.ENABLE_PASSWORD_PROTECTION === 'true';
+const ENABLE_PASSWORD_PROTECTION = false; // Temporarily disabled for deployment
 const SITE_PASSWORD = process.env.SITE_PASSWORD || 'slza2026';
 
 export function middleware(request: NextRequest) {
