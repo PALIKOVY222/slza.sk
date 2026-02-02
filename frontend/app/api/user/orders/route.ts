@@ -14,18 +14,23 @@ export async function GET(request: NextRequest) {
     }
 
     // Find user by session token
-    const user = await prisma.user.findFirst({
+    const session = await prisma.session.findUnique({
       where: {
-        sessionToken: sessionToken,
+        token: sessionToken,
+      },
+      include: {
+        user: true,
       },
     });
 
-    if (!user) {
+    if (!session || session.expiresAt < new Date()) {
       return NextResponse.json(
         { error: 'Neplatná relácia' },
         { status: 401 }
       );
     }
+
+    const user = session.user;
 
     // Fetch user's orders with items
     const orders = await prisma.order.findMany({
