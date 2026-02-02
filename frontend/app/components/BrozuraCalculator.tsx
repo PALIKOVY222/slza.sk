@@ -21,7 +21,25 @@ const colors = [
   { label: '1/1 čiernobielo', value: 'bw' }
 ];
 
-function calculatePrice({ format, binding, paper, cover, color, pages, count, lamino }) {
+function calculatePrice({ 
+  format, 
+  binding, 
+  paper, 
+  cover, 
+  color, 
+  pages, 
+  count, 
+  lamino 
+}: {
+  format: string;
+  binding: string;
+  paper: string;
+  cover: string;
+  color: string;
+  pages: number;
+  count: number;
+  lamino: boolean;
+}) {
   const paperKgPrice = 2.8;
   const coverKgPrice = 4.0;
   const laminoM2 = 1.25;
