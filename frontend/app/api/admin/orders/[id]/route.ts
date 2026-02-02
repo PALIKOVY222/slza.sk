@@ -7,7 +7,6 @@ export async function PATCH(
 ) {
   try {
     const { id } = await context.params;
-    const orderId = parseInt(id);
     const body = await request.json();
     const { status, trackingNumber } = body;
 
@@ -35,7 +34,7 @@ export async function PATCH(
 
     // Update the order
     const updatedOrder = await prisma.order.update({
-      where: { id: orderId },
+      where: { id: id },
       data: updateData,
     });
 
