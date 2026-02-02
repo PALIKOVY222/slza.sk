@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       totals,
       uploads,
       payment,
-      shipping,
+      shipping: shippingInfo,
       note
     } = body as {
       orderNumber?: string;
@@ -174,10 +174,10 @@ export async function POST(req: NextRequest) {
         note,
         paymentMethod: payment?.method,
         paymentStatus: payment?.status || 'pending',
-        shippingMethod: shipping?.method,
-        shippingCost: shipping?.cost ?? 0,
-        packetaPointId: shipping?.packetaPointId,
-        packetaPointName: shipping?.packetaPointName,
+        shippingMethod: shippingInfo?.method,
+        shippingCost: shippingInfo?.cost ?? 0,
+        packetaPointId: shippingInfo?.packetaPointId,
+        packetaPointName: shippingInfo?.packetaPointName,
         userId: customer.userId,
         companyId: companyRecord?.id,
         billingAddressId: billing?.id,
