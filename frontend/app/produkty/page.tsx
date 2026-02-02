@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const ProduktyPage = () => {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const queryRaw = (searchParams?.get('search') || '').trim();
   const normalize = (v: string) => v.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
@@ -146,6 +146,12 @@ const ProduktyPage = () => {
       <Footer />
     </div>
   );
-};
+}
 
-export default ProduktyPage;
+export default function ProduktyPage() {
+  return (
+    <Suspense fallback={<div>Načítavam...</div>}>
+      <ProductsContent />
+    </Suspense>
+  );
+}
