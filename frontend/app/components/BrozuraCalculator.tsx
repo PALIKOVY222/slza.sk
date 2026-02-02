@@ -48,16 +48,19 @@ function calculatePrice({
   const chroma = color === 'color' ? 0.15 : 0.05;
   const coverChroma = 0.40;
 
+  const paperGsm = Number(paper);
+  const coverGsm = Number(cover);
+
   const sheetCount = count * pages / 2;
   const printSheetCount = format === 'A4' ? Math.ceil(sheetCount / 2) : Math.ceil(sheetCount / 4);
   const paperWeight = format === 'A4'
-    ? (0.06237 * paper / 1000) * sheetCount
-    : (0.03118 * paper / 1000) * sheetCount;
+    ? (0.06237 * paperGsm / 1000) * sheetCount
+    : (0.03118 * paperGsm / 1000) * sheetCount;
   const paperPrice = paperWeight * paperKgPrice;
 
   const coverSheets = cover !== '0' ? count : 0;
   const coverWeight = cover !== '0'
-    ? (format === 'A4' ? 0.06237 : 0.03118) * cover / 1000 * coverSheets
+    ? (format === 'A4' ? 0.06237 : 0.03118) * coverGsm / 1000 * coverSheets
     : 0;
   const coverPrice = coverWeight * coverKgPrice;
 
