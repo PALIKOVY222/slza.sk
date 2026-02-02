@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 const ENABLE_PASSWORD_PROTECTION = false; // Temporarily disabled for deployment
 const SITE_PASSWORD = process.env.SITE_PASSWORD || 'slza2026';
 
-export function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Skip password protection if disabled
   if (!ENABLE_PASSWORD_PROTECTION) {
     return NextResponse.next();
