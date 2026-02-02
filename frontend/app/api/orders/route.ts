@@ -290,7 +290,7 @@ export async function POST(req: NextRequest) {
           price: item.totalPrice
         })),
         paymentMethod: payment?.method || 'card',
-        shippingMethod: shipping?.method || 'packeta'
+        shippingMethod: shippingInfo?.method || 'packeta'
       });
 
       await sendAdminOrderNotification({
