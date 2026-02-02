@@ -1,5 +1,5 @@
 import React from 'react';
-import BrozuraCalculator from '../../components/BrozuraCalculator';
+import BrozuraCalculator from '../components/BrozuraCalculator';
 
 const BrozuryPage = () => (
   <section className="py-20 bg-white">
