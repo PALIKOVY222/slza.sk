@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { Resend } from 'resend';
+import { EmailTemplates } from '@/lib/email-templates';
 
 export const runtime = 'nodejs';
 
@@ -40,27 +41,12 @@ export async function POST(req: NextRequest) {
     // Send welcome email via Resend
     if (resend) {
       try {
+        const template = EmailTemplates.newsletterWelcome(email);
         await resend.emails.send({
           from: EMAIL_FROM,
           to: email,
-          subject: 'Ďakujeme za prihlásenie do newslettera - SLZA Print',
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h1 style="color: #0087E3;">Vitajte v SLZA Print newsletteri!</h1>
-              <p>Ďakujeme, že ste sa prihlásili do nášho newslettera.</p>
-              <p>Budeme vás informovať o:</p>
-              <ul>
-                <li>Nových produktoch a službách</li>
-                <li>Špeciálnych akciách a zľavách</li>
-                <li>Tipoch a radách pre tlač</li>
-              </ul>
-              <p>S pozdravom,<br>Tím SLZA Print</p>
-              <hr style="margin: 30px 0;">
-              <p style="font-size: 12px; color: #666;">
-                Ak si neželáte prijímať ďalšie správy, kontaktujte nás na info@slza.sk
-              </p>
-            </div>
-          `,
+          subject: template.subject,
+          html: template.html,
         });
       } catch (emailError) {
         console.error('Failed to send welcome email via Resend:', emailError);

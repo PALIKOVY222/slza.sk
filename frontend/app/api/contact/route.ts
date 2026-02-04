@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import prisma from '@/lib/prisma';
+import { EmailTemplates } from '@/lib/email-templates';
 
 export const runtime = 'nodejs';
 
@@ -83,14 +84,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
     }
 
-    const bodyText = [
-      `Meno: ${normalized.firstName} ${normalized.lastName}`,
-      `Email: ${normalized.email}`,
-      `Telefón: ${normalized.phone || '-'} `,
-      `Predmet: ${normalized.subject || '-'} `,
-      'Správa:',
-      normalized.message,
-    ].join('\n');
+    const contactData = {
+      name: `${normalized.firstName} ${normalized.lastName}`,
+      email: normalized.email,
+      phone: normalized.phone,
+      subject: normalized.subject,
+      message: normalized.message,
+    };
 
     // Save to database
     try {
@@ -110,30 +110,29 @@ export async function POST(req: Request) {
 
     if (resend) {
       try {
+        // 1. Send notification to admin
+        const adminTemplate = EmailTemplates.contactNotification(contactData);
         await resend.emails.send({
           from: EMAIL_FROM,
           to: EMAIL_TO,
-          subject: `SLZA Kontakt: ${normalized.subject || 'Nová správa'}`,
-          text: bodyText,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #0087E3;">Nová správa z kontaktného formulára</h2>
-              <p><strong>Meno:</strong> ${normalized.firstName} ${normalized.lastName}</p>
-              <p><strong>Email:</strong> ${normalized.email}</p>
-              <p><strong>Telefón:</strong> ${normalized.phone || '-'}</p>
-              <p><strong>Predmet:</strong> ${normalized.subject || '-'}</p>
-              <hr style="margin: 20px 0;">
-              <p><strong>Správa:</strong></p>
-              <p style="white-space: pre-wrap;">${normalized.message}</p>
-            </div>
-          `,
+          subject: adminTemplate.subject,
+          html: adminTemplate.html,
+        });
+
+        // 2. Send confirmation to customer
+        const confirmTemplate = EmailTemplates.contactConfirmation(contactData.name);
+        await resend.emails.send({
+          from: EMAIL_FROM,
+          to: normalized.email,
+          subject: confirmTemplate.subject,
+          html: confirmTemplate.html,
         });
       } catch (emailError) {
         console.error('Failed to send email via Resend:', emailError);
         // Don't fail the request if email sending fails
       }
     } else {
-      console.warn('Resend not configured. Received contact message:', bodyText);
+      console.warn('Resend not configured. Received contact message from:', normalized.email);
     }
 
     return NextResponse.json({ ok: true });
