@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import { Resend } from 'resend';
 import { EmailTemplates } from '@/lib/email-templates';
 
@@ -7,6 +6,7 @@ export const runtime = 'nodejs';
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const EMAIL_FROM = process.env.EMAIL_FROM || 'info@slza.sk';
+const EMAIL_TO = process.env.EMAIL_TO || 'kovac.jr@slza.sk';
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
@@ -18,34 +18,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Neplatná emailová adresa' }, { status: 400 });
     }
 
-    // Check if email already exists in newsletter (skip if no DB)
-    try {
-      const existing = await prisma.newsletterSubscriber.findUnique({
-        where: { email },
-      });
+    // Skip database - just send emails
 
-      if (existing) {
-        return NextResponse.json(
-          { error: 'Tento email je už prihlásený na newsletter' },
-          { status: 400 }
-        );
-      }
-
-      // Save to database
-      await prisma.newsletterSubscriber.create({
-        data: {
-          email,
-          subscribedAt: new Date(),
-        },
-      });
-    } catch (dbError) {
-      console.error('Database error (skipping):', dbError);
-      // Continue without DB - just send email
-    }
-
-    // Send welcome email via Resend
+    // Send emails via Resend
     if (resend) {
       try {
+        // 1. Send welcome email to subscriber
         const template = EmailTemplates.newsletterWelcome(email);
         await resend.emails.send({
           from: EMAIL_FROM,
@@ -53,10 +31,32 @@ export async function POST(req: NextRequest) {
           subject: template.subject,
           html: template.html,
         });
+
+        // 2. Send notification to admin
+        await resend.emails.send({
+          from: EMAIL_FROM,
+          to: EMAIL_TO,
+          subject: `🎉 Nový newsletter subscriber: ${email}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+              <h2>Nový newsletter subscriber!</h2>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Čas:</strong> ${new Date().toLocaleString('sk-SK')}</p>
+            </div>
+          `,
+        });
       } catch (emailError) {
-        console.error('Failed to send welcome email via Resend:', emailError);
-        // Don't fail the request if email sending fails
+        console.error('Failed to send email via Resend:', emailError);
+        return NextResponse.json(
+          { error: 'Nepodarilo sa odoslať email. Skúste to neskôr.' },
+          { status: 500 }
+        );
       }
+    } else {
+      return NextResponse.json(
+        { error: 'Email služba nie je nakonfigurovaná.' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
