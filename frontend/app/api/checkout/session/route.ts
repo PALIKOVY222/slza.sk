@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal', 'klarna', 'ideal', 'bancontact'],
       line_items: items.map((item: any) => ({
         price_data: {
           currency: 'eur',
@@ -44,14 +44,26 @@ export async function POST(req: NextRequest) {
         orderId: orderId || '',
         customerName: customerName || '',
       },
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/kosik/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/kosik?canceled=true`,
+      // Automatické detekcie platby (Apple Pay, Google Pay, Link)
+      automatic_tax: { enabled: false },
+      
+      // Success/Cancel URLs
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/kosik/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/kosik?canceled=true`,
+      
+      // Shipping info collection
       shipping_address_collection: {
-        allowed_countries: ['SK', 'CZ', 'PL', 'HU', 'AT'],
+        allowed_countries: ['SK', 'CZ', 'PL', 'HU', 'AT', 'DE'],
       },
       phone_number_collection: {
         enabled: true,
       },
+      
+      // Billing address
+      billing_address_collection: 'auto',
+      
+      // Locale
+      locale: 'sk',
     });
 
     return NextResponse.json({ 
