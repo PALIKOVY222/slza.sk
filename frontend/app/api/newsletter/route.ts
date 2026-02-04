@@ -1,21 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-// Create transporter - configure with real SMTP credentials
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER || '',
-      pass: process.env.SMTP_PASS || '',
-    },
-  });
-};
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || 'info@slza.sk';
+
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,12 +37,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Send welcome email (only if SMTP is configured)
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    // Send welcome email via Resend
+    if (resend) {
       try {
-        const transporter = createTransporter();
-        await transporter.sendMail({
-          from: process.env.SMTP_FROM || process.env.SMTP_USER,
+        await resend.emails.send({
+          from: EMAIL_FROM,
           to: email,
           subject: 'Ďakujeme za prihlásenie do newslettera - SLZA Print',
           html: `
@@ -72,7 +63,7 @@ export async function POST(req: NextRequest) {
           `,
         });
       } catch (emailError) {
-        console.error('Failed to send welcome email:', emailError);
+        console.error('Failed to send welcome email via Resend:', emailError);
         // Don't fail the request if email sending fails
       }
     }

@@ -1,18 +1,15 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import prisma from '@/lib/prisma';
 
 export const runtime = 'nodejs';
 
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : undefined;
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM;
-const SMTP_TO = process.env.SMTP_TO;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || 'info@slza.sk';
+const EMAIL_TO = process.env.EMAIL_TO || 'info@slza.sk';
 
-const hasSmtpConfig = Boolean(SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASS && SMTP_FROM && SMTP_TO);
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
 async function verifyTurnstile(token: string, ip?: string) {
   if (!TURNSTILE_SECRET_KEY) return false;
@@ -111,25 +108,32 @@ export async function POST(req: Request) {
       // Continue anyway to send email
     }
 
-    if (hasSmtpConfig) {
-      const transporter = nodemailer.createTransport({
-        host: SMTP_HOST,
-        port: SMTP_PORT,
-        secure: SMTP_PORT === 465,
-        auth: {
-          user: SMTP_USER,
-          pass: SMTP_PASS,
-        },
-      });
-
-      await transporter.sendMail({
-        from: SMTP_FROM,
-        to: SMTP_TO,
-        subject: `SLZA Kontakt: ${normalized.subject || 'Nová správa'}`,
-        text: bodyText,
-      });
+    if (resend) {
+      try {
+        await resend.emails.send({
+          from: EMAIL_FROM,
+          to: EMAIL_TO,
+          subject: `SLZA Kontakt: ${normalized.subject || 'Nová správa'}`,
+          text: bodyText,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <h2 style="color: #0087E3;">Nová správa z kontaktného formulára</h2>
+              <p><strong>Meno:</strong> ${normalized.firstName} ${normalized.lastName}</p>
+              <p><strong>Email:</strong> ${normalized.email}</p>
+              <p><strong>Telefón:</strong> ${normalized.phone || '-'}</p>
+              <p><strong>Predmet:</strong> ${normalized.subject || '-'}</p>
+              <hr style="margin: 20px 0;">
+              <p><strong>Správa:</strong></p>
+              <p style="white-space: pre-wrap;">${normalized.message}</p>
+            </div>
+          `,
+        });
+      } catch (emailError) {
+        console.error('Failed to send email via Resend:', emailError);
+        // Don't fail the request if email sending fails
+      }
     } else {
-      console.warn('SMTP not configured. Received contact message:', bodyText);
+      console.warn('Resend not configured. Received contact message:', bodyText);
     }
 
     return NextResponse.json({ ok: true });

@@ -7,16 +7,23 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "benchmark:plotbase": "node tools/price-benchmark/run.mjs --site=plotbase"
+    "benchmark:plotbase": "node tools/price-benchmark/run.mjs --site=plotbase",
+    "test:load": "node test_load.js",
+    "test:audit": "node test_audit.js",
+    "test:production": "TEST_URL=https://slza.sk node test_load.js",
+    "audit:production": "TEST_URL=https://slza.sk node test_audit.js"
   },
   "dependencies": {
     "@prisma/client": "^6.16.1",
+    "@stripe/stripe-js": "^8.7.0",
     "bcryptjs": "^2.4.3",
-    "next": "16.1.4",
+    "next": "16.1.6",
     "nodemailer": "^6.10.1",
     "pdf-lib": "^1.17.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "resend": "^6.9.1",
+    "stripe": "^20.3.0",
     "webdav": "^5.6.0"
   },
   "devDependencies": {
@@ -27,9 +34,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.4",
+    "eslint-config-next": "16.1.6",
     "prisma": "^6.16.1",
-    "puppeteer": "^24.35.0",
+    "puppeteer": "^24.36.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

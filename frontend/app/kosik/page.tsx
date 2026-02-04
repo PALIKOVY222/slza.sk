@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CheckoutButton from '../components/CheckoutButton';
 
 interface CartItem {
   id: string;
@@ -453,13 +454,41 @@ const KosikPage = () => {
                       ></textarea>
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-colors"
-                    >
-                      {submitting ? 'Odosielam…' : 'Dokončiť objednávku'}
-                    </button>
+                    {/* Platobné tlačidlá */}
+                    {paymentMethod === 'card' ? (
+                      <div>
+                        <CheckoutButton
+                          items={cartItems.map(item => ({
+                            name: item.productName,
+                            description: Object.entries(item.options)
+                              .filter(([key]) => key !== 'quantity')
+                              .map(([key, value]) => `${key}: ${formatOptionValue(value)}`)
+                              .join(', '),
+                            price: item.price,
+                            quantity: item.quantity,
+                            image: item.image
+                          }))}
+                          customerEmail={customerInfo.email}
+                          customerName={customerInfo.name}
+                          orderId={`order-${Date.now()}`}
+                          className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-colors disabled:opacity-50"
+                        >
+                          Zaplatiť kartou (Stripe)
+                        </CheckoutButton>
+                        <p className="text-xs text-gray-500 mt-2 text-center">
+                          Bezpečná platba cez Stripe
+                        </p>
+                      </div>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-colors disabled:opacity-50"
+                      >
+                        {submitting ? 'Odosielam…' : 'Dokončiť objednávku'}
+                      </button>
+                    )}
+                    
                     {submitError && (
                       <div className="text-sm text-red-600 mt-3">{submitError}</div>
                     )}

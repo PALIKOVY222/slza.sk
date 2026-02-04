@@ -9,10 +9,13 @@ const CookieBanner = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const consent = window.localStorage.getItem(CONSENT_KEY);
-    if (!consent) {
-      setVisible(true);
-    }
+    const checkConsent = () => {
+      const consent = window.localStorage.getItem(CONSENT_KEY);
+      if (!consent) {
+        setVisible(true);
+      }
+    };
+    checkConsent();
   }, []);
 
   const persistConsentData = () => {

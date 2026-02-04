@@ -1,30 +1,61 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const baseUrl = 'https://slza.sk';
+  const currentDate = new Date();
+  
+  // Hlavné stránky
+  const mainPages = [
     {
-      url: 'https://slza.sk/',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
       priority: 1
     },
     {
-      url: 'https://slza.sk/produkty',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      url: `${baseUrl}/produkty`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
       priority: 0.9
     },
     {
-      url: 'https://slza.sk/kontakt',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6
+      url: `${baseUrl}/kontakt`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8
     },
     {
-      url: 'https://slza.sk/kosik',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.4
+      url: `${baseUrl}/kosik`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.3
     }
   ];
+
+  // Produktové stránky
+  const products = [
+    'baner',
+    'nalepky',
+    'peciatky',
+    'vizitky',
+    'letaky',
+    'plagaty',
+    'kalendare',
+    'fotografie',
+    'bloky',
+    'knihy',
+    'katalogy',
+    'pozvanky',
+    'diplomove-prace',
+    'ine'
+  ];
+
+  const productPages = products.map(slug => ({
+    url: `${baseUrl}/produkt/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7
+  }));
+
+  return [...mainPages, ...productPages];
 }
