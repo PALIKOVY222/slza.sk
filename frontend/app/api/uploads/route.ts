@@ -3,6 +3,7 @@ import { uploadToOwnCloud } from '../../../lib/owncloud';
 import { prisma } from '../../../lib/prisma';
 
 export const runtime = 'nodejs';
+export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
   try {
