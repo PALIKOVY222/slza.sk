@@ -18,25 +18,30 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Neplatná emailová adresa' }, { status: 400 });
     }
 
-    // Check if email already exists in newsletter
-    const existing = await prisma.newsletterSubscriber.findUnique({
-      where: { email },
-    });
+    // Check if email already exists in newsletter (skip if no DB)
+    try {
+      const existing = await prisma.newsletterSubscriber.findUnique({
+        where: { email },
+      });
 
-    if (existing) {
-      return NextResponse.json(
-        { error: 'Tento email je už prihlásený na newsletter' },
-        { status: 400 }
-      );
+      if (existing) {
+        return NextResponse.json(
+          { error: 'Tento email je už prihlásený na newsletter' },
+          { status: 400 }
+        );
+      }
+
+      // Save to database
+      await prisma.newsletterSubscriber.create({
+        data: {
+          email,
+          subscribedAt: new Date(),
+        },
+      });
+    } catch (dbError) {
+      console.error('Database error (skipping):', dbError);
+      // Continue without DB - just send email
     }
-
-    // Save to database
-    await prisma.newsletterSubscriber.create({
-      data: {
-        email,
-        subscribedAt: new Date(),
-      },
-    });
 
     // Send welcome email via Resend
     if (resend) {
