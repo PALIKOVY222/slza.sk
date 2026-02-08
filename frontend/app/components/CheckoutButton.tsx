@@ -17,7 +17,10 @@ interface CheckoutButtonProps {
   }>;
   customerEmail?: string;
   customerName?: string;
-  orderId?: string;
+  shippingMethod?: string;
+  shippingCost?: number;
+  packetaPointId?: string;
+  packetaPointName?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -26,7 +29,10 @@ export default function CheckoutButton({
   items, 
   customerEmail = '',
   customerName = '',
-  orderId = '',
+  shippingMethod = 'packeta',
+  shippingCost = 0,
+  packetaPointId = '',
+  packetaPointName = '',
   className = '',
   children
 }: CheckoutButtonProps) {
@@ -59,7 +65,10 @@ export default function CheckoutButton({
           items, 
           customerEmail, 
           customerName,
-          orderId 
+          shippingMethod,
+          shippingCost,
+          packetaPointId,
+          packetaPointName
         }),
       });
 
