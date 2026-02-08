@@ -37,10 +37,10 @@ const Footer = () => {
   return (
     <footer className="bg-[#0f1113] text-white">
       {/* Newsletter Section */}
-      <div className="py-20 text-center">
+      <div className="py-12 md:py-20 text-center">
         <div className="max-w-[1320px] mx-auto px-5">
-          <h2 className="text-3xl font-bold mb-10 text-white">Novinky a špeciálne ponuky!</h2>
-          <form onSubmit={handleSubmit} className="flex justify-center gap-3 max-w-[600px] mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-10 text-white">Novinky a špeciálne ponuky!</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row justify-center gap-3 max-w-[600px] mx-auto">
             <input
               type="email"
               placeholder="Your Email Address *"
@@ -48,18 +48,18 @@ const Footer = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              className="flex-1 py-4 px-6 border border-white/20 text-base bg-transparent text-white rounded-md placeholder:text-white/50 focus:outline-none focus:border-white/40 disabled:opacity-50"
+              className="w-full sm:flex-1 py-3 md:py-4 px-4 md:px-6 border border-white/20 text-sm md:text-base bg-transparent text-white rounded-md placeholder:text-white/50 focus:outline-none focus:border-white/40 disabled:opacity-50"
             />
             <button 
               type="submit" 
               disabled={loading}
-              className="py-4 px-8 border-none bg-[#0087E3] text-white text-base font-semibold cursor-pointer transition-all duration-300 uppercase tracking-[0.5px] rounded-md hover:bg-[#006bb3] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto py-3 md:py-4 px-6 md:px-8 border-none bg-[#0087E3] text-white text-sm md:text-base font-semibold cursor-pointer transition-all duration-300 uppercase tracking-[0.5px] rounded-md hover:bg-[#006bb3] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {loading ? 'PRIHLASOVANIE...' : 'SUBSCRIBE'}
             </button>
           </form>
           {message && (
-            <p className={`mt-4 text-sm ${message.includes('Úspešne') ? 'text-green-400' : 'text-red-400'}`}>
+            <p className={`mt-4 text-xs md:text-sm px-4 ${message.includes('Úspešne') ? 'text-green-400' : 'text-red-400'}`}>
               {message}
             </p>
           )}
