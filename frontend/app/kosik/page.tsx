@@ -374,7 +374,7 @@ const KosikPage = () => {
                             // @ts-ignore
                             if (window.Packeta) {
                               // @ts-ignore
-                              window.Packeta.Widget.pick('a88a0c1ffc3ba5fe', (point: any) => {
+                              window.Packeta.Widget.pick('65d49ba1845d78fb', (point: any) => {
                                 if (point) {
                                   setPacketaPoint({ id: point.id, name: point.name });
                                 }
