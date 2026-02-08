@@ -11,10 +11,14 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Allow access to API routes (CRITICAL for calculators to work!)
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+
   // Allow access to password page and its assets
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
-    request.nextUrl.pathname.startsWith('/api') ||
     request.nextUrl.pathname.startsWith('/images') ||
     request.nextUrl.pathname.startsWith('/favicon') ||
     request.nextUrl.pathname === '/site-password'
