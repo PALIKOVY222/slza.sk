@@ -13,7 +13,15 @@ export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
   try {
-    const { items, customerEmail, orderId, customerName } = await req.json();
+    const { 
+      items, 
+      customerEmail, 
+      customerName,
+      shippingMethod = 'packeta',
+      shippingCost = 0,
+      packetaPointId,
+      packetaPointName
+    } = await req.json();
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'No items provided' }, { status: 400 });
@@ -26,23 +34,39 @@ export async function POST(req: NextRequest) {
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'klarna', 'ideal', 'bancontact'],
-      line_items: items.map((item: any) => ({
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: item.name || 'Produkt',
-            description: item.description || '',
-            images: item.image ? [item.image] : undefined,
+      line_items: [
+        ...items.map((item: any) => ({
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: item.name || 'Produkt',
+              description: item.description || '',
+              images: item.image ? [item.image] : undefined,
+            },
+            unit_amount: Math.round(item.price * 100), // Stripe používa centy
           },
-          unit_amount: Math.round(item.price * 100), // Stripe používa centy
-        },
-        quantity: item.quantity || 1,
-      })),
+          quantity: item.quantity || 1,
+        })),
+        // Add shipping as line item
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: `Doprava - ${shippingMethod === 'packeta' ? 'Packeta' : shippingMethod === 'courier' ? 'Kuriér' : 'Osobný odber'}`,
+              description: packetaPointName ? `Výdajné miesto: ${packetaPointName}` : '',
+            },
+            unit_amount: Math.round(shippingCost * 100),
+          },
+          quantity: 1,
+        }
+      ],
       mode: 'payment',
       customer_email: customerEmail,
       metadata: {
-        orderId: orderId || '',
         customerName: customerName || '',
+        shippingMethod,
+        packetaPointId: packetaPointId || '',
+        packetaPointName: packetaPointName || '',
       },
       // Automatické detekcie platby (Apple Pay, Google Pay, Link)
       automatic_tax: { enabled: false },
