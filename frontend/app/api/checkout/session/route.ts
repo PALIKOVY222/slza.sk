@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
             product_data: {
               name: item.name || 'Produkt',
               description: item.description || '',
-              images: item.image ? [item.image] : undefined,
+              // Odstránené images - môžu spôsobovať "Not a valid URL" error
             },
             unit_amount: Math.round(item.price * 100), // Stripe používa centy
           },
@@ -78,9 +78,9 @@ export async function POST(req: NextRequest) {
         packetaPointName: packetaPointName || '',
       },
       
-      // Success/Cancel URLs
-      success_url: `https://slza.sk/kosik/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://slza.sk/kosik?canceled=true`,
+      // Success/Cancel URLs - musia byť plné URLs
+      success_url: 'https://slza.sk/kosik/success?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://slza.sk/kosik',
       
       // Billing address
       billing_address_collection: 'required',
