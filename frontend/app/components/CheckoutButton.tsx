@@ -48,6 +48,11 @@ export default function CheckoutButton({
     setError('');
     
     try {
+      // Check if Stripe is configured
+      if (!stripePromise) {
+        throw new Error('Stripe nie je nakonfigurovaný. Kontaktujte administrátora.');
+      }
+
       // Validácia
       if (!items || items.length === 0) {
         setError('Košík je prázdny');
@@ -60,6 +65,16 @@ export default function CheckoutButton({
         setLoading(false);
         return;
       }
+
+      console.log('Creating checkout session...', { 
+        items, 
+        customerEmail, 
+        customerName,
+        shippingMethod,
+        shippingCost,
+        packetaPointId,
+        packetaPointName
+      });
 
       // Vytvorenie checkout session
       const response = await fetch('/api/checkout/session', {
@@ -78,6 +93,8 @@ export default function CheckoutButton({
 
       const data = await response.json();
 
+      console.log('Checkout response:', { ok: response.ok, status: response.status, data });
+
       if (!response.ok) {
         console.error('Checkout error:', data);
         throw new Error(data.details || data.error || 'Platba zlyhala');
@@ -85,8 +102,10 @@ export default function CheckoutButton({
 
       // Presmerovanie na Stripe checkout URL
       if (data.url) {
+        console.log('Redirecting to:', data.url);
         window.location.href = data.url;
       } else {
+        console.error('No checkout URL returned:', data);
         throw new Error('Checkout URL nebola vrátená');
       }
     } catch (err: any) {
