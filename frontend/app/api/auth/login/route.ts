@@ -98,4 +98,5 @@ export async function POST(req: NextRequest) {
     const message = 'Interná chyba servera.';
     return addSecurityHeaders(
       NextResponse.json({ error: message }, { status: 500 })
-    );
+    );  }
+}

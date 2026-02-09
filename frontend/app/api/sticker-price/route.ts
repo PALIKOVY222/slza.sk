@@ -194,4 +194,5 @@ export async function POST(req: NextRequest) {
     console.error('Price calculation error', error);
     return addSecurityHeaders(
       NextResponse.json({ error: 'Chyba pri výpočte ceny' }, { status: 500 })
-    );
+    );  }
+}
