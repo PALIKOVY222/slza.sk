@@ -124,22 +124,64 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Mobile Features - 1 karta presne ako screenshot */}
-      <div className="lg:hidden mx-5 mt-8 mb-6">
+      {/* Mobile Features - 4 karty vertikálne ako screenshot */}
+      <div className="lg:hidden mx-5 mt-8 mb-6 space-y-4">
+        {/* Karta 1: Zadarmo doprava */}
         <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg">
-          <div className="flex items-start gap-4 text-white">
-            <div className="flex-shrink-0 w-[50px] h-[50px] flex items-center justify-center">
-              <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <div className="flex flex-col items-center text-center text-white">
+            <div className="w-[60px] h-[60px] flex items-center justify-center mb-4">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                 <rect x="1" y="3" width="15" height="13" rx="2"/>
                 <path d="M16 8h4l3 3v5h-7V8z"/>
                 <circle cx="5.5" cy="18.5" r="2.5" fill="white"/>
                 <circle cx="18.5" cy="18.5" r="2.5" fill="white"/>
               </svg>
             </div>
-            <div className="flex-1">
-              <h4 className="text-base font-bold mb-2 text-white">Zadarmo doprava</h4>
-              <p className="text-sm text-white/80 leading-relaxed">Pri objednávke nad 50€ a zároveň do 50kg</p>
+            <h4 className="text-lg font-bold mb-2 text-white">Zadarmo doprava</h4>
+            <p className="text-sm text-white/80 leading-relaxed">Pri objednávke nad 50€ a zároveň do 50kg</p>
+          </div>
+        </div>
+
+        {/* Karta 2: Grafické práce ZADARMO */}
+        <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg">
+          <div className="flex flex-col items-center text-center text-white">
+            <div className="w-[60px] h-[60px] flex items-center justify-center mb-4">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M9 9h6M9 13h6M9 17h4"/>
+              </svg>
             </div>
+            <h4 className="text-lg font-bold mb-2 text-white">Grafické práce ZADARMO</h4>
+            <p className="text-sm text-white/80 leading-relaxed">30 minút grafických prác. Možnosť dokúpenia, 29€/hodina.</p>
+          </div>
+        </div>
+
+        {/* Karta 3: Podpora 24/7 */}
+        <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg">
+          <div className="flex flex-col items-center text-center text-white">
+            <div className="w-[60px] h-[60px] flex items-center justify-center mb-4">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h4 className="text-lg font-bold mb-2 text-white">Podpora 24/7</h4>
+            <p className="text-sm text-white/80 leading-relaxed">Kontaktujte nás kedykoľvek</p>
+          </div>
+        </div>
+
+        {/* Karta 4: 100% Garancia reklamácie */}
+        <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg">
+          <div className="flex flex-col items-center text-center text-white">
+            <div className="w-[60px] h-[60px] flex items-center justify-center mb-4">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h4 className="text-lg font-bold mb-2 text-white">100% Garancia reklamácie</h4>
+            <p className="text-sm text-white/80 leading-relaxed">V prípade nespokojnosti s kvalitou tlače do 150€</p>
           </div>
         </div>
       </div>
