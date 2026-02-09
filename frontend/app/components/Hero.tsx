@@ -10,7 +10,20 @@ const Hero = () => {
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">
         <div className="flex items-center justify-between min-h-[600px] relative">
           <div className="flex-1 text-left z-[2]">
-            <h5 className="text-base font-semibold uppercase mb-[15px] text-white/70">DIGITÁLNA A OFSETOVÁ TLAČ</h5>
+            <SplitText
+              text="DIGITÁLNA A OFSETOVÁ TLAČ"
+              className="text-base font-semibold uppercase mb-[15px] text-white/70"
+              delay={30}
+              duration={1}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 20 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="left"
+              tag="h5"
+            />
             <SplitText
               text="Imagine.design.print"
               className="text-[56px] font-black mb-10 leading-tight text-white"
@@ -45,7 +58,20 @@ const Hero = () => {
         
         {/* Text content - centrovaný */}
         <div className="relative z-[2] pt-8">
-          <h5 className="text-xs font-semibold uppercase mb-4 text-white/90 tracking-wide">DIGITÁLNA A OFSETOVÁ TLAČ</h5>
+          <SplitText
+            text="DIGITÁLNA A OFSETOVÁ TLAČ"
+            className="text-xs font-semibold uppercase mb-4 text-white/90 tracking-wide"
+            delay={30}
+            duration={1}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 20 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="center"
+            tag="h5"
+          />
           <SplitText
             text="Imagine.design.print"
             className="text-3xl font-black mb-8 leading-tight text-white"
