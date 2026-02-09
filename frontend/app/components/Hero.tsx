@@ -1,10 +1,31 @@
 'use client';
 
 import React from 'react';
+import LiquidEther from './LiquidEther';
 
 const Hero = () => {
   return (
     <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 mb-0 relative overflow-visible" id="home">
+      {/* LiquidEther animácia na pozadí */}
+      <div className="absolute inset-0 w-full h-full z-0 opacity-30">
+        <LiquidEther
+          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+          mouseForce={20}
+          cursorSize={100}
+          isViscous
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          resolution={0.5}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.5}
+          autoIntensity={2.2}
+          takeoverDuration={0.25}
+          autoResumeDelay={3000}
+          autoRampDuration={0.6}
+        />
+      </div>
       {/* Desktop Layout */}
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">
         <div className="flex items-center justify-between min-h-[600px] relative">
