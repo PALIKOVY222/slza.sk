@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, ElementType } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
@@ -169,7 +169,7 @@ const SplitText = ({
       willChange: 'transform, opacity'
     } as React.CSSProperties;
     const classes = `split-parent ${className}`;
-    const Tag = tag as keyof JSX.IntrinsicElements;
+    const Tag = tag as ElementType;
 
     return (
       <Tag ref={ref as any} style={style} className={classes}>
