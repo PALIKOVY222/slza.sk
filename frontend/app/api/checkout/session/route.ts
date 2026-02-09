@@ -82,16 +82,8 @@ export async function POST(req: NextRequest) {
       success_url: `https://slza.sk/kosik/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `https://slza.sk/kosik?canceled=true`,
       
-      // Shipping info collection
-      shipping_address_collection: {
-        allowed_countries: ['SK', 'CZ', 'PL', 'HU', 'AT', 'DE'],
-      },
-      phone_number_collection: {
-        enabled: true,
-      },
-      
       // Billing address
-      billing_address_collection: 'auto',
+      billing_address_collection: 'required',
       
       // Locale
       locale: 'sk',
