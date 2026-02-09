@@ -79,7 +79,8 @@ export default function CheckoutButton({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Platba zlyhala');
+        console.error('Checkout error:', data);
+        throw new Error(data.details || data.error || 'Platba zlyhala');
       }
 
       // Presmerovanie na Stripe checkout URL
