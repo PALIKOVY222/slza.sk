@@ -1,37 +1,30 @@
 'use client';
 
 import React from 'react';
-import LiquidEther from './LiquidEther';
+import SplitText from './SplitText';
 
 const Hero = () => {
   return (
     <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 mb-0 relative overflow-visible" id="home">
-      {/* LiquidEther animácia na pozadí */}
-      <div className="absolute inset-0 w-full h-full z-0 opacity-30">
-        <LiquidEther
-          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-          mouseForce={20}
-          cursorSize={100}
-          isViscous
-          viscous={30}
-          iterationsViscous={32}
-          iterationsPoisson={32}
-          resolution={0.5}
-          isBounce={false}
-          autoDemo
-          autoSpeed={0.5}
-          autoIntensity={2.2}
-          takeoverDuration={0.25}
-          autoResumeDelay={3000}
-          autoRampDuration={0.6}
-        />
-      </div>
       {/* Desktop Layout */}
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">
         <div className="flex items-center justify-between min-h-[600px] relative">
           <div className="flex-1 text-left z-[2]">
             <h5 className="text-base font-semibold uppercase mb-[15px] text-white/70">DIGITÁLNA A OFSETOVÁ TLAČ</h5>
-            <h1 className="text-[56px] font-black mb-10 leading-tight text-white">Imagine.design.print</h1>
+            <SplitText
+              text="Imagine.design.print"
+              className="text-[56px] font-black mb-10 leading-tight text-white"
+              delay={50}
+              duration={1.25}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="left"
+              tag="h1"
+            />
             <div className="flex gap-[30px] justify-start items-center">
               <a href="/produkty" className="bg-white text-[#111518] py-[18px] px-10 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-[#f0f0f0]">Eshop</a>
               <a href="/kontakt" className="bg-transparent text-white border-2 border-white py-[16px] px-8 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-white hover:text-[#0087E3]">Kontakt</a>
@@ -53,7 +46,20 @@ const Hero = () => {
         {/* Text content - centrovaný */}
         <div className="relative z-[2] pt-8">
           <h5 className="text-xs font-semibold uppercase mb-4 text-white/90 tracking-wide">DIGITÁLNA A OFSETOVÁ TLAČ</h5>
-          <h1 className="text-3xl font-black mb-8 leading-tight text-white">Imagine.design.print</h1>
+          <SplitText
+            text="Imagine.design.print"
+            className="text-3xl font-black mb-8 leading-tight text-white"
+            delay={50}
+            duration={1.25}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="center"
+            tag="h1"
+          />
           
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">

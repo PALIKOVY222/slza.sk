@@ -17,9 +17,11 @@
     "audit:production": "TEST_URL=https://slza.sk node test_audit.js"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@prisma/client": "^6.16.1",
     "@stripe/stripe-js": "^8.7.0",
     "bcryptjs": "^2.4.3",
+    "gsap": "^3.14.2",
     "next": "16.1.6",
     "nodemailer": "^6.10.1",
     "pdf-lib": "^1.17.1",
