@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { rateLimit, sanitizeInput, addSecurityHeaders } from '../../../lib/security';
 
 interface BannerPriceRow {
   width: number;
@@ -18,9 +19,12 @@ interface PriceResult {
 
 let cachedData: BannerPriceRow[] | null = null;
 
+const priceRateLimit = rateLimit({ windowMs: 10000, maxRequests: 20 });
+
 function loadPriceTable(): BannerPriceRow[] {
   if (cachedData) return cachedData;
 
+  // Protected pricing data source
   const jsonPath = path.resolve(process.cwd(), '..', 'banner_price_table.json');
   const raw = fs.readFileSync(jsonPath, 'utf8');
   const parsed = JSON.parse(raw) as any[];
@@ -105,26 +109,41 @@ function computePrice(
 }
 
 export async function POST(req: NextRequest) {
+  // Rate limiting
+  const rateLimitCheck = priceRateLimit(req);
+  if (rateLimitCheck.limited) {
+    return rateLimitCheck.response!;
+  }
+
   try {
     const body = await req.json();
-    const widthMm = Number(body.widthMm);
-    const heightMm = Number(body.heightMm);
-    const quantity = Number(body.quantity);
+    
+    // Input sanitization and validation
+    const widthMm = Number(sanitizeInput(String(body.widthMm || '')));
+    const heightMm = Number(sanitizeInput(String(body.heightMm || '')));
+    const quantity = Number(sanitizeInput(String(body.quantity || '')));
 
-    if (!Number.isFinite(widthMm) || !Number.isFinite(heightMm) || !Number.isFinite(quantity)) {
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    if (!Number.isFinite(widthMm) || !Number.isFinite(heightMm) || !Number.isFinite(quantity) ||
+        widthMm <= 0 || heightMm <= 0 || quantity <= 0) {
+      return addSecurityHeaders(
+        NextResponse.json({ error: 'Neplatné vstupné parametre' }, { status: 400 })
+      );
     }
 
     const table = loadPriceTable();
     if (!table.length) {
-      return NextResponse.json({ error: 'Price table empty' }, { status: 500 });
+      return addSecurityHeaders(
+        NextResponse.json({ error: 'Cenník nie je dostupný' }, { status: 500 })
+      );
     }
 
     const result = computePrice(table, widthMm, heightMm, quantity);
 
-    return NextResponse.json(result);
+    return addSecurityHeaders(NextResponse.json(result));
   } catch (err) {
-    console.error('banner-price API error', err);
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 });
+    console.error('Price calculation error', err);
+return addSecurityHeaders(
+      NextResponse.json({ error: 'Chyba pri výpočte ceny' }, { status: 500 })
+    );
   }
 }

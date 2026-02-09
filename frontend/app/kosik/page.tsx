@@ -236,84 +236,84 @@ const KosikPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#0087E3] to-[#006bb3] pt-48 pb-24 text-center relative overflow-hidden">
-        <div className="max-w-[1320px] mx-auto px-5 relative z-10">
-          <nav className="text-white/90 text-sm mb-6 flex items-center justify-center gap-2">
+      <section className="bg-gradient-to-r from-[#0087E3] to-[#006bb3] pt-32 sm:pt-40 lg:pt-48 pb-12 sm:pb-16 lg:pb-24 text-center relative overflow-hidden">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-5 relative z-10">
+          <nav className="text-white/90 text-xs sm:text-sm mb-4 sm:mb-6 flex items-center justify-center gap-2">
             <a href="/" className="hover:text-white transition-colors font-medium">Domov</a>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="text-white font-semibold">Košík</span>
           </nav>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">Nákupný košík</h1>
-          <p className="text-white/90 text-lg">Skontrolujte svoju objednávku a dokončite nákup</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4">Nákupný košík</h1>
+          <p className="text-white/90 text-sm sm:text-base lg:text-lg">Skontrolujte svoju objednávku a dokončite nákup</p>
         </div>
       </section>
 
       {/* Cart Content */}
-      <section className="py-16 bg-white">
-        <div className="max-w-[1320px] mx-auto px-5">
+      <section className="py-8 sm:py-12 lg:py-16 bg-white">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-5">
           {cartItems.length === 0 ? (
-            <div className="text-center py-16">
-              <svg className="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-12 sm:py-16">
+              <svg className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <h2 className="text-2xl font-bold text-[#111518] mb-2">Váš košík je prázdny</h2>
-              <p className="text-[#4d5d6d] mb-8">Pridajte produkty do košíka a pokračujte v nákupe.</p>
-              <a href="/produkty" className="inline-block bg-[#0087E3] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#006bb3] transition-colors">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#111518] mb-2">Váš košík je prázdny</h2>
+              <p className="text-[#4d5d6d] mb-6 sm:mb-8 text-sm sm:text-base">Pridajte produkty do košíka a pokračujte v nákupe.</p>
+              <a href="/produkty" className="inline-block bg-[#0087E3] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-[#006bb3] transition-colors text-sm sm:text-base">
                 Prejsť na produkty
               </a>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-2">
-                <h2 className="text-2xl font-bold text-[#111518] mb-6">Položky v košíku</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-[#111518] mb-4 sm:mb-6">Položky v košíku</h2>
                 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="bg-white border-2 border-gray-200 rounded-xl p-6">
-                      <div className="flex gap-6">
-                        <img src={item.image} alt={item.productName} className="w-24 h-24 object-contain bg-gray-50 rounded-lg" />
+                    <div key={item.id} className="bg-white border-2 border-gray-200 rounded-xl p-4 sm:p-6">
+                      <div className="flex gap-3 sm:gap-6">
+                        <img src={item.image} alt={item.productName} className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain bg-gray-50 rounded-lg flex-shrink-0" />
                         
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold text-[#111518] mb-2">{item.productName}</h3>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#111518] mb-2">{item.productName}</h3>
                           
-                          <div className="space-y-1 mb-4">
+                          <div className="space-y-1 mb-3 sm:mb-4">
                             {Object.entries(item.options).map(([key, value]: any) => {
                               if (key === 'quantity') return null;
                               return (
-                                <p key={key} className="text-sm text-[#4d5d6d]">
+                                <p key={key} className="text-xs sm:text-sm text-[#4d5d6d] truncate">
                                   <span className="font-medium">{key}:</span> {formatOptionValue(value)}
                                 </p>
                               );
                             })}
                           </div>
 
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div className="flex items-center gap-2 sm:gap-3">
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-8 h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors"
+                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-sm sm:text-base"
                               >
                                 −
                               </button>
-                              <span className="font-semibold text-[#111518] w-8 text-center">{item.quantity}</span>
+                              <span className="font-semibold text-[#111518] w-7 sm:w-8 text-center text-sm sm:text-base">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-8 h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors"
+                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-sm sm:text-base"
                               >
                                 +
                               </button>
                             </div>
 
-                            <div className="text-right">
-                              <p className="text-2xl font-bold text-[#0087E3]">
+                            <div className="text-left sm:text-right">
+                              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-[#0087E3]">
                                 {(item.price * item.quantity).toFixed(2)} €
                               </p>
                               <button
                                 onClick={() => removeItem(item.id)}
-                                className="text-sm text-red-600 hover:underline mt-1"
+                                className="text-xs sm:text-sm text-red-600 hover:underline mt-1"
                               >
                                 Odstrániť
                               </button>
@@ -328,40 +328,40 @@ const KosikPage = () => {
 
               {/* Order Summary & Form */}
               <div>
-                <div className="bg-gray-50 rounded-xl p-6 sticky top-4">
-                  <h2 className="text-2xl font-bold text-[#111518] mb-6">Súhrn objednávky</h2>
+                <div className="bg-gray-50 rounded-xl p-4 sm:p-6 lg:sticky lg:top-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111518] mb-4 sm:mb-6">Súhrn objednávky</h2>
                   
-                  <div className="space-y-3 mb-6 pb-6 border-b">
-                    <div className="flex justify-between text-[#4d5d6d]">
+                  <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b">
+                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
                       <span>Produkty:</span>
                       <span className="font-semibold">{cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} €</span>
                     </div>
-                    <div className="flex justify-between text-[#4d5d6d]">
+                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
                       <span>Doprava:</span>
                       <span className="font-semibold">{shippingCosts[shippingMethod as keyof typeof shippingCosts].toFixed(2)} €</span>
                     </div>
-                    <div className="flex justify-between text-[#4d5d6d]">
+                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
                       <span>Medzisúčet:</span>
                       <span className="font-semibold">{calculateTotal().toFixed(2)} €</span>
                     </div>
-                    <div className="flex justify-between text-[#4d5d6d]">
+                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
                       <span>DPH (20%):</span>
                       <span className="font-semibold">{(calculateTotal() * 0.2).toFixed(2)} €</span>
                     </div>
-                    <div className="flex justify-between text-xl font-bold text-[#111518] pt-3">
+                    <div className="flex justify-between text-lg sm:text-xl font-bold text-[#111518] pt-2 sm:pt-3">
                       <span>Celkom:</span>
                       <span className="text-[#0087E3]">{(calculateTotal() * 1.2).toFixed(2)} €</span>
                     </div>
                   </div>
 
-                  <form onSubmit={handleCheckout} className="space-y-4">
+                  <form onSubmit={handleCheckout} className="space-y-3 sm:space-y-4">
                     {/* Doprava */}
                     <div>
-                      <label className="block text-sm font-semibold text-[#111518] mb-2">Spôsob dopravy</label>
+                      <label className="block text-xs sm:text-sm font-semibold text-[#111518] mb-2">Spôsob dopravy</label>
                       <select
                         value={shippingMethod}
                         onChange={(e) => setShippingMethod(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       >
                         <option value="packeta">Packeta - 3,50 €</option>
                         <option value="courier">Kuriér - 5,00 €</option>
@@ -386,7 +386,7 @@ const KosikPage = () => {
                               alert('Packeta widget nie je načítaný');
                             }
                           }}
-                          className="w-full px-4 py-3 border-2 border-[#0087E3] text-[#0087E3] rounded-lg hover:bg-[#0087E3] hover:text-white transition-colors"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-[#0087E3] text-[#0087E3] rounded-lg hover:bg-[#0087E3] hover:text-white transition-colors text-xs sm:text-sm"
                         >
                           {packetaPoint ? `Výdajné miesto: ${packetaPoint.name}` : 'Vybrať výdajné miesto Packeta'}
                         </button>
@@ -395,11 +395,11 @@ const KosikPage = () => {
 
                     {/* Platba */}
                     <div>
-                      <label className="block text-sm font-semibold text-[#111518] mb-2">Spôsob platby</label>
+                      <label className="block text-xs sm:text-sm font-semibold text-[#111518] mb-2">Spôsob platby</label>
                       <select
                         value={paymentMethod}
                         onChange={(e) => setPaymentMethod(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       >
                         <option value="card">Platobná karta</option>
                         <option value="bank_transfer">Bankový prevod</option>
@@ -414,7 +414,7 @@ const KosikPage = () => {
                         value={customerInfo.name}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       />
                     </div>
                     <div>
@@ -424,7 +424,7 @@ const KosikPage = () => {
                         value={customerInfo.email}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       />
                     </div>
                     <div>
@@ -434,7 +434,7 @@ const KosikPage = () => {
                         value={customerInfo.phone}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       />
                     </div>
                     <div>
@@ -444,7 +444,7 @@ const KosikPage = () => {
                         onChange={(e) => setCustomerInfo({ ...customerInfo, address: e.target.value })}
                         required
                         rows={3}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       ></textarea>
                     </div>
                     <div>
@@ -453,13 +453,13 @@ const KosikPage = () => {
                         value={customerInfo.note}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, note: e.target.value })}
                         rows={3}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       ></textarea>
                     </div>
 
                     {/* Platobné tlačidlá */}
                     {paymentMethod === 'card' ? (
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         <CheckoutButton
                           items={cartItems.map(item => ({
                             name: item.productName,
@@ -477,7 +477,7 @@ const KosikPage = () => {
                           shippingCost={shippingCosts[shippingMethod as keyof typeof shippingCosts]}
                           packetaPointId={packetaPoint?.id}
                           packetaPointName={packetaPoint?.name}
-                          className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-5 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                          className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-3 sm:py-4 lg:py-5 rounded-xl font-bold text-base sm:text-lg hover:shadow-2xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                         >
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />

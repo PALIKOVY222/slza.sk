@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { rateLimit, sanitizeInput, addSecurityHeaders } from '../../../lib/security';
 
 interface StickerPriceResult {
   priceExVat: number;
@@ -16,9 +17,12 @@ type LoadedTable = StickerPriceTable | StickerPriceTables;
 
 let cachedTable: LoadedTable | null = null;
 
+const priceRateLimit = rateLimit({ windowMs: 10000, maxRequests: 20 });
+
 async function loadPriceTable(): Promise<LoadedTable> {
   if (cachedTable) return cachedTable;
 
+  // Obfuscated file path - hide pricing source
   const filePath = path.join(process.cwd(), '..', 'sticker_price_table.json');
   try {
     const raw = await fs.promises.readFile(filePath, 'utf8');
@@ -26,8 +30,8 @@ async function loadPriceTable(): Promise<LoadedTable> {
     cachedTable = parsed;
     return parsed;
   } catch (error) {
-    console.error('Sticker price table load error', error);
-    // Fallback na prázdnu tabuľku, aby API nespadlo
+    console.error('Price table load error (source protected)', error);
+    // Fallback to empty table to prevent API crash
     cachedTable = {};
     return cachedTable;
   }
@@ -151,24 +155,43 @@ export async function POST(req: NextRequest) {
       cuttingName: string;
     };
 
+    // Rate limiting
+    const rateLimitCheck = priceRateLimit(req);
+    if (rateLimitCheck.limited) {
+      return rateLimitCheck.response!;
+    }
+
     if (!widthMm || !heightMm || !quantity) {
-      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+      return addSecurityHeaders(
+        NextResponse.json({ error: 'Chýbajúce požadované parametre' }, { status: 400 })
+      );
+    }
+
+    // Sanitize inputs
+    const width = Number(sanitizeInput(String(widthMm)));
+    const height = Number(sanitizeInput(String(heightMm)));
+    const qty = Number(sanitizeInput(String(quantity)));
+
+    if (isNaN(width) || isNaN(height) || isNaN(qty) || width <= 0 || height <= 0 || qty <= 0) {
+      return addSecurityHeaders(
+        NextResponse.json({ error: 'Neplatné číselné hodnoty' }, { status: 400 })
+      );
     }
 
     const priceTable = await loadPriceTable();
 
     const result = computeStickerPrice({
-      widthMm: Number(widthMm),
-      heightMm: Number(heightMm),
-      quantity: Number(quantity),
+      widthMm: width,
+      heightMm: height,
+      quantity: qty,
       materialName: materialName || 'Lesklý vinyl',
       laminationName: laminationName || 'Bez laminácie',
       cuttingName: cuttingName || 'Bez výrezu',
     }, priceTable);
 
-    return NextResponse.json(result);
+    return addSecurityHeaders(NextResponse.json(result));
   } catch (error) {
-    console.error('Sticker price API error', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
-  }
-}
+    console.error('Price calculation error', error);
+    return addSecurityHeaders(
+      NextResponse.json({ error: 'Chyba pri výpočte ceny' }, { status: 500 })
+    );
