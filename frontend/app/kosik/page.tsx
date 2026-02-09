@@ -237,7 +237,6 @@ const KosikPage = () => {
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#0087E3] to-[#006bb3] pt-48 pb-24 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10"></div>
         <div className="max-w-[1320px] mx-auto px-5 relative z-10">
           <nav className="text-white/90 text-sm mb-6 flex items-center justify-center gap-2">
             <a href="/" className="hover:text-white transition-colors font-medium">Domov</a>

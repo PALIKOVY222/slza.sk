@@ -49,8 +49,7 @@ export async function POST(req: NextRequest) {
             currency: 'eur',
             product_data: {
               name: item.name || 'Produkt',
-              description: item.description || '',
-              // Odstránené images - môžu spôsobovať "Not a valid URL" error
+              ...(item.description && item.description.trim() && { description: item.description }),
             },
             unit_amount: Math.round(item.price * 100), // Stripe používa centy
           },
@@ -62,7 +61,7 @@ export async function POST(req: NextRequest) {
             currency: 'eur',
             product_data: {
               name: `Doprava - ${shippingMethod === 'packeta' ? 'Packeta' : shippingMethod === 'courier' ? 'Kuriér' : 'Osobný odber'}`,
-              description: packetaPointName ? `Výdajné miesto: ${packetaPointName}` : '',
+              ...(packetaPointName && { description: `Výdajné miesto: ${packetaPointName}` }),
             },
             unit_amount: Math.round(shippingCost * 100),
           },
