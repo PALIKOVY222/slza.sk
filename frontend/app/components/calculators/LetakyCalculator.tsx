@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
+import AddedToCartModal from '../AddedToCartModal';
 
 export type LetakyPriceResult = {
   priceExVat: number;
@@ -72,6 +74,7 @@ export default function LetakyCalculator({
   onPriceChange?: (price: LetakyPriceResult) => void;
   artwork?: ArtworkInfo;
 }) {
+  const router = useRouter();
   const [paper, setPaper] = useState<PaperOption>(paperOptions[0]);
   const [format, setFormat] = useState<FormatOption>(formatOptions[3]);
   const [quantity, setQuantity] = useState<number>(100);
@@ -81,6 +84,7 @@ export default function LetakyCalculator({
   const [error, setError] = useState<string | null>(null);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [showAdded, setShowAdded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -159,12 +163,17 @@ export default function LetakyCalculator({
     existingCart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(existingCart));
 
-    alert('Produkt pridaný do košíka!');
-    window.location.href = '/kosik';
+    setShowAdded(true);
   };
 
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <AddedToCartModal
+        open={showAdded}
+        productName="Letáky"
+        onClose={() => setShowAdded(false)}
+        onGoToCart={() => router.push('/kosik')}
+      />
       <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor letákov</h2>
 
       <div className="space-y-8">

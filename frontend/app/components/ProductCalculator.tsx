@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ArtworkUpload, { ArtworkInfo } from './ArtworkUpload';
+import AddedToCartModal from './AddedToCartModal';
 
 interface ProductCalculatorProps {
   product: any;
@@ -9,11 +11,13 @@ interface ProductCalculatorProps {
 }
 
 const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) => {
+  const router = useRouter();
   const [selectedOptions, setSelectedOptions] = useState<any>({});
   const [customSize, setCustomSize] = useState({ width: '', height: '' });
   const [totalPrice, setTotalPrice] = useState(product.basePrice || product.basePricePerCm2 || 0);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [showAdded, setShowAdded] = useState(false);
 
   // Inicializácia prvých možností
   useEffect(() => {
@@ -370,12 +374,17 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
     existingCart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(existingCart));
 
-    alert('Produkt pridaný do košíka!');
-    window.location.href = '/kosik';
+    setShowAdded(true);
   };
 
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <AddedToCartModal
+        open={showAdded}
+        productName={product.title}
+        onClose={() => setShowAdded(false)}
+        onGoToCart={() => router.push('/kosik')}
+      />
       <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor produktu</h2>
       
       <div className="space-y-8">

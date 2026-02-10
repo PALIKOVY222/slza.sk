@@ -81,18 +81,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return addSecurityHeaders(
-      NextResponse.json({
-        token,
-        user: {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          companyId: user.companyId
-        }
-      })
-    );
+    const response = NextResponse.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        companyId: user.companyId
+      }
+    });
+
+    response.cookies.set('session_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 30
+    });
+
+    return addSecurityHeaders(response);
   } catch (error) {
     console.error('Login error', error);
     const message = 'Interná chyba servera.';

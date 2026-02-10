@@ -45,6 +45,7 @@ const KosikPage = () => {
     address: '',
     note: ''
   });
+  const [authUserId, setAuthUserId] = useState<string | null>(null);
 
   const [paymentMethod, setPaymentMethod] = useState('card'); // card, bank_transfer, cash_on_delivery
   const [shippingMethod, setShippingMethod] = useState('packeta'); // packeta, courier, personal_pickup
@@ -67,6 +68,9 @@ const KosikPage = () => {
     if (authUser) {
       try {
         const user = JSON.parse(authUser);
+        if (user?.id) {
+          setAuthUserId(user.id);
+        }
         setCustomerInfo({
           name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
           email: user.email || '',
@@ -179,7 +183,8 @@ const KosikPage = () => {
           customer: {
             email: customerInfo.email,
             name: customerInfo.name,
-            phone: customerInfo.phone
+            phone: customerInfo.phone,
+            userId: authUserId || undefined
           },
           billingAddress: {
             name: customerInfo.name,

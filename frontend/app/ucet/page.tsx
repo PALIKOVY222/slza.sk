@@ -11,21 +11,21 @@ interface OrderItem {
   quantity: number;
   unitPrice: number;
   totalPrice: number;
-  specs: any;
+  options?: any;
 }
 
 interface Order {
-  id: number;
+  id: string;
   orderNumber: string;
   createdAt: string;
   status: string;
-  totalAmount: number;
+  total: number;
   shippingMethod: string | null;
   shippingCost: number | null;
   paymentMethod: string | null;
   paymentStatus: string | null;
   trackingNumber: string | null;
-  orderItems: OrderItem[];
+  items: OrderItem[];
 }
 
 export default function AccountPage() {
@@ -205,7 +205,7 @@ export default function AccountPage() {
                     <div>
                       <h4 className="text-sm font-medium text-gray-500 mb-1">Celková suma</h4>
                       <p className="text-2xl font-bold text-gray-900">
-                        {order.totalAmount.toFixed(2)} €
+                        {order.total.toFixed(2)} €
                       </p>
                       <p className="text-sm text-gray-600">s DPH</p>
                     </div>
@@ -214,13 +214,13 @@ export default function AccountPage() {
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 mb-3">Položky objednávky</h4>
                     <div className="space-y-3">
-                      {order.orderItems.map((item) => (
+                      {order.items.map((item) => (
                         <div key={item.id} className="flex justify-between items-start border-b border-gray-100 pb-3 last:border-0">
                           <div className="flex-1">
                             <p className="font-medium text-gray-900">{item.productName}</p>
-                            {item.specs && Object.keys(item.specs).length > 0 && (
+                            {item.options && Object.keys(item.options).length > 0 && (
                               <div className="text-sm text-gray-600 mt-1">
-                                {Object.entries(item.specs).map(([key, value]) => (
+                                {Object.entries(item.options).map(([key, value]) => (
                                   <span key={key} className="mr-3">
                                     {key}: {typeof value === 'object' ? JSON.stringify(value) : String(value)}
                                   </span>

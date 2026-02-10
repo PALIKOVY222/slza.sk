@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
+import { getSessionToken } from '../../../lib/security';
 import { uploadToOwnCloud } from '../../../lib/owncloud';
 import { sendOrderConfirmationEmail, sendAdminOrderNotification, sendInvoiceEmail } from '../../../lib/mailer';
 import { buildInvoicePdf } from '../../../lib/invoice';
@@ -117,6 +118,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing order data.' }, { status: 400 });
     }
 
+    const sessionToken = req.cookies.get('session_token')?.value || getSessionToken(req);
+    let sessionUserId: string | undefined;
+
+    if (sessionToken) {
+      const session = await prisma.session.findUnique({
+        where: { token: sessionToken }
+      });
+      if (session && session.expiresAt > new Date()) {
+        sessionUserId = session.userId;
+      }
+    }
+
     // Use provided orderNumber or generate new one
     const orderNumber = providedOrderNumber || await buildOrderNumber();
     const companyRecord = company?.name
@@ -179,7 +192,7 @@ export async function POST(req: NextRequest) {
         shippingCost: shippingInfo?.cost ?? 0,
         packetaPointId: shippingInfo?.packetaPointId,
         packetaPointName: shippingInfo?.packetaPointName,
-        userId: customer.userId,
+        userId: customer.userId || sessionUserId,
         companyId: companyRecord?.id,
         billingAddressId: billing?.id,
         shippingAddressId: shipping?.id,

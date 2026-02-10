@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
+import AddedToCartModal from '../AddedToCartModal';
 
 type ModelOption = {
   code: string;
@@ -44,11 +46,13 @@ const platePriceByModel: Record<string, number> = {
 };
 
 export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo }) {
+  const router = useRouter();
   const [model, setModel] = useState<ModelOption>(modelOptions[0]);
   const [variant, setVariant] = useState<VariantOption>(variantOptions[0]);
   const [quantity, setQuantity] = useState<number>(1);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [showAdded, setShowAdded] = useState(false);
 
   const price = useMemo(() => {
     const qty = Math.max(1, Math.floor(Number(quantity) || 1));
@@ -98,12 +102,17 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
     existingCart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(existingCart));
 
-    alert('Produkt pridaný do košíka!');
-    window.location.href = '/kosik';
+    setShowAdded(true);
   };
 
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <AddedToCartModal
+        open={showAdded}
+        productName={`Pečiatka ${model.code}`}
+        onClose={() => setShowAdded(false)}
+        onGoToCart={() => router.push('/kosik')}
+      />
       <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor pečiatok</h2>
 
       <div className="space-y-8">

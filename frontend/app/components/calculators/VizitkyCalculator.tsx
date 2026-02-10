@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import type { ArtworkInfo } from '../ArtworkUpload';
+import AddedToCartModal from '../AddedToCartModal';
 
 type PaperOption = {
   label: string;
@@ -237,6 +239,7 @@ export default function VizitkyCalculator({
   onPriceChange?: (price: VizitkyPriceResult) => void;
   artwork?: ArtworkInfo;
 }) {
+  const router = useRouter();
   const initialPaper: PaperOption =
     config.paperOptions.find((o) => o.value === '300-leskly') ??
     config.paperOptions[0] ??
@@ -249,6 +252,7 @@ export default function VizitkyCalculator({
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
   const [artworkError, setArtworkError] = useState<string | null>(null);
+  const [showAdded, setShowAdded] = useState(false);
 
   const price = useMemo(() => {
     return calculateVizitkyPrice({
@@ -292,12 +296,17 @@ export default function VizitkyCalculator({
     existingCart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(existingCart));
 
-    alert('Produkt pridaný do košíka!');
-    window.location.href = '/kosik';
+    setShowAdded(true);
   };
 
   return (
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <AddedToCartModal
+        open={showAdded}
+        productName="Vizitky"
+        onClose={() => setShowAdded(false)}
+        onGoToCart={() => router.push('/kosik')}
+      />
       <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor vizitiek</h2>
 
       <div className="space-y-8">

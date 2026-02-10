@@ -41,10 +41,29 @@ interface Order {
   }>;
 }
 
+interface Customer {
+  id: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  phone?: string | null;
+  role: string;
+  createdAt: string;
+  ordersCount: number;
+  ordersTotal: number;
+  company?: {
+    name?: string | null;
+    vatId?: string | null;
+    taxId?: string | null;
+  } | null;
+}
+
 const AdminPage = () => {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
+  const [customersLoading, setCustomersLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
@@ -59,6 +78,7 @@ const AdminPage = () => {
     }
 
     fetchOrders();
+    fetchCustomers();
   }, [router]);
 
   const fetchOrders = async () => {
@@ -73,6 +93,21 @@ const AdminPage = () => {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCustomers = async () => {
+    try {
+      const response = await fetch('/api/admin/customers');
+      if (!response.ok) {
+        throw new Error('Failed to fetch customers');
+      }
+      const data = await response.json();
+      setCustomers(data.customers || []);
+    } catch (err: any) {
+      console.error(err);
+    } finally {
+      setCustomersLoading(false);
     }
   };
 
@@ -453,6 +488,58 @@ const AdminPage = () => {
             ))}
           </div>
         )}
+
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Zákazníci</h2>
+
+          {customersLoading ? (
+            <div className="bg-white rounded-lg shadow p-6 text-gray-600">Načítavam zákazníkov...</div>
+          ) : customers.length === 0 ? (
+            <div className="bg-white rounded-lg shadow p-6 text-gray-600">Zatiaľ žiadni zákazníci</div>
+          ) : (
+            <div className="bg-white rounded-lg shadow overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead className="bg-gray-50 text-gray-600">
+                  <tr>
+                    <th className="text-left px-4 py-3">Meno</th>
+                    <th className="text-left px-4 py-3">Email</th>
+                    <th className="text-left px-4 py-3">Telefón</th>
+                    <th className="text-left px-4 py-3">Firma</th>
+                    <th className="text-right px-4 py-3">Objednávky</th>
+                    <th className="text-right px-4 py-3">Suma</th>
+                    <th className="text-left px-4 py-3">Registrácia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customers.map((customer) => (
+                    <tr key={customer.id} className="border-t">
+                      <td className="px-4 py-3 text-gray-900">
+                        {`${customer.firstName || ''} ${customer.lastName || ''}`.trim() || '—'}
+                      </td>
+                      <td className="px-4 py-3 text-gray-700">{customer.email}</td>
+                      <td className="px-4 py-3 text-gray-700">{customer.phone || '—'}</td>
+                      <td className="px-4 py-3 text-gray-700">
+                        {customer.company?.name || '—'}
+                        {customer.company?.vatId ? (
+                          <div className="text-xs text-gray-500">IČ DPH: {customer.company.vatId}</div>
+                        ) : null}
+                      </td>
+                      <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                        {customer.ordersCount}
+                      </td>
+                      <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                        {customer.ordersTotal.toFixed(2)} €
+                      </td>
+                      <td className="px-4 py-3 text-gray-700">
+                        {new Date(customer.createdAt).toLocaleDateString('sk-SK')}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

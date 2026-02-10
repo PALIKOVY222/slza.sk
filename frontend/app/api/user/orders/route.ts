@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { getSessionToken } from '@/lib/security';
 
 export async function GET(request: NextRequest) {
   try {
     // Get session token from cookie
-    const sessionToken = request.cookies.get('session_token')?.value;
+    const sessionToken = request.cookies.get('session_token')?.value || getSessionToken(request);
     
     if (!sessionToken) {
       return NextResponse.json(
