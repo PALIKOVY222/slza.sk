@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  DRAFT
+  NEW
+  PAID
+  IN_PRODUCTION
+  READY
+  SHIPPED
+  COMPLETED
+  CANCELED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  SENT
+  PAID
+  VOID
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String?
+  lastName     String?
+  phone        String?
+  role         UserRole  @default(CUSTOMER)
+  companyId    String?
+  company      Company?  @relation(fields: [companyId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  addresses    Address[]
+  sessions     Session[]
+  orders       Order[]
+  auditLogs    AuditLog[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Company {
+  id           String   @id @default(cuid())
+  name         String
+  vatId        String?
+  taxId        String?
+  registration String?
+  email        String?
+  phone        String?
+  website      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users        User[]
+  addresses    Address[]
+  orders       Order[]
+}
+
+model Address {
+  id          String   @id @default(cuid())
+  type        String   // billing | shipping
+  companyId   String?
+  company     Company? @relation(fields: [companyId], references: [id])
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  name        String?
+  street      String?
+  city        String?
+  postalCode  String?
+  country     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  billingOrders  Order[] @relation("BillingAddress")
+  shippingOrders Order[] @relation("ShippingAddress")
+}
+
+model Order {
+  id                String       @id @default(cuid())
+  orderNumber       String       @unique
+  status            OrderStatus  @default(NEW)
+  currency          String       @default("EUR")
+  vatRate           Float        @default(0.2)
+  subtotal          Float
+  vatTotal          Float
+  total             Float
+  customerEmail     String
+  customerName      String
+  customerPhone     String?
+  note              String?
+  
+  // Payment
+  paymentMethod     String?      // card, bank_transfer, cash_on_delivery
+  paymentStatus     String?      @default("pending") // pending, paid, failed
+  paidAt            DateTime?
+  
+  // Shipping
+  shippingMethod    String?      // packeta, courier, personal_pickup
+  shippingCost      Float?       @default(0)
+  packetaPointId    String?
+  packetaPointName  String?
+  trackingNumber    String?
+  shippedAt         DateTime?
+  
+  userId            String?
+  user              User?        @relation(fields: [userId], references: [id])
+  companyId         String?
+  company           Company?     @relation(fields: [companyId], references: [id])
+  billingAddressId  String?
+  shippingAddressId String?
+  billingAddress    Address?     @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  shippingAddress   Address?     @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  items             OrderItem[]
+  uploads           Upload[]
+  invoices          Invoice[]
+  auditLogs         AuditLog[]
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  productSlug String
+  productName String
+  quantity    Int
+  unitPrice   Float
+  totalPrice  Float
+  options     Json?
+  createdAt   DateTime @default(now())
+}
+
+model Upload {
+  id         String   @id @default(cuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id])
+  fileName   String
+  mimeType   String?
+  fileSize   Int?
+  url        String?
+  createdAt  DateTime @default(now())
+}
+
+model Invoice {
+  id           String        @id @default(cuid())
+  orderId      String
+  order        Order         @relation(fields: [orderId], references: [id])
+  invoiceNumber String       @unique
+  status       InvoiceStatus @default(DRAFT)
+  issueDate    DateTime      @default(now())
+  dueDate      DateTime?
+  subtotal     Float
+  vatTotal     Float
+  total        Float
+  currency     String        @default("EUR")
+  pdfUrl       String?
+  emailedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  entityType String
+  entityId   String
+  action     String
+  payload    Json?
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  orderId    String?
+  order      Order?   @relation(fields: [orderId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+  unsubscribedAt DateTime?
+  createdAt    DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+}
