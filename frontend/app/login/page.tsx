@@ -97,12 +97,6 @@ const LoginPage = () => {
           Nemáte účet?{' '}
           <a href="/register" className="text-[#0087E3] hover:underline">Registrovať sa</a>
         </div>
-
-        <div className="mt-6 text-center">
-          <a href="/admin/login" className="text-xs text-[#4d5d6d] hover:underline">
-            Admin prihlásenie
-          </a>
-        </div>
       </div>
     </div>
   );

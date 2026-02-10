@@ -65,11 +65,14 @@ const KosikPage = () => {
 
     // Auto-fill customer info if user is logged in
     const authUser = localStorage.getItem('authUser');
+    console.log('Auth user from localStorage:', authUser);
     if (authUser) {
       try {
         const user = JSON.parse(authUser);
+        console.log('Parsed user:', user);
         if (user?.id) {
           setAuthUserId(user.id);
+          console.log('Set authUserId to:', user.id);
         }
         setCustomerInfo({
           name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
@@ -175,6 +178,7 @@ const KosikPage = () => {
         }
       }
 
+      console.log('Creating order with authUserId:', authUserId);
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
