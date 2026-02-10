@@ -45,6 +45,15 @@ const KosikPage = () => {
     address: '',
     note: ''
   });
+  const [companyInfo, setCompanyInfo] = useState({
+    name: '',
+    vatId: '',
+    taxId: '',
+    registration: '',
+    email: '',
+    phone: ''
+  });
+  const [showCompanyInfo, setShowCompanyInfo] = useState(false);
   const [authUserId, setAuthUserId] = useState<string | null>(null);
 
   const [paymentMethod, setPaymentMethod] = useState('card'); // card, bank_transfer, cash_on_delivery
@@ -81,6 +90,16 @@ const KosikPage = () => {
           address: user.company?.address || user.address || '',
           note: ''
         });
+        if (user.company) {
+          setCompanyInfo({
+            name: user.company.name || '',
+            vatId: user.company.vatId || '',
+            taxId: user.company.taxId || '',
+            registration: user.company.registration || '',
+            email: user.company.email || '',
+            phone: user.company.phone || ''
+          });
+        }
       } catch (err) {
         console.error('Failed to parse authUser:', err);
       }
@@ -190,6 +209,14 @@ const KosikPage = () => {
             phone: customerInfo.phone,
             userId: authUserId || undefined
           },
+          company: companyInfo.name ? {
+            name: companyInfo.name,
+            vatId: companyInfo.vatId,
+            taxId: companyInfo.taxId,
+            registration: companyInfo.registration,
+            email: companyInfo.email,
+            phone: companyInfo.phone
+          } : undefined,
           billingAddress: {
             name: customerInfo.name,
             street: customerInfo.address
@@ -439,23 +466,98 @@ const KosikPage = () => {
                     <div>
                       <input
                         type="tel"
-                        placeholder="Telefón *"
+                        placeholder={authUserId ? "Telefón" : "Telefón *"}
                         value={customerInfo.phone}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                        required
+                        required={!authUserId}
                         className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       />
                     </div>
                     <div>
                       <textarea
-                        placeholder="Adresa *"
+                        placeholder={authUserId ? "Adresa" : "Adresa *"}
                         value={customerInfo.address}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, address: e.target.value })}
-                        required
+                        required={!authUserId}
                         rows={3}
                         className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
                       ></textarea>
                     </div>
+
+                    {/* Company Info Toggle */}
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setShowCompanyInfo(!showCompanyInfo)}
+                        className="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-300 rounded-lg hover:border-[#0087E3] transition-colors text-sm sm:text-base text-left"
+                      >
+                        <span className="flex items-center gap-2">
+                          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                          </svg>
+                          <span className="font-medium">Fakturačné údaje firmy (dobrovoľné)</span>
+                        </span>
+                        <svg className={`w-5 h-5 transition-transform ${showCompanyInfo ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Company Info Fields */}
+                    {showCompanyInfo && (
+                      <div className="space-y-3 sm:space-y-4 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div>
+                          <input
+                            type="text"
+                            placeholder="Názov firmy"
+                            value={companyInfo.name}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, name: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="text"
+                            placeholder="IČ DPH"
+                            value={companyInfo.vatId}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, vatId: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                          <input
+                            type="text"
+                            placeholder="DIČ"
+                            value={companyInfo.taxId}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, taxId: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                        </div>
+                        <div>
+                          <input
+                            type="text"
+                            placeholder="IČO"
+                            value={companyInfo.registration}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, registration: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <input
+                            type="email"
+                            placeholder="Email firmy"
+                            value={companyInfo.email}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, email: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                          <input
+                            type="tel"
+                            placeholder="Telefón firmy"
+                            value={companyInfo.phone}
+                            onChange={(e) => setCompanyInfo({ ...companyInfo, phone: e.target.value })}
+                            className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-sm sm:text-base"
+                          />
+                        </div>
+                      </div>
+                    )}
                     <div>
                       <textarea
                         placeholder="Poznámka k objednávke"
