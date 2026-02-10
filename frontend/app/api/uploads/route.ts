@@ -17,14 +17,19 @@ export async function POST(req: NextRequest) {
       orderNumber?: string;
     };
 
+    console.log('[Upload API] Received request:', { fileName, mimeType, orderId, productSlug, orderNumber });
+
     if (!fileName || !base64) {
+      console.error('[Upload API] Missing fileName or base64');
       return NextResponse.json({ error: 'fileName and base64 are required.' }, { status: 400 });
     }
 
     let buffer: Buffer;
     try {
       buffer = Buffer.from(base64, 'base64');
+      console.log('[Upload API] Buffer created, size:', buffer.length);
     } catch (err) {
+      console.error('[Upload API] Invalid base64:', err);
       return NextResponse.json({ error: 'Invalid base64 payload.' }, { status: 400 });
     }
 
@@ -34,7 +39,9 @@ export async function POST(req: NextRequest) {
     // Add orderNumber prefix to filename if provided
     const finalFileName = orderNumber ? `${orderNumber}_${fileName}` : fileName;
     
+    console.log('[Upload API] Uploading to ownCloud:', { dateFolder, productFolder, finalFileName });
     const upload = await uploadToOwnCloud(finalFileName, buffer, undefined, `${dateFolder}/${productFolder}`);
+    console.log('[Upload API] Upload successful:', upload);
 
     if (orderId) {
       await prisma.upload.create({
@@ -46,11 +53,12 @@ export async function POST(req: NextRequest) {
           url: upload.url
         }
       });
+      console.log('[Upload API] Upload record created in database');
     }
 
     return NextResponse.json({ url: upload.url, path: upload.path });
   } catch (error) {
-    console.error('Upload error', error);
+    console.error('[Upload API] Upload error:', error);
     const message = error instanceof Error ? error.message : 'Upload failed.';
     return NextResponse.json({ error: message }, { status: 500 });
   }

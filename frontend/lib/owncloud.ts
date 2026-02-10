@@ -38,7 +38,10 @@ export async function uploadToOwnCloud(
   rootOverride?: string,
   subFolder?: string
 ) {
-  if (!ownCloudClient) throw new Error('ownCloud client not configured');
+  if (!ownCloudClient) {
+    console.error('[ownCloud] Client not configured - missing env variables');
+    throw new Error('ownCloud client not configured');
+  }
 
   const sanitized = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
   const root = rootOverride || OWNCLOUD_ROOT;
@@ -46,12 +49,15 @@ export async function uploadToOwnCloud(
   const folder = subFolder ? `${baseFolder}/${subFolder}`.replace(/\/+/g, '/') : baseFolder;
   const path = `${folder}/${sanitized}`.replace(/\/+/g, '/');
 
+  console.log('[ownCloud] Ensuring directory exists:', folder);
   await ensureDirectory(folder);
 
+  console.log('[ownCloud] Uploading file:', path);
   await ownCloudClient.putFileContents(path, buffer, {
     overwrite: true
   });
 
+  console.log('[ownCloud] Upload successful:', path);
   return {
     path,
     url: `${OWNCLOUD_URL}${path}`
