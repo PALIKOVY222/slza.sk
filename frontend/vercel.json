@@ -1,4 +1,9 @@
 {
+  "build": {
+    "env": {
+      "PRISMA_SCHEMA_PATH": "./schema.prisma"
+    }
+  },
   "framework": "nextjs",
   "functions": {
     "app/api/**/*.ts": {
