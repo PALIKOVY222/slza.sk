@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "cp prisma/schema.prisma ./schema.prisma && prisma generate && next build",
+    "postinstall": "prisma generate",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "benchmark:plotbase": "node tools/price-benchmark/run.mjs --site=plotbase",
