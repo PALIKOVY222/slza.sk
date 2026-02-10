@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
+import { removeArtworkFile, saveArtworkFile, StoredArtworkMeta } from '../../lib/artwork-store';
 
 export type ArtworkInfo = {
   title?: string;
@@ -9,6 +10,8 @@ export type ArtworkInfo = {
   maxFileSizeMb?: number;
   notes?: string[];
 };
+
+export type ArtworkUploadResult = StoredArtworkMeta;
 
 const defaultFormats = ['PDF', 'AI', 'EPS', 'SVG', 'PNG', 'JPG'];
 
@@ -41,10 +44,12 @@ function formatBytes(bytes: number) {
 
 export default function ArtworkUpload({
   info,
-  onFileChange
+  onFileChange,
+  productSlug
 }: {
   info?: ArtworkInfo;
-  onFileChange?: (file: File | null) => void;
+  onFileChange?: (file: File | null, upload?: ArtworkUploadResult | null) => void;
+  productSlug?: string;
 }) {
   const formats = info?.supportedFormats?.length ? info.supportedFormats : defaultFormats;
   const maxSize = info?.maxFileSizeMb ? info.maxFileSizeMb : 100;
@@ -52,14 +57,19 @@ export default function ArtworkUpload({
 
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [storedResult, setStoredResult] = useState<ArtworkUploadResult | null>(null);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const next = event.target.files?.[0] || null;
     setError(null);
-    setFile(next);
-    onFileChange?.(next);
 
-    if (!next) return;
+    if (!next) {
+      setFile(null);
+      setStoredResult(null);
+      onFileChange?.(null, null);
+      return;
+    }
 
     const ext = next.name.includes('.') ? `.${next.name.split('.').pop()?.toLowerCase()}` : '';
     const allowed = formats
@@ -69,12 +79,39 @@ export default function ArtworkUpload({
 
     if (ext && allowed.length && !allowed.includes(ext.replace('.', ''))) {
       setError('Nepodporovaný formát súboru.');
+      setFile(null);
+      setStoredResult(null);
+      onFileChange?.(null, null);
       return;
     }
 
     const maxBytes = maxSize * 1024 * 1024;
     if (next.size > maxBytes) {
       setError(`Súbor je príliš veľký (max ${maxSize} MB).`);
+      setFile(null);
+      setStoredResult(null);
+      onFileChange?.(null, null);
+      return;
+    }
+
+    setFile(next);
+    setStoredResult(null);
+    onFileChange?.(next, null);
+
+    try {
+      setSaving(true);
+      if (storedResult?.id) {
+        await removeArtworkFile(storedResult.id);
+      }
+      const saved = await saveArtworkFile(next);
+      setStoredResult(saved);
+      onFileChange?.(next, saved);
+    } catch (err) {
+      setError((err as Error).message || 'Nepodarilo sa uložiť súbor.');
+      setStoredResult(null);
+      onFileChange?.(next, null);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -109,6 +146,12 @@ export default function ArtworkUpload({
             Vybraný súbor: <span className="font-semibold">{file.name}</span>{' '}
             <span className="text-[#4d5d6d]">({formatBytes(file.size)})</span>
           </div>
+        )}
+        {saving && (
+          <div className="mt-2 text-sm text-[#4d5d6d]">Ukladám súbor…</div>
+        )}
+        {storedResult && !saving && !error && (
+          <div className="mt-2 text-sm text-green-600">Súbor pripravený na odoslanie.</div>
         )}
         {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
       </div>

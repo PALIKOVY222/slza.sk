@@ -51,7 +51,7 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
   const [variant, setVariant] = useState<VariantOption>(variantOptions[0]);
   const [quantity, setQuantity] = useState<number>(1);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
-  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
 
   const price = useMemo(() => {
@@ -85,9 +85,10 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
         ...(artworkFile
           ? {
               artwork: {
-                name: artworkFile.name,
-                size: artworkFile.size,
-                base64: artworkBase64
+                name: artworkStored?.name || artworkFile.name,
+                size: artworkStored?.size || artworkFile.size,
+                type: artworkStored?.type,
+                fileId: artworkStored?.id
               }
             }
           : {})
@@ -191,19 +192,10 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
 
       <ArtworkUpload
         info={artwork}
-        onFileChange={(file) => {
+        productSlug="peciatky"
+        onFileChange={(file, upload) => {
           setArtworkFile(file);
-          setArtworkBase64(null);
-          if (!file) return;
-          const maxBytes = 6 * 1024 * 1024;
-          if (file.size > maxBytes) return;
-
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = typeof reader.result === 'string' ? reader.result : null;
-            setArtworkBase64(result);
-          };
-          reader.readAsDataURL(file);
+          setArtworkStored(upload || null);
         }}
       />
 

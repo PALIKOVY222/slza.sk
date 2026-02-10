@@ -83,7 +83,7 @@ export default function LetakyCalculator({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
-  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
 
   useEffect(() => {
@@ -146,9 +146,10 @@ export default function LetakyCalculator({
         ...(artworkFile
           ? {
               artwork: {
-                name: artworkFile.name,
-                size: artworkFile.size,
-                base64: artworkBase64
+                name: artworkStored?.name || artworkFile.name,
+                size: artworkStored?.size || artworkFile.size,
+                type: artworkStored?.type,
+                fileId: artworkStored?.id
               }
             }
           : {})
@@ -269,19 +270,10 @@ export default function LetakyCalculator({
 
       <ArtworkUpload
         info={artwork}
-        onFileChange={(file) => {
+        productSlug="letaky"
+        onFileChange={(file, upload) => {
           setArtworkFile(file);
-          setArtworkBase64(null);
-          if (!file) return;
-          const maxBytes = 6 * 1024 * 1024;
-          if (file.size > maxBytes) return;
-
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = typeof reader.result === 'string' ? reader.result : null;
-            setArtworkBase64(result);
-          };
-          reader.readAsDataURL(file);
+          setArtworkStored(upload || null);
         }}
       />
 

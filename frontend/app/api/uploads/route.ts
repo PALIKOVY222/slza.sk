@@ -7,30 +7,62 @@ export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { fileName, base64, mimeType, orderId, productSlug, orderNumber } = body as {
-      fileName: string;
-      base64: string;
-      mimeType?: string;
-      orderId?: string;
-      productSlug?: string;
-      orderNumber?: string;
-    };
+    const contentType = req.headers.get('content-type') || '';
 
-    console.log('[Upload API] Received request:', { fileName, mimeType, orderId, productSlug, orderNumber });
+    let fileName = '';
+    let base64 = '';
+    let mimeType: string | undefined;
+    let orderId: string | undefined;
+    let productSlug: string | undefined;
+    let orderNumber: string | undefined;
+    let buffer: Buffer | null = null;
 
-    if (!fileName || !base64) {
-      console.error('[Upload API] Missing fileName or base64');
-      return NextResponse.json({ error: 'fileName and base64 are required.' }, { status: 400 });
-    }
+    if (contentType.includes('multipart/form-data')) {
+      const form = await req.formData();
+      const file = form.get('file');
 
-    let buffer: Buffer;
-    try {
-      buffer = Buffer.from(base64, 'base64');
-      console.log('[Upload API] Buffer created, size:', buffer.length);
-    } catch (err) {
-      console.error('[Upload API] Invalid base64:', err);
-      return NextResponse.json({ error: 'Invalid base64 payload.' }, { status: 400 });
+      orderId = form.get('orderId')?.toString();
+      productSlug = form.get('productSlug')?.toString();
+      orderNumber = form.get('orderNumber')?.toString();
+      fileName = form.get('fileName')?.toString() || '';
+
+      if (file && typeof file === 'object' && 'arrayBuffer' in file) {
+        const f = file as File;
+        fileName = fileName || f.name;
+        mimeType = f.type || undefined;
+        const arrayBuffer = await f.arrayBuffer();
+        buffer = Buffer.from(arrayBuffer);
+      }
+
+      if (!fileName || !buffer) {
+        console.error('[Upload API] Missing file in form-data');
+        return NextResponse.json({ error: 'file is required.' }, { status: 400 });
+      }
+    } else {
+      const body = await req.json();
+      ({ fileName, base64, mimeType, orderId, productSlug, orderNumber } = body as {
+        fileName: string;
+        base64: string;
+        mimeType?: string;
+        orderId?: string;
+        productSlug?: string;
+        orderNumber?: string;
+      });
+
+      console.log('[Upload API] Received request:', { fileName, mimeType, orderId, productSlug, orderNumber });
+
+      if (!fileName || !base64) {
+        console.error('[Upload API] Missing fileName or base64');
+        return NextResponse.json({ error: 'fileName and base64 are required.' }, { status: 400 });
+      }
+
+      try {
+        buffer = Buffer.from(base64, 'base64');
+        console.log('[Upload API] Buffer created, size:', buffer.length);
+      } catch (err) {
+        console.error('[Upload API] Invalid base64:', err);
+        return NextResponse.json({ error: 'Invalid base64 payload.' }, { status: 400 });
+      }
     }
 
     const dateFolder = new Date().toISOString().slice(0, 10);

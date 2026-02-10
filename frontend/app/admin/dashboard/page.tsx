@@ -70,7 +70,9 @@ const AdminDashboard = () => {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-5 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 sm:gap-4">
-              <img src="/images/slza_logo.svg" alt="SLZA" className="h-8 sm:h-12" />
+              <a href="/" aria-label="Domov" className="inline-flex items-center">
+                <img src="/images/slza_logo.svg" alt="SLZA" className="h-8 sm:h-12" />
+              </a>
               <span className="text-base sm:text-xl font-bold text-[#111518]">Admin</span>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">

@@ -161,10 +161,42 @@ const KosikPage = () => {
 
       const uploads: Array<{ fileName: string; mimeType?: string; fileSize?: number; url: string }> = [];
 
+      const { getArtworkFile, removeArtworkFile } = await import('../../lib/artwork-store');
+
       for (const item of cartItems) {
         const artwork = item.options?.artwork;
-        if (artwork?.name && !artwork?.base64) {
-          throw new Error('Súbor je príliš veľký na automatické odoslanie. Zmenši ho alebo použi menší súbor.');
+        if (artwork?.fileId && artwork?.name) {
+          const storedFile = await getArtworkFile(artwork.fileId);
+          if (!storedFile) {
+            throw new Error('Podklady sa nenašli. Skúste to prosím znovu.');
+          }
+
+          const form = new FormData();
+          form.append('file', storedFile);
+          form.append('fileName', artwork.name);
+          form.append('productSlug', item.productSlug || item.productName.toLowerCase().replace(/\s+/g, '-'));
+          form.append('orderNumber', orderNumber);
+
+          const res = await fetch('/api/uploads', {
+            method: 'POST',
+            body: form
+          });
+
+          if (!res.ok) {
+            const errPayload = await res.json().catch(() => ({ error: 'Upload failed.' }));
+            throw new Error(errPayload.error || 'Nepodarilo sa nahrať súbor do cloudu.');
+          }
+
+          const data = (await res.json()) as { url: string; path: string };
+          uploads.push({
+            fileName: artwork.name,
+            mimeType: artwork.type,
+            fileSize: artwork.size,
+            url: data.url
+          });
+
+          await removeArtworkFile(artwork.fileId);
+          continue;
         }
         if (artwork?.base64 && artwork?.name) {
           const base64 = String(artwork.base64);
@@ -194,6 +226,8 @@ const KosikPage = () => {
             fileSize: artwork.size,
             url: data.url
           });
+        } else if (artwork?.name) {
+          throw new Error('Podklady sa nepodarilo nahrať. Skúste to prosím znovu.');
         }
       }
 

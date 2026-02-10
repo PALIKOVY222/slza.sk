@@ -16,7 +16,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
   const [customSize, setCustomSize] = useState({ width: '', height: '' });
   const [totalPrice, setTotalPrice] = useState(product.basePrice || product.basePricePerCm2 || 0);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
-  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
 
   // Inicializácia prvých možností
@@ -356,9 +356,10 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
         ...(artworkFile
           ? {
               artwork: {
-                name: artworkFile.name,
-                size: artworkFile.size,
-                base64: artworkBase64
+                name: artworkStored?.name || artworkFile.name,
+                size: artworkStored?.size || artworkFile.size,
+                type: artworkStored?.type,
+                fileId: artworkStored?.id
               }
             }
           : {})
@@ -634,19 +635,10 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
 
       <ArtworkUpload
         info={product.artwork as ArtworkInfo}
-        onFileChange={(file) => {
+        productSlug={slug || product.slug}
+        onFileChange={(file, upload) => {
           setArtworkFile(file);
-          setArtworkBase64(null);
-          if (!file) return;
-          const maxBytes = 6 * 1024 * 1024;
-          if (file.size > maxBytes) return;
-
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = typeof reader.result === 'string' ? reader.result : null;
-            setArtworkBase64(result);
-          };
-          reader.readAsDataURL(file);
+          setArtworkStored(upload || null);
         }}
       />
 

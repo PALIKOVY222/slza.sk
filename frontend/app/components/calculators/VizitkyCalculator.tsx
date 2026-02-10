@@ -250,8 +250,9 @@ export default function VizitkyCalculator({
   const [color, setColor] = useState<ColorOption>(config.colorOptions[0] ?? defaultConfig.colorOptions[0]);
   const [quantity, setQuantity] = useState<number>(config.defaultQuantity ?? defaultConfig.defaultQuantity ?? 100);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
-  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
+  const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [artworkError, setArtworkError] = useState<string | null>(null);
+  const [artworkSaving, setArtworkSaving] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
 
   const price = useMemo(() => {
@@ -280,9 +281,10 @@ export default function VizitkyCalculator({
         ...(artworkFile
           ? {
               artwork: {
-                name: artworkFile.name,
-                size: artworkFile.size,
-                base64: artworkBase64
+                name: artworkStored?.name || artworkFile.name,
+                size: artworkStored?.size || artworkFile.size,
+                type: artworkStored?.type,
+                fileId: artworkStored?.id
               }
             }
           : {})
@@ -410,17 +412,17 @@ export default function VizitkyCalculator({
             Podporovaný formát: <span className="font-semibold">PDF</span>
           </div>
           <div className="text-xs text-[#4d5d6d] mb-3">
-            Súbor sa nahrá na cloud až pri odoslaní objednávky.
+            Súbor sa odošle na cloud po odoslaní objednávky.
           </div>
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <input
               type="file"
               accept="application/pdf,.pdf"
-              onChange={(e) => {
+              onChange={async (e) => {
                 const file = e.target.files?.[0] || null;
                 setArtworkError(null);
                 setArtworkFile(file);
-                setArtworkBase64(null);
+                setArtworkStored(null);
 
                 if (!file) return;
                 if (file.type && file.type !== 'application/pdf') {
@@ -428,22 +430,16 @@ export default function VizitkyCalculator({
                   return;
                 }
 
-                // Súbor sa uloží do base64 a nahrá na cloud až pri checkout
-                const maxBytes = 6 * 1024 * 1024; // 6MB limit pre localStorage
-                if (file.size > maxBytes) {
-                  setArtworkError(`PDF je príliš veľké (${formatBytes(file.size)}). Maximálna veľkosť je ${formatBytes(maxBytes)}.`);
-                  return;
+                try {
+                  setArtworkSaving(true);
+                  const { saveArtworkFile } = await import('../../../lib/artwork-store');
+                  const saved = await saveArtworkFile(file);
+                  setArtworkStored(saved);
+                } catch (err) {
+                  setArtworkError((err as Error).message || 'Nepodarilo sa uložiť PDF.');
+                } finally {
+                  setArtworkSaving(false);
                 }
-
-                const reader = new FileReader();
-                reader.onload = () => {
-                  const result = typeof reader.result === 'string' ? reader.result : null;
-                  setArtworkBase64(result);
-                };
-                reader.onerror = () => {
-                  setArtworkError('Nepodarilo sa načítať PDF. Skúste to prosím znovu.');
-                };
-                reader.readAsDataURL(file);
               }}
               className="block w-full text-sm text-[#4d5d6d] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#0087E3] file:text-white file:font-semibold hover:file:bg-[#006bb3]"
             />
@@ -453,6 +449,12 @@ export default function VizitkyCalculator({
                 Vybraný súbor: <span className="font-semibold">{artworkFile.name}</span>{' '}
                 <span className="text-[#4d5d6d]">({formatBytes(artworkFile.size)})</span>
               </div>
+            )}
+            {artworkSaving && (
+              <div className="mt-2 text-sm text-[#4d5d6d]">Ukladám súbor…</div>
+            )}
+            {artworkStored && !artworkSaving && !artworkError && (
+              <div className="mt-2 text-sm text-green-600">Súbor pripravený na odoslanie.</div>
             )}
             {artworkError && <div className="mt-2 text-sm text-red-600">{artworkError}</div>}
           </div>

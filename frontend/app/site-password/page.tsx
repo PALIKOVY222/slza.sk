@@ -40,11 +40,13 @@ function SitePasswordForm() {
     <div className="min-h-screen bg-gradient-to-br from-[#0087E3] to-[#006bb3] flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <img 
-            src="/images/slza_logo.svg" 
-            alt="SLZA Print" 
-            className="h-16 mx-auto mb-6 filter brightness-0"
-          />
+          <a href="/" aria-label="Domov" className="inline-flex items-center">
+            <img 
+              src="/images/slza_logo.svg" 
+              alt="SLZA Print" 
+              className="h-16 mx-auto mb-6 filter brightness-0"
+            />
+          </a>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Stránka je chránená
           </h1>

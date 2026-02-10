@@ -45,7 +45,10 @@ const Header = () => {
     <header className="bg-transparent absolute top-0 left-0 right-0 z-[1000] py-5">
       <div className="max-w-[1320px] mx-auto px-5 flex justify-between items-center">
         <div className="logo flex-1">
-          <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-50 w-auto block" />
+          <a href="/" aria-label="Domov" className="inline-flex items-center">
+            <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-50 w-auto hidden lg:block" />
+            <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto block lg:hidden" />
+          </a>
         </div>
         
         {/* Desktop Navigation */}
@@ -165,7 +168,9 @@ const Header = () => {
         <div className="lg:hidden bg-[#1a1d21] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col">
           {/* Logo and Close Button */}
           <div className="flex justify-between items-center px-5 py-5 border-b border-white/10">
-            <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-12 w-auto" />
+            <a href="/" aria-label="Domov" className="inline-flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto" />
+            </a>
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="bg-transparent border-none cursor-pointer p-2 text-white"

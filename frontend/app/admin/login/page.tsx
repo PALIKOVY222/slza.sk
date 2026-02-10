@@ -28,7 +28,9 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#0087E3] to-[#006bb3] flex items-center justify-center px-5">
       <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 w-full max-w-md">
         <div className="text-center mb-8">
-          <img src="/images/slza_logo.svg" alt="SLZA" className="h-16 mx-auto mb-4" />
+          <a href="/" aria-label="Domov" className="inline-flex items-center">
+            <img src="/images/slza_logo.svg" alt="SLZA" className="h-16 mx-auto mb-4" />
+          </a>
           <h1 className="text-3xl font-bold text-[#111518] mb-2">Admin prihlásenie</h1>
           <p className="text-[#4d5d6d]">Prihláste sa do administrácie</p>
         </div>
