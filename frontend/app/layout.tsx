@@ -5,11 +5,11 @@ import CookieBanner from "./components/CookieBanner";
 export const metadata: Metadata = {
   metadataBase: new URL('https://slza.sk'),
   title: {
-    default: "SLZA Print - Tlačiareň Prešov | Digitálna a Ofsetová Tlač",
+    default: "SLZA Print - Tlačiareň na Liptove | Digitálna a Ofsetová Tlač",
     template: "%s | SLZA Print"
   },
-  description: "Profesionálna tlačiareň SLZA v Prešove. Ponúkame digitálnu a ofsetovú tlač, copycentrum, veľkoformátovú tlač a grafický dizajn. Od vizitky po knihu - kvalitné služby, rýchla dodávka.",
-  keywords: "tlačiareň, tlačiareň Prešov, digitálna tlač, ofsetová tlač, veľkoformátová tlač, vizitky, letáky, bannery, plagáty, nálepky, grafický dizajn, SLZA print",
+  description: "Profesionálna tlačiareň SLZA na Liptove. Ponúkame digitálnu a ofsetovú tlač, copycentrum, veľkoformátovú tlač a grafický dizajn. Od vizitky po knihu - kvalitné služby, rýchla dodávka.",
+  keywords: "tlačiareň, tlačiareň Liptov, digitálna tlač, ofsetová tlač, veľkoformátová tlač, vizitky, letáky, bannery, plagáty, nálepky, grafický dizajn, SLZA print",
   authors: [{ name: "SLZA Print" }],
   creator: "SLZA Print",
   publisher: "SLZA Print",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SLZA Print - Tlačiareň Prešov | Digitálna a Ofsetová Tlač",
-    description: "Profesionálna tlačiareň SLZA v Prešove. Ponúkame digitálnu a ofsetovú tlač, copycentrum, veľkoformátovú tlač a grafický dizajn. Od vizitky po knihu.",
+    title: "SLZA Print - Tlačiareň na Liptove | Digitálna a Ofsetová Tlač",
+    description: "Profesionálna tlačiareň SLZA na Liptove. Ponúkame digitálnu a ofsetovú tlač, copycentrum, veľkoformátovú tlač a grafický dizajn. Od vizitky po knihu.",
     images: ['/images/og-image.jpg'],
   },
   robots: {
@@ -68,15 +68,15 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'SLZA Print',
-    description: 'Profesionálna tlačiareň v Prešove ponúkajúca digitálnu tlač, ofsetovú tlač, veľkoformátovú tlač a grafický dizajn',
+    description: 'Profesionálna tlačiareň na Liptove ponúkajúca digitálnu tlač, ofsetovú tlač, veľkoformátovú tlač a grafický dizajn',
     url: 'https://slza.sk',
     telephone: '+421-XX-XXX-XXXX', // Nahraď reálnym číslom
     email: 'info@slza.sk',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Vaša adresa', // Nahraď reálnou adresou
-      addressLocality: 'Prešov',
-      addressRegion: 'Prešovský kraj',
+      addressLocality: 'Liptov',
+      addressRegion: 'Žilinský kraj',
       postalCode: 'XXX XX',
       addressCountry: 'SK'
     },

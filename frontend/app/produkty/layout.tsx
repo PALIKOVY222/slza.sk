@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Produkty - SLZA Print | Tlačiareň',
   description: 'Široký výber tlačiarenských produktov - vizitky, letáky, nálepky, bannery, plagáty, pečiatky a mnoho ďalších. Kvalitná digitálna a ofsetová tlač.',
-  keywords: 'produkty tlačiareň, vizitky, letáky, nálepky, bannery, plagáty, pečiatky, tlačiareň Prešov',
+  keywords: 'produkty tlačiareň, vizitky, letáky, nálepky, bannery, plagáty, pečiatky, tlačiareň Liptov',
   openGraph: {
     title: 'Produkty - SLZA Print',
     description: 'Široký výber tlačiarenských produktov - vizitky, letáky, nálepky, bannery, plagáty, pečiatky a mnoho ďalších.',
