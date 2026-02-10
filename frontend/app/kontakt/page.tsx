@@ -150,48 +150,48 @@ const KontaktPage = () => {
         </div>
         
         {/* Contact Info Box - overlapping */}
-        <div className="max-w-[1320px] mx-auto px-5 absolute left-0 right-0 bottom-0 transform translate-y-1/2">
-          <div className="bg-white rounded-3xl shadow-2xl p-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-5 absolute left-0 right-0 bottom-0 transform translate-y-1/2">
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-10 lg:p-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
               {/* Phone */}
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-14 h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center sm:text-left">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </div>
-                <div className="text-center">
-                  <h3 className="text-lg font-bold mb-2 text-[#111518]">Telefónne číslo</h3>
-                  <p className="text-[#4d5d6d]">0911 536 671</p>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Telefónne číslo</h3>
+                  <p className="text-sm sm:text-base text-[#4d5d6d]">0911 536 671</p>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-14 h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center sm:text-left">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
                 </div>
-                <div className="text-center">
-                  <h3 className="text-lg font-bold mb-2 text-[#111518]">Email</h3>
-                  <p className="text-[#4d5d6d]">slza@slza.sk</p>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Email</h3>
+                  <p className="text-sm sm:text-base text-[#4d5d6d] break-all">slza@slza.sk</p>
                 </div>
               </div>
 
               {/* Address */}
-              <div className="flex items-center justify-center gap-4">
-                <div className="w-14 h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center sm:text-left">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0087E3] rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                     <circle cx="12" cy="10" r="3"/>
                   </svg>
                 </div>
-                <div className="text-center">
-                  <h3 className="text-lg font-bold mb-2 text-[#111518]">Adresa</h3>
-                  <p className="text-[#4d5d6d]">Hodžova 1160, 031 01</p>
-                  <p className="text-[#4d5d6d]">Liptovský Mikuláš</p>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Adresa</h3>
+                  <p className="text-sm sm:text-base text-[#4d5d6d]">Hodžova 1160, 031 01</p>
+                  <p className="text-sm sm:text-base text-[#4d5d6d]">Liptovský Mikuláš</p>
                 </div>
               </div>
             </div>
@@ -200,8 +200,8 @@ const KontaktPage = () => {
       </section>
 
       {/* Map and Form Section */}
-      <section className="pt-64 pb-16 bg-white">
-        <div className="max-w-[1320px] mx-auto px-5">
+      <section className="pt-48 sm:pt-56 md:pt-64 lg:pt-72 pb-12 sm:pb-16 bg-white">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-5">
           {/* Map and Form */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Map */}

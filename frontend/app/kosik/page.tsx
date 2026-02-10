@@ -301,51 +301,51 @@ const KosikPage = () => {
                 
                 <div className="space-y-3 sm:space-y-4">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="bg-white border-2 border-gray-200 rounded-xl p-4 sm:p-6">
-                      <div className="flex gap-3 sm:gap-6">
-                        <img src={item.image} alt={item.productName} className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 object-contain bg-gray-50 rounded-lg flex-shrink-0" />
+                    <div key={item.id} className="bg-white border-2 border-gray-200 rounded-xl p-3 sm:p-4 lg:p-6">
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6">
+                        <img src={item.image} alt={item.productName} className="w-20 h-20 sm:w-24 sm:h-24 object-contain bg-gray-50 rounded-lg flex-shrink-0 mx-auto sm:mx-0" />
                         
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#111518] mb-2">{item.productName}</h3>
+                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#111518] mb-2 text-center sm:text-left">{item.productName}</h3>
                           
                           <div className="space-y-1 mb-3 sm:mb-4">
                             {Object.entries(item.options).map(([key, value]: any) => {
                               if (key === 'quantity') return null;
                               return (
-                                <p key={key} className="text-xs sm:text-sm text-[#4d5d6d] truncate">
+                                <p key={key} className="text-xs sm:text-sm text-[#4d5d6d] break-words">
                                   <span className="font-medium">{key}:</span> {formatOptionValue(value)}
                                 </p>
                               );
                             })}
                           </div>
 
-                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                            <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-sm sm:text-base"
+                                className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-base sm:text-lg font-bold"
                               >
                                 −
                               </button>
-                              <span className="font-semibold text-[#111518] w-7 sm:w-8 text-center text-sm sm:text-base">{item.quantity}</span>
+                              <span className="font-semibold text-[#111518] min-w-[40px] text-center text-base sm:text-lg">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-sm sm:text-base"
+                                className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border-2 border-gray-300 flex items-center justify-center hover:border-[#0087E3] transition-colors text-base sm:text-lg font-bold"
                               >
                                 +
                               </button>
                             </div>
 
-                            <div className="text-left sm:text-right">
-                              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-[#0087E3]">
-                                {(item.price * item.quantity).toFixed(2)} €
-                              </p>
+                            <div className="flex items-center justify-between border-t pt-3">
                               <button
                                 onClick={() => removeItem(item.id)}
-                                className="text-xs sm:text-sm text-red-600 hover:underline mt-1"
+                                className="text-xs sm:text-sm text-red-600 hover:underline font-medium"
                               >
                                 Odstrániť
                               </button>
+                              <p className="text-xl sm:text-2xl font-bold text-[#0087E3]">
+                                {(item.price * item.quantity).toFixed(2)} €
+                              </p>
                             </div>
                           </div>
                         </div>
