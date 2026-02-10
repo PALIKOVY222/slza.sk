@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "postinstall": "prisma generate",
-    "build": "next build",
+    "build": "./build.sh",
     "start": "next start",
     "lint": "eslint",
     "benchmark:plotbase": "node tools/price-benchmark/run.mjs --site=plotbase",
