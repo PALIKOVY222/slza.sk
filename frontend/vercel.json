@@ -1,5 +1,7 @@
 {
+  "buildCommand": "cp prisma/schema.prisma ./schema.prisma && prisma generate && next build",
   "framework": "nextjs",
+  "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 60,
       "memory": 1024
