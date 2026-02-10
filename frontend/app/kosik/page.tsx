@@ -274,13 +274,6 @@ const KosikPage = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#0087E3] to-[#006bb3] pt-32 sm:pt-40 lg:pt-48 pb-12 sm:pb-16 lg:pb-24 text-center relative overflow-hidden">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-5 relative z-10">
-          <nav className="text-white/90 text-xs sm:text-sm mb-4 sm:mb-6 flex items-center justify-center gap-2">
-            <a href="/" className="hover:text-white transition-colors font-medium">Domov</a>
-            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-white font-semibold">Košík</span>
-          </nav>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4">Nákupný košík</h1>
           <p className="text-white/90 text-sm sm:text-base lg:text-lg">Skontrolujte svoju objednávku a dokončite nákup</p>
         </div>

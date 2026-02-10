@@ -71,7 +71,7 @@ const Footer = () => {
         <div className="max-w-[1320px] mx-auto px-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-32 max-w-[1100px] mx-auto text-center md:text-left">
             <div className="flex justify-center md:justify-start">
-              <img src="/images/slza_logo_biele.svg" alt="SLZA Logo" className="h-12 md:h-16" />
+              <img src="/images/slza_logo_biele.svg" alt="SLZA Logo" className="h-20 md:h-24" />
             </div>
             <div>
               <h4 className="text-sm font-bold mb-6 text-white uppercase tracking-[1px]">USEFUL LINKS</h4>

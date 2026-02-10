@@ -162,12 +162,28 @@ const Header = () => {
       
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[rgba(17,21,24,0.98)] backdrop-blur-md absolute top-full left-0 right-0 py-4 px-5 shadow-lg">
-          <nav className="flex flex-col gap-4">
-            <a href="/" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Domov</a>
-            <a href="/produkty" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Eshop</a>
-            <a href="/kontakt" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Kontakt</a>
-            <a href="/kosik" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Košík</a>
+        <div className="lg:hidden bg-[#1a1d21] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col">
+          {/* Logo and Close Button */}
+          <div className="flex justify-between items-center px-5 py-5 border-b border-white/10">
+            <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-12 w-auto" />
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-transparent border-none cursor-pointer p-2 text-white"
+              aria-label="Close menu"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          
+          {/* Menu Items */}
+          <nav className="flex flex-col px-5 py-6">
+            <a href="/" className="text-[#7B5FED] font-bold text-2xl py-4" onClick={() => setMobileMenuOpen(false)}>Domov</a>
+            <a href="/produkty" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Produkty</a>
+            <a href="/kontakt" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Kontakt</a>
+            <a href="/kosik" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Košík</a>
             
             {user ? (
               <>

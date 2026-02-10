@@ -146,11 +146,6 @@ const KontaktPage = () => {
       {/* Hero Section */}
       <section className="bg-[#0087E3] pt-48 pb-42 text-center relative">
         <div className="max-w-[1320px] mx-auto px-5">
-          <nav className="text-white/80 text-sm mb-4">
-            <a href="/" className="hover:text-white transition-colors">Domov</a>
-            <span className="mx-2">/</span>
-            <span className="text-white">KONTAKT</span>
-          </nav>
           <h1 className="text-5xl font-bold text-white">Kontakt</h1>
         </div>
         

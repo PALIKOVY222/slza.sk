@@ -97,11 +97,6 @@ function ProductsContent() {
       {/* Hero Section */}
       <section className="bg-[#0087E3] pt-60 pb-20 text-center">
         <div className="max-w-[1320px] mx-auto px-5">
-          <nav className="text-white/80 text-sm mb-6">
-            <a href="/" className="hover:text-white transition-colors">DOMOV</a>
-            <span className="mx-2">/</span>
-            <span className="text-white">ESHOP</span>
-          </nav>
           <h1 className="text-5xl font-bold text-white">Produkty</h1>
         </div>
       </section>
