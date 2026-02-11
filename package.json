@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@vercel/analytics": "^1.6.1"
+    "@neondatabase/serverless": "^1.0.2",
+    "@vercel/analytics": "^1.6.1",
+    "mongodb": "^7.1.0"
   }
 }

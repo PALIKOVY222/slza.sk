@@ -342,7 +342,7 @@ const KosikPage = () => {
       <Header />
 
       {/* Compact hero */}
-      <section className="bg-[#0087E3] pt-36 sm:pt-40 lg:pt-44 pb-8 sm:pb-10 lg:pb-12">
+      <section className="bg-[#0087E3] pt-44 sm:pt-48 lg:pt-52 pb-8 sm:pb-10 lg:pb-12">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-5 text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
             Nákupný košík
@@ -510,7 +510,7 @@ const KosikPage = () => {
                 </div>
                 <button
                   onClick={() => setStep(2)}
-                  className="w-full bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-4 rounded-xl font-bold text-base hover:shadow-lg hover:scale-[1.01] transition-all"
+                  className="w-full bg-[#0087E3] text-white py-4 rounded-xl font-bold text-base hover:bg-[#006bb3] transition-all"
                 >
                   Pokračovať k objednávke
                 </button>
@@ -624,7 +624,7 @@ const KosikPage = () => {
                   </div>
 
                   <div className="lg:hidden">
-                    <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-4 rounded-xl font-bold text-base hover:shadow-lg hover:scale-[1.01] transition-all disabled:opacity-50">
+                    <button type="submit" disabled={submitting} className="w-full flex items-center justify-center gap-3 bg-[#0087E3] text-white py-4 rounded-xl font-bold text-base hover:bg-[#006bb3] transition-all disabled:opacity-50">
                       {submitting ? "Odosielam..." : paymentMethod === "card" ? "Pokračovať k platbe" : "Dokončiť objednávku"}
                     </button>
                     {submitError && <div className="text-sm text-red-600 mt-3">{submitError}</div>}
@@ -657,7 +657,7 @@ const KosikPage = () => {
                     </div>
                   </div>
                   <div className="hidden lg:block">
-                    <button type="submit" form="checkout-form" disabled={submitting} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-4 rounded-xl font-bold text-base hover:shadow-lg hover:scale-[1.01] transition-all disabled:opacity-50">
+                    <button type="submit" form="checkout-form" disabled={submitting} className="w-full flex items-center justify-center gap-3 bg-[#0087E3] text-white py-4 rounded-xl font-bold text-base hover:bg-[#006bb3] transition-all disabled:opacity-50">
                       {submitting ? "Odosielam..." : paymentMethod === "card" ? "Pokračovať k platbe" : "Dokončiť objednávku"}
                     </button>
                     {submitError && <div className="text-sm text-red-600 mt-3">{submitError}</div>}
