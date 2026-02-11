@@ -195,36 +195,6 @@ const KosikPage = () => {
           });
 
           await removeArtworkFile(artwork.fileId);
-          continue;
-        }
-        if (artwork?.base64 && artwork?.name) {
-          const base64 = String(artwork.base64);
-          const stripped = base64.includes(',') ? base64.split(',')[1] : base64;
-
-          const res = await fetch('/api/uploads', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName: artwork.name,
-              base64: stripped,
-              mimeType: 'application/pdf',
-              productSlug: item.productSlug || item.productName.toLowerCase().replace(/\s+/g, '-'),
-              orderNumber
-            })
-          });
-
-          if (!res.ok) {
-            const errPayload = await res.json().catch(() => ({ error: 'Upload failed.' }));
-            throw new Error(errPayload.error || 'Nepodarilo sa nahrať súbor do cloudu.');
-          }
-
-          const data = (await res.json()) as { url: string; path: string };
-          uploads.push({
-            fileName: `${orderNumber}_${artwork.name}`,
-            mimeType: 'application/pdf',
-            fileSize: artwork.size,
-            url: data.url
-          });
         } else if (artwork?.name) {
           throw new Error('Podklady sa nepodarilo nahrať. Skúste to prosím znovu.');
         }
