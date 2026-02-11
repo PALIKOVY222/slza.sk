@@ -342,9 +342,9 @@ const KosikPage = () => {
       <Header />
 
       {/* Compact hero */}
-      <section className="bg-[#0087E3] pt-28 sm:pt-32 lg:pt-36 pb-6 sm:pb-8 lg:pb-10">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-5 pt-4 sm:pt-0">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1">
+      <section className="bg-[#0087E3] pt-36 sm:pt-40 lg:pt-44 pb-8 sm:pb-10 lg:pb-12">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-5 text-center">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
             Nákupný košík
           </h1>
           <p className="text-white/80 text-sm sm:text-base">

@@ -190,7 +190,7 @@ const KontaktPage = () => {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Adresa</h3>
-                  <p className="text-sm sm:text-base text-[#4d5d6d]">Hodžova 1160, 031 01</p>
+                  <p className="text-sm sm:text-base text-[#4d5d6d]">M. M. Hodžu 1160, 031 01</p>
                   <p className="text-sm sm:text-base text-[#4d5d6d]">Liptovský Mikuláš</p>
                 </div>
               </div>
@@ -207,7 +207,7 @@ const KontaktPage = () => {
             {/* Map */}
             <div className="bg-gray-200 rounded-lg overflow-hidden h-[608px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.5!2d19.6!3d49.08!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDA0JzQ4LjAiTiAxOcKwMzYnMDAuMCJF!5e0!3m2!1sen!2ssk!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.0!2d19.6117!3d49.0839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4715a3e5c76bb8a1%3A0x4b0e3c5f40e5d64a!2sM.%20M.%20Hod%C5%BEu%201160%2C%20031%2001%20Liptovsk%C3%BD%20Mikul%C3%A1%C5%A1!5e0!3m2!1ssk!2ssk!4v1707648000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
