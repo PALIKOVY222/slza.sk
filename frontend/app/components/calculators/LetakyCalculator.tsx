@@ -243,7 +243,8 @@ export default function LetakyCalculator({
                   type="number"
                   min={1}
                   value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                  onChange={(e) => setQuantity(e.target.value === '' ? 0 : Math.max(1, Math.floor(Number(e.target.value))))}
+                  onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) setQuantity(1); }}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
                 />
               </div>

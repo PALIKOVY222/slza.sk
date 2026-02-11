@@ -141,7 +141,8 @@ export default function BanerCalculator({ artwork }: { artwork?: ArtworkInfo }) 
                 type="number"
                 min={100}
                 value={widthMm}
-                onChange={(e) => setWidthMm(Math.max(1, Number(e.target.value) || 1))}
+                onChange={(e) => setWidthMm(e.target.value === '' ? 0 : Math.max(1, Number(e.target.value)))}
+                onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) setWidthMm(100); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
               />
             </div>
@@ -151,7 +152,8 @@ export default function BanerCalculator({ artwork }: { artwork?: ArtworkInfo }) 
                 type="number"
                 min={100}
                 value={heightMm}
-                onChange={(e) => setHeightMm(Math.max(1, Number(e.target.value) || 1))}
+                onChange={(e) => setHeightMm(e.target.value === '' ? 0 : Math.max(1, Number(e.target.value)))}
+                onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) setHeightMm(100); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
               />
             </div>
@@ -161,7 +163,8 @@ export default function BanerCalculator({ artwork }: { artwork?: ArtworkInfo }) 
                 type="number"
                 min={1}
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                onChange={(e) => setQuantity(e.target.value === '' ? 0 : Math.max(1, Math.floor(Number(e.target.value))))}
+                onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) setQuantity(1); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
               />
             </div>

@@ -58,11 +58,17 @@ const Header = () => {
         </nav>
         
         {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden bg-transparent border-none cursor-pointer p-2 text-white/90 transition-all duration-300 hover:text-white"
-          aria-label="Menu"
-        >
+        <div className="lg:hidden flex items-center gap-3">
+          <a href="/kosik" className="p-2 text-white/80 hover:text-white transition-colors" aria-label="Košík">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </a>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+            aria-label="Menu"
+          >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             {mobileMenuOpen ? (
               <>
@@ -78,6 +84,7 @@ const Header = () => {
             )}
           </svg>
         </button>
+        </div>
         
         <div className="hidden lg:flex gap-5 items-center flex-1 justify-end relative">{/* Desktop icons */}
           <button
@@ -164,18 +171,18 @@ const Header = () => {
       
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#1a1d21] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col">
-          {/* Logo and Close Button */}
-          <div className="flex justify-between items-center px-5 py-5 border-b border-white/10">
+        <div className="lg:hidden bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col">
+          {/* Header */}
+          <div className="flex justify-between items-center px-5 py-5">
             <a href="/" aria-label="Domov" className="inline-flex items-center" onClick={() => setMobileMenuOpen(false)}>
               <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto" />
             </a>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-transparent border-none cursor-pointer p-2 text-white"
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               aria-label="Close menu"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"/>
                 <line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
@@ -183,29 +190,54 @@ const Header = () => {
           </div>
           
           {/* Menu Items */}
-          <nav className="flex flex-col px-5 py-6">
-            <a href="/" className="text-[#7B5FED] font-bold text-2xl py-4" onClick={() => setMobileMenuOpen(false)}>Domov</a>
-            <a href="/produkty" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Produkty</a>
-            <a href="/kontakt" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Kontakt</a>
-            <a href="/kosik" className="text-white font-medium text-xl py-4" onClick={() => setMobileMenuOpen(false)}>Košík</a>
-            
+          <nav className="flex-1 flex flex-col justify-center px-8 -mt-16">
+            {[
+              { href: '/', label: 'Domov', icon: '🏠' },
+              { href: '/produkty', label: 'Produkty', icon: '🛍️' },
+              { href: '/kontakt', label: 'Kontakt', icon: '📞' },
+              { href: '/kosik', label: 'Košík', icon: '🛒' },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-4 text-white font-semibold text-2xl py-4 border-b border-white/5 hover:text-[#0087E3] transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="text-2xl">{item.icon}</span>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Bottom */}
+          <div className="px-8 pb-8 space-y-3">
             {user ? (
               <>
-                <a href="/ucet" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Môj účet</a>
-                {isAdmin && (
-                  <a href="/admin" className="text-white font-medium text-base py-2 border-b border-white/10" onClick={() => setMobileMenuOpen(false)}>Admin</a>
-                )}
+                <div className="flex items-center gap-3 text-white/60 text-sm mb-2">
+                  <div className="w-8 h-8 rounded-full bg-[#0087E3] flex items-center justify-center text-white text-xs font-bold">
+                    {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
+                  </div>
+                  <span>{user.firstName} {user.lastName}</span>
+                </div>
+                <div className="flex gap-2">
+                  <a href="/ucet" className="flex-1 text-center py-3 rounded-xl bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors" onClick={() => setMobileMenuOpen(false)}>Môj účet</a>
+                  {isAdmin && (
+                    <a href="/admin" className="flex-1 text-center py-3 rounded-xl bg-[#0087E3]/20 text-[#0087E3] text-sm font-medium hover:bg-[#0087E3]/30 transition-colors" onClick={() => setMobileMenuOpen(false)}>Admin</a>
+                  )}
+                </div>
                 <button
                   onClick={handleLogout}
-                  className="text-left text-red-400 font-medium text-base py-2 bg-transparent border-none cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-red-500/10 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors border-none cursor-pointer"
                 >
                   Odhlásiť sa
                 </button>
               </>
             ) : (
-              <a href="/login" className="text-white font-medium text-base py-2" onClick={() => setMobileMenuOpen(false)}>Prihlásiť sa</a>
+              <a href="/login" className="block text-center py-3 rounded-xl bg-[#0087E3] text-white text-sm font-semibold hover:bg-[#006bb3] transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Prihlásiť sa
+              </a>
             )}
-          </nav>
+          </div>
         </div>
       )}
     </header>

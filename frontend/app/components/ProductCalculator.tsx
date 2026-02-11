@@ -456,8 +456,9 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
                             min={1}
                             value={selectedOptions[category]?.amount ?? ''}
                             onChange={(e) =>
-                              handleOptionChange(category, { amount: Number(e.target.value) || 1 })
+                              handleOptionChange(category, { amount: e.target.value === '' ? '' : Math.max(1, Number(e.target.value)) })
                             }
+                            onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) handleOptionChange(category, { amount: 1 }); }}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
                             placeholder="napr. 100"
                           />
@@ -477,8 +478,9 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
                             min={1}
                             value={selectedOptions[category]?.amount ?? ''}
                             onChange={(e) =>
-                              handleOptionChange(category, { amount: Number(e.target.value) || 1 })
+                              handleOptionChange(category, { amount: e.target.value === '' ? '' : Math.max(1, Number(e.target.value)) })
                             }
+                            onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) handleOptionChange(category, { amount: 1 }); }}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
                             placeholder="napr. 100"
                           />

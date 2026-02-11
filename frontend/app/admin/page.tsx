@@ -70,9 +70,20 @@ const AdminPage = () => {
   const [trackingInput, setTrackingInput] = useState<{[key: number]: string}>({});
 
   useEffect(() => {
-    // Check authentication
+    // Check authentication - admin only
+    const authUser = localStorage.getItem('authUser');
     const authToken = localStorage.getItem('authToken');
-    if (!authToken) {
+    if (!authToken || !authUser) {
+      router.push('/login');
+      return;
+    }
+    try {
+      const user = JSON.parse(authUser);
+      if (user.email !== 'kovac.jr@slza.sk') {
+        router.push('/');
+        return;
+      }
+    } catch {
       router.push('/login');
       return;
     }
