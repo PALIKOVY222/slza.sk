@@ -215,9 +215,8 @@ const KosikPage = () => {
 
   const itemsTotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
   const shippingCost = shippingCosts[shippingMethod] ?? 0;
-  const subtotal = itemsTotal + shippingCost;
-  const vatTotal = subtotal * 0.2;
-  const total = subtotal + vatTotal;
+  const vatTotal = itemsTotal * 0.23;
+  const total = itemsTotal + vatTotal + shippingCost;
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -313,10 +312,10 @@ const KosikPage = () => {
             packetaPointName: packetaPoint?.name,
           },
           totals: {
-            subtotal,
+            subtotal: itemsTotal,
             vatTotal,
             total,
-            vatRate: 0.2,
+            vatRate: 0.23,
             currency: "EUR",
           },
           note: customerInfo.note,
@@ -510,21 +509,15 @@ const KosikPage = () => {
                       </span>
                     </div>
                     <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
+                      <span>DPH (23%):</span>
+                      <span className="font-semibold">
+                        {vatTotal.toFixed(2)} EUR
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
                       <span>Doprava:</span>
                       <span className="font-semibold">
                         {shippingCost.toFixed(2)} EUR
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
-                      <span>Medzisuct:</span>
-                      <span className="font-semibold">
-                        {subtotal.toFixed(2)} EUR
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-[#4d5d6d] text-sm sm:text-base">
-                      <span>DPH (20%):</span>
-                      <span className="font-semibold">
-                        {vatTotal.toFixed(2)} EUR
                       </span>
                     </div>
                     <div className="flex justify-between text-lg font-bold text-[#111518] pt-2">
