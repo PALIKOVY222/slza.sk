@@ -66,22 +66,24 @@ export async function POST(req: Request) {
       token: sanitize(token),
     };
 
-    if (!normalized.firstName || !normalized.lastName || !normalized.email || !normalized.message || !normalized.token) {
+    if (!normalized.firstName || !normalized.lastName || !normalized.email || !normalized.message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    if (TURNSTILE_SECRET_KEY && !normalized.token) {
+      return NextResponse.json({ error: 'Missing captcha token' }, { status: 400 });
     }
 
     if (!isValidEmail(normalized.email)) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
     }
 
-    if (!TURNSTILE_SECRET_KEY) {
-      return NextResponse.json({ error: 'Turnstile secret key missing' }, { status: 500 });
-    }
-
-    const forwardedFor = req.headers.get('cf-connecting-ip') || req.headers.get('x-forwarded-for')?.split(',')[0].trim();
-    const verified = await verifyTurnstile(normalized.token, forwardedFor || undefined);
-    if (!verified) {
-      return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
+    if (TURNSTILE_SECRET_KEY) {
+      const forwardedFor = req.headers.get('cf-connecting-ip') || req.headers.get('x-forwarded-for')?.split(',')[0].trim();
+      const verified = await verifyTurnstile(normalized.token, forwardedFor || undefined);
+      if (!verified) {
+        return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
+      }
     }
 
     const contactData = {

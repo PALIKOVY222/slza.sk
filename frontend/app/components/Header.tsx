@@ -171,18 +171,27 @@ const Header = () => {
       
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col">
+        <div
+          className="lg:hidden bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518] fixed top-0 left-0 right-0 bottom-0 z-[9999] flex flex-col"
+          onClick={(e) => { if (e.target === e.currentTarget) setMobileMenuOpen(false); }}
+        >
           {/* Header */}
           <div className="flex justify-between items-center px-5 py-5">
-            <a href="/" aria-label="Domov" className="inline-flex items-center" onClick={() => setMobileMenuOpen(false)}>
-              <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto" />
-            </a>
             <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              aria-label="Close menu"
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileMenuOpen(false); window.location.href = '/'; }}
+              className="inline-flex items-center bg-transparent border-none cursor-pointer p-0"
+              aria-label="Domov"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto" />
+            </button>
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileMenuOpen(false); }}
+              className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors active:bg-white/30"
+              aria-label="Zavrieť menu"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"/>
                 <line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
@@ -192,18 +201,17 @@ const Header = () => {
           {/* Menu Items */}
           <nav className="flex-1 flex flex-col justify-center px-8 -mt-16">
             {[
-              { href: '/', label: 'Domov', icon: '🏠' },
-              { href: '/produkty', label: 'Produkty', icon: '🛍️' },
-              { href: '/kontakt', label: 'Kontakt', icon: '📞' },
-              { href: '/kosik', label: 'Košík', icon: '🛒' },
+              { href: '/', label: 'Domov' },
+              { href: '/produkty', label: 'Produkty' },
+              { href: '/kontakt', label: 'Kontakt' },
+              { href: '/kosik', label: 'Košík' },
             ].map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-4 text-white font-semibold text-2xl py-4 border-b border-white/5 hover:text-[#0087E3] transition-colors"
+                className="flex items-center text-white font-semibold text-2xl py-4 border-b border-white/5 hover:text-[#0087E3] transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span className="text-2xl">{item.icon}</span>
                 {item.label}
               </a>
             ))}

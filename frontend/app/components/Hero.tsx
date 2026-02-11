@@ -44,7 +44,10 @@ const Hero = () => {
             </div>
           </div>
           <div className="flex-[0_0_600px] flex items-end justify-end relative z-[1] -mb-[50px]">
-            <img src="/images/nemo.png" alt="Nemo mascot" className="w-full max-w-[650px] h-auto block" />
+            <div className="relative">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70%] h-[30px] bg-black/10 rounded-[50%] blur-xl animate-fish-shadow" />
+              <img src="/images/nemo.png" alt="Nemo mascot" className="w-full max-w-[650px] h-auto block animate-fish-float" />
+            </div>
           </div>
         </div>
       </div>
@@ -53,7 +56,7 @@ const Hero = () => {
       <div className="lg:hidden px-5 text-center relative min-h-[500px] flex flex-col justify-center">
         {/* Maskot vpravo nahoře */}
         <div className="absolute top-0 right-0 w-[200px] z-[1]">
-          <img src="/images/nemo.png" alt="Nemo mascot" className="w-full h-auto" />
+          <img src="/images/nemo.png" alt="Nemo mascot" className="w-full h-auto animate-fish-float" />
         </div>
         
         {/* Text content - centrovaný */}
@@ -122,21 +125,21 @@ const Hero = () => {
 
       {/* Mobile Features - single unified box */}
       <div className="lg:hidden mx-5 mt-8 mb-6">
-        <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg space-y-6">
-          {[
-            { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5" fill="white"/><circle cx="18.5" cy="18.5" r="2.5" fill="white"/></svg>), title: 'Zadarmo doprava', desc: 'Pri objednávke nad 50€ a zároveň do 50kg' },
-            { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>), title: 'Grafické práce ZADARMO', desc: '30 minút grafických prác. Možnosť dokúpenia, 29€/hodina.' },
-            { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>), title: 'Podpora 24/7', desc: 'Kontaktujte nás kedykoľvek' },
-            { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>), title: '100% Garancia reklamácie', desc: 'V prípade nespokojnosti s kvalitou tlače do 150€' },
-          ].map((item, i) => (
-            <div key={i} className="flex items-start gap-4 text-white">
-              <div className="w-[40px] h-[40px] flex items-center justify-center flex-shrink-0">{item.icon}</div>
-              <div>
-                <h4 className="text-base font-bold mb-1">{item.title}</h4>
-                <p className="text-sm text-white/70 leading-relaxed">{item.desc}</p>
+        <div className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg">
+          <div className="grid grid-cols-2 gap-6">
+            {[
+              { icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5" fill="white"/><circle cx="18.5" cy="18.5" r="2.5" fill="white"/></svg>), title: 'Zadarmo doprava', desc: 'Pri objednávke nad 50€ a zároveň do 50kg' },
+              { icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>), title: 'Grafické práce ZADARMO', desc: '30 minút grafických prác. Možnosť dokúpenia, 29€/hodina.' },
+              { icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>), title: 'Podpora 24/7', desc: 'Kontaktujte nás kedykoľvek' },
+              { icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>), title: '100% Garancia reklamácie', desc: 'V prípade nespokojnosti s kvalitou tlače do 150€' },
+            ].map((item, i) => (
+              <div key={i} className="text-center text-white">
+                <div className="w-[44px] h-[44px] flex items-center justify-center mx-auto mb-2">{item.icon}</div>
+                <h4 className="text-sm font-bold mb-1">{item.title}</h4>
+                <p className="text-xs text-white/70 leading-relaxed">{item.desc}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

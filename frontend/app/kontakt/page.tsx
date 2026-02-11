@@ -57,7 +57,7 @@ const KontaktPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token) {
+    if (siteKey && !token) {
       setStatus('error');
       setStatusMessage('Prosím potvrďte, že nie ste robot.');
       return;
@@ -289,10 +289,8 @@ const KontaktPage = () => {
                 />
 
                 <div>
-                  {siteKey ? (
+                  {siteKey && (
                     <div id="turnstile-container" className="min-h-[70px]" />
-                  ) : (
-                    <p className="text-sm text-red-600">Chýba Turnstile site key.</p>
                   )}
                 </div>
 

@@ -342,7 +342,7 @@ const KosikPage = () => {
       <Header />
 
       {/* Compact hero */}
-      <section className="bg-gradient-to-br from-[#0087E3] via-[#0074c7] to-[#005a9e] pt-28 sm:pt-32 lg:pt-36 pb-6 sm:pb-8 lg:pb-10">
+      <section className="bg-[#0087E3] pt-28 sm:pt-32 lg:pt-36 pb-6 sm:pb-8 lg:pb-10">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-5 pt-4 sm:pt-0">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1">
             Nákupný košík

@@ -1,6 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import ContactFormModal from './ContactFormModal';
 
 const Kalkulacie = () => {
+  const [showContactModal, setShowContactModal] = useState(false);
+
   return (
     <section className="py-[120px] bg-[#f8f9fa]">
       <div className="max-w-[1320px] mx-auto px-5">
@@ -9,32 +14,35 @@ const Kalkulacie = () => {
           <div className="max-w-[600px] text-left z-10">
             <h2 className="text-[58px] font-bold mb-[25px] text-white leading-tight">Kalkulácie</h2>
             <p className="text-base leading-[1.65] mb-[35px] text-white">Veľmi radi Vám pripravíme nezáväznú cenovú ponuku. Kontaktujte nás prostredníctvom formuláru, emailu alebo telefonicky.</p>
-            <a href="/kontakt" className="inline-flex items-center gap-[10px] bg-white text-[#111518] px-8 py-4 rounded-lg no-underline text-base font-semibold transition-all duration-300 hover:bg-white/90">
+            <button
+              type="button"
+              onClick={() => setShowContactModal(true)}
+              className="inline-flex items-center gap-[10px] bg-white text-[#111518] px-8 py-4 rounded-lg text-base font-semibold transition-all duration-300 hover:bg-white/90 border-none cursor-pointer"
+            >
               Formulár
-            </a>
+            </button>
           </div>
           <div className="flex-1 flex items-center justify-end">
             <img src="/images/kalkulacie.svg" alt="Kalkulačka" className="max-w-full h-auto max-h-[350px] object-contain" />
           </div>
         </div>
 
-        {/* Mobile verzia - presne ako screenshot */}
+        {/* Mobile verzia */}
         <div className="lg:hidden bg-gradient-to-b from-[#2D2D3F] via-[#1F1F2E] to-[#4B3C8F] text-white rounded-[30px] overflow-hidden p-0 relative">
-          {/* Text obsah */}
           <div className="relative z-10 px-8 pt-12 pb-8 text-center">
             <h2 className="text-[40px] font-bold mb-6 text-white leading-tight">Kalkulácie</h2>
             <p className="text-[17px] leading-[1.6] mb-8 text-white/90">
               Veľmi radi Vám pripravíme nezáväznú cenovú ponuku. Kontaktujte nás prostredníctvom formuláru, emailu alebo telefonicky.
             </p>
-            <a 
-              href="/kontakt" 
-              className="inline-block bg-white text-[#1a1a1a] px-12 py-4 rounded-[12px] no-underline text-[17px] font-semibold transition-all duration-300 hover:bg-white/95 mb-8"
+            <button
+              type="button"
+              onClick={() => setShowContactModal(true)}
+              className="inline-block bg-white text-[#1a1a1a] px-12 py-4 rounded-[12px] text-[17px] font-semibold transition-all duration-300 hover:bg-white/95 mb-8 border-none cursor-pointer"
             >
               Formulár
-            </a>
+            </button>
           </div>
 
-          {/* Ilustrácia kalkulačky na spodku */}
           <div className="relative w-full h-[320px] overflow-hidden">
             <img 
               src="/images/kalkulacie.svg" 
@@ -44,6 +52,8 @@ const Kalkulacie = () => {
           </div>
         </div>
       </div>
+
+      <ContactFormModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
     </section>
   );
 };

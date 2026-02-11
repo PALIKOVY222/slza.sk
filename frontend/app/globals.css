@@ -17,3 +17,25 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+/* Fish mascot floating animation */
+@keyframes fish-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(-12px) rotate(1.5deg); }
+  40% { transform: translateY(-6px) rotate(-0.5deg); }
+  60% { transform: translateY(-18px) rotate(-1deg); }
+  80% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes fish-shadow {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(0.9); opacity: 0.08; }
+}
+
+.animate-fish-float {
+  animation: fish-float 4s ease-in-out infinite;
+}
+
+.animate-fish-shadow {
+  animation: fish-shadow 4s ease-in-out infinite;
+}
