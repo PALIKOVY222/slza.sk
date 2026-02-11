@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_POSTGRES_PRISMA_URL")
+  directUrl = env("DATABASE_POSTGRES_URL_NON_POOLING")
 }
 
 enum UserRole {
@@ -100,7 +101,7 @@ model Order {
   orderNumber       String       @unique
   status            OrderStatus  @default(NEW)
   currency          String       @default("EUR")
-  vatRate           Float        @default(0.2)
+  vatRate           Float        @default(0.23)
   subtotal          Float
   vatTotal          Float
   total             Float
