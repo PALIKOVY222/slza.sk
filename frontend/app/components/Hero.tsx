@@ -5,7 +5,7 @@ import SplitText from './SplitText';
 
 const Hero = () => {
   return (
-    <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 mb-0 relative overflow-visible" id="home">
+    <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 lg:pb-24 mb-0 relative overflow-visible" id="home">
       {/* Desktop Layout */}
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">
         <div className="flex items-center justify-between min-h-[600px] relative">
@@ -98,6 +98,22 @@ const Hero = () => {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Desktop Features - 4 cards horizontal */}
+      <div className="hidden lg:grid grid-cols-4 gap-5 max-w-[1320px] mx-auto px-5 -mb-16 relative z-10 mt-8">
+        {[
+          { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5" fill="white"/><circle cx="18.5" cy="18.5" r="2.5" fill="white"/></svg>), title: 'Zadarmo doprava', desc: 'Pri objednávke nad 50€ a zároveň do 50kg' },
+          { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>), title: 'Grafické práce ZADARMO', desc: '30 minút grafických prác. Možnosť dokúpenia, 29€/hodina.' },
+          { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>), title: 'Podpora 24/7', desc: 'Kontaktujte nás kedykoľvek' },
+          { icon: (<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>), title: '100% Garancia reklamácie', desc: 'V prípade nespokojnosti s kvalitou tlače do 150€' },
+        ].map((item, i) => (
+          <div key={i} className="bg-gradient-to-b from-[#2D5F5D] to-[#1A3938] backdrop-blur-[10px] rounded-[20px] p-6 shadow-lg text-center text-white">
+            <div className="w-[50px] h-[50px] flex items-center justify-center mx-auto mb-3">{item.icon}</div>
+            <h4 className="text-base font-bold mb-2">{item.title}</h4>
+            <p className="text-sm text-white/80 leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
       </div>
 
       {/* Mobile Features - 4 karty vertikálne ako screenshot */}

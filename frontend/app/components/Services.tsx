@@ -29,7 +29,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-12 lg:py-20 bg-[#f8f9fa]" id="services">
+    <section className="pt-24 lg:pt-32 pb-12 lg:pb-20 bg-[#f8f9fa]" id="services">
       <div className="max-w-[1320px] mx-auto px-5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <a href={services[0].link} className={`bg-white rounded-[15px] no-underline flex flex-col shadow-[0_2px_15px_rgba(0,0,0,0.08)] transition-all duration-300 relative overflow-hidden p-[50px] justify-between group ${services[0].bgColor}`} key={0}>

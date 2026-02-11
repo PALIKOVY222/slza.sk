@@ -162,7 +162,7 @@ const KontaktPage = () => {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Telefónne číslo</h3>
-                  <p className="text-sm sm:text-base text-[#4d5d6d]">0911 536 671</p>
+                  <a href="tel:+421911536671" className="text-sm sm:text-base text-[#4d5d6d] hover:text-[#0087E3] transition-colors">0911 536 671</a>
                 </div>
               </div>
 
@@ -176,7 +176,7 @@ const KontaktPage = () => {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold mb-1 sm:mb-2 text-[#111518]">Email</h3>
-                  <p className="text-sm sm:text-base text-[#4d5d6d] break-all">slza@slza.sk</p>
+                  <a href="mailto:slza@slza.sk" className="text-sm sm:text-base text-[#4d5d6d] hover:text-[#0087E3] transition-colors break-all">slza@slza.sk</a>
                 </div>
               </div>
 

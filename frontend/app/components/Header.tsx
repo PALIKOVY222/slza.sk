@@ -46,8 +46,7 @@ const Header = () => {
       <div className="max-w-[1320px] mx-auto px-5 flex justify-between items-center">
         <div className="logo flex-1">
           <a href="/" aria-label="Domov" className="inline-flex items-center">
-            <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-50 w-auto hidden lg:block" />
-            <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto block lg:hidden" />
+            <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-50 w-auto" />
           </a>
         </div>
         
