@@ -4,2672 +4,2672 @@
     "width": 500,
     "height": 500,
     "quantity": 1,
-    "priceText": "22.04 €",
-    "priceEur": 22.04,
     "priceWithoutVat": 17.92,
+    "priceWithVat": 22.04,
     "pricePerPiece": 22.04,
-    "timestamp": "2026-02-16T17:21:11.234Z"
+    "priceEur": 22.04,
+    "timestamp": "2026-02-16T17:09:56.673Z"
   },
   {
     "id": 2,
     "width": 500,
     "height": 500,
     "quantity": 2,
-    "priceText": "30.26 €",
-    "priceEur": 30.26,
     "priceWithoutVat": 24.6,
+    "priceWithVat": 30.26,
     "pricePerPiece": 15.13,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 30.26,
+    "timestamp": "2026-02-16T17:09:57.395Z"
   },
   {
     "id": 3,
     "width": 500,
     "height": 500,
     "quantity": 3,
-    "priceText": "38.45 €",
-    "priceEur": 38.45,
     "priceWithoutVat": 31.26,
+    "priceWithVat": 38.45,
     "pricePerPiece": 12.82,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 38.45,
+    "timestamp": "2026-02-16T17:09:58.407Z"
   },
   {
     "id": 4,
     "width": 500,
     "height": 500,
     "quantity": 5,
-    "priceText": "54.56 €",
-    "priceEur": 54.56,
     "priceWithoutVat": 44.36,
+    "priceWithVat": 54.56,
     "pricePerPiece": 10.91,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 54.56,
+    "timestamp": "2026-02-16T17:09:59.116Z"
   },
   {
     "id": 5,
     "width": 500,
     "height": 500,
     "quantity": 10,
-    "priceText": "94.92 €",
-    "priceEur": 94.92,
     "priceWithoutVat": 77.17,
+    "priceWithVat": 94.92,
     "pricePerPiece": 9.49,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 94.92,
+    "timestamp": "2026-02-16T17:10:00.130Z"
   },
   {
     "id": 6,
     "width": 500,
     "height": 500,
     "quantity": 20,
-    "priceText": "174.39 €",
-    "priceEur": 174.39,
     "priceWithoutVat": 141.78,
+    "priceWithVat": 174.39,
     "pricePerPiece": 8.72,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 174.39,
+    "timestamp": "2026-02-16T17:10:01.157Z"
   },
   {
     "id": 7,
     "width": 500,
     "height": 700,
     "quantity": 1,
-    "priceText": "24.38 €",
-    "priceEur": 24.38,
     "priceWithoutVat": 19.82,
+    "priceWithVat": 24.38,
     "pricePerPiece": 24.38,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 24.38,
+    "timestamp": "2026-02-16T17:10:02.170Z"
   },
   {
     "id": 8,
     "width": 500,
     "height": 700,
     "quantity": 2,
-    "priceText": "34.69 €",
-    "priceEur": 34.69,
     "priceWithoutVat": 28.2,
+    "priceWithVat": 34.69,
     "pricePerPiece": 17.35,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 34.69,
+    "timestamp": "2026-02-16T17:10:03.180Z"
   },
   {
     "id": 9,
     "width": 500,
     "height": 700,
     "quantity": 3,
-    "priceText": "44.97 €",
-    "priceEur": 44.97,
     "priceWithoutVat": 36.56,
+    "priceWithVat": 44.97,
     "pricePerPiece": 14.99,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 44.97,
+    "timestamp": "2026-02-16T17:10:03.893Z"
   },
   {
     "id": 10,
     "width": 500,
     "height": 700,
     "quantity": 5,
-    "priceText": "65.45 €",
-    "priceEur": 65.45,
     "priceWithoutVat": 53.21,
+    "priceWithVat": 65.45,
     "pricePerPiece": 13.09,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 65.45,
+    "timestamp": "2026-02-16T17:10:04.606Z"
   },
   {
     "id": 11,
     "width": 500,
     "height": 700,
     "quantity": 10,
-    "priceText": "116.44 €",
-    "priceEur": 116.44,
     "priceWithoutVat": 94.67,
+    "priceWithVat": 116.44,
     "pricePerPiece": 11.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 116.44,
+    "timestamp": "2026-02-16T17:10:05.619Z"
   },
   {
     "id": 12,
     "width": 500,
     "height": 700,
     "quantity": 20,
-    "priceText": "216.23 €",
-    "priceEur": 216.23,
     "priceWithoutVat": 175.8,
+    "priceWithVat": 216.23,
     "pricePerPiece": 10.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 216.23,
+    "timestamp": "2026-02-16T17:10:06.328Z"
   },
   {
     "id": 13,
     "width": 500,
     "height": 1000,
     "quantity": 1,
-    "priceText": "27.65 €",
-    "priceEur": 27.65,
     "priceWithoutVat": 22.48,
+    "priceWithVat": 27.65,
     "pricePerPiece": 27.65,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 27.65,
+    "timestamp": "2026-02-16T17:10:07.367Z"
   },
   {
     "id": 14,
     "width": 500,
     "height": 1000,
     "quantity": 2,
-    "priceText": "41.21 €",
-    "priceEur": 41.21,
     "priceWithoutVat": 33.5,
+    "priceWithVat": 41.21,
     "pricePerPiece": 20.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 41.21,
+    "timestamp": "2026-02-16T17:10:08.076Z"
   },
   {
     "id": 15,
     "width": 500,
     "height": 1000,
     "quantity": 3,
-    "priceText": "54.72 €",
-    "priceEur": 54.72,
     "priceWithoutVat": 44.49,
+    "priceWithVat": 54.72,
     "pricePerPiece": 18.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 54.72,
+    "timestamp": "2026-02-16T17:10:09.088Z"
   },
   {
     "id": 16,
     "width": 500,
     "height": 1000,
     "quantity": 5,
-    "priceText": "81.61 €",
-    "priceEur": 81.61,
     "priceWithoutVat": 66.35,
+    "priceWithVat": 81.61,
     "pricePerPiece": 16.32,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 81.61,
+    "timestamp": "2026-02-16T17:10:09.796Z"
   },
   {
     "id": 17,
     "width": 500,
     "height": 1000,
     "quantity": 10,
-    "priceText": "148.28 €",
-    "priceEur": 148.28,
     "priceWithoutVat": 120.55,
+    "priceWithVat": 148.28,
     "pricePerPiece": 14.83,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 148.28,
+    "timestamp": "2026-02-16T17:10:10.806Z"
   },
   {
     "id": 18,
     "width": 500,
     "height": 1000,
     "quantity": 20,
-    "priceText": "277.99 €",
-    "priceEur": 277.99,
     "priceWithoutVat": 226.01,
+    "priceWithVat": 277.99,
     "pricePerPiece": 13.9,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 277.99,
+    "timestamp": "2026-02-16T17:10:11.515Z"
   },
   {
     "id": 19,
     "width": 500,
     "height": 1500,
     "quantity": 1,
-    "priceText": "33.01 €",
-    "priceEur": 33.01,
     "priceWithoutVat": 26.84,
+    "priceWithVat": 33.01,
     "pricePerPiece": 33.01,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 33.01,
+    "timestamp": "2026-02-16T17:10:12.525Z"
   },
   {
     "id": 20,
     "width": 500,
     "height": 1500,
     "quantity": 2,
-    "priceText": "51.89 €",
-    "priceEur": 51.89,
     "priceWithoutVat": 42.19,
+    "priceWithVat": 51.89,
     "pricePerPiece": 25.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 51.89,
+    "timestamp": "2026-02-16T17:10:15.658Z"
   },
   {
     "id": 21,
     "width": 500,
     "height": 1500,
     "quantity": 3,
-    "priceText": "70.92 €",
-    "priceEur": 70.92,
     "priceWithoutVat": 57.66,
+    "priceWithVat": 70.92,
     "pricePerPiece": 23.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.92,
+    "timestamp": "2026-02-16T17:10:16.369Z"
   },
   {
     "id": 22,
     "width": 500,
     "height": 1500,
     "quantity": 5,
-    "priceText": "108.47 €",
-    "priceEur": 108.47,
     "priceWithoutVat": 88.19,
+    "priceWithVat": 108.47,
     "pricePerPiece": 21.69,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 108.47,
+    "timestamp": "2026-02-16T17:10:17.391Z"
   },
   {
     "id": 23,
     "width": 500,
     "height": 1500,
     "quantity": 10,
-    "priceText": "200.69 €",
-    "priceEur": 200.69,
     "priceWithoutVat": 163.16,
+    "priceWithVat": 200.69,
     "pricePerPiece": 20.07,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 200.69,
+    "timestamp": "2026-02-16T17:10:18.101Z"
   },
   {
     "id": 24,
     "width": 500,
     "height": 1500,
     "quantity": 20,
-    "priceText": "378.70 €",
-    "priceEur": 378.7,
     "priceWithoutVat": 307.89,
+    "priceWithVat": 378.7,
     "pricePerPiece": 18.94,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 378.7,
+    "timestamp": "2026-02-16T17:10:19.113Z"
   },
   {
     "id": 25,
     "width": 500,
     "height": 2000,
     "quantity": 1,
-    "priceText": "38.38 €",
-    "priceEur": 38.38,
     "priceWithoutVat": 31.2,
+    "priceWithVat": 38.38,
     "pricePerPiece": 38.38,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 38.38,
+    "timestamp": "2026-02-16T17:10:19.821Z"
   },
   {
     "id": 26,
     "width": 500,
     "height": 2000,
     "quantity": 2,
-    "priceText": "62.79 €",
-    "priceEur": 62.79,
     "priceWithoutVat": 51.05,
+    "priceWithVat": 62.79,
     "pricePerPiece": 31.4,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 62.79,
+    "timestamp": "2026-02-16T17:10:20.834Z"
   },
   {
     "id": 27,
     "width": 500,
     "height": 2000,
     "quantity": 3,
-    "priceText": "87.06 €",
-    "priceEur": 87.06,
     "priceWithoutVat": 70.78,
+    "priceWithVat": 87.06,
     "pricePerPiece": 29.02,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 87.06,
+    "timestamp": "2026-02-16T17:10:22.787Z"
   },
   {
     "id": 28,
     "width": 500,
     "height": 2000,
     "quantity": 5,
-    "priceText": "134.93 €",
-    "priceEur": 134.93,
     "priceWithoutVat": 109.7,
+    "priceWithVat": 134.93,
     "pricePerPiece": 26.99,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 134.93,
+    "timestamp": "2026-02-16T17:10:23.496Z"
   },
   {
     "id": 29,
     "width": 500,
     "height": 2000,
     "quantity": 10,
-    "priceText": "252.38 €",
-    "priceEur": 252.38,
     "priceWithoutVat": 205.19,
+    "priceWithVat": 252.38,
     "pricePerPiece": 25.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 252.38,
+    "timestamp": "2026-02-16T17:10:24.520Z"
   },
   {
     "id": 30,
     "width": 500,
     "height": 2000,
     "quantity": 20,
-    "priceText": "476.28 €",
-    "priceEur": 476.28,
     "priceWithoutVat": 387.22,
+    "priceWithVat": 476.28,
     "pricePerPiece": 23.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 476.28,
+    "timestamp": "2026-02-16T17:10:25.229Z"
   },
   {
     "id": 31,
     "width": 500,
     "height": 3000,
     "quantity": 1,
-    "priceText": "49.31 €",
-    "priceEur": 49.31,
     "priceWithoutVat": 40.09,
+    "priceWithVat": 49.31,
     "pricePerPiece": 49.31,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 49.31,
+    "timestamp": "2026-02-16T17:10:26.241Z"
   },
   {
     "id": 32,
     "width": 500,
     "height": 3000,
     "quantity": 2,
-    "priceText": "84.26 €",
-    "priceEur": 84.26,
     "priceWithoutVat": 68.5,
+    "priceWithVat": 84.26,
     "pricePerPiece": 42.13,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 84.26,
+    "timestamp": "2026-02-16T17:10:28.472Z"
   },
   {
     "id": 33,
     "width": 500,
     "height": 3000,
     "quantity": 3,
-    "priceText": "119.14 €",
-    "priceEur": 119.14,
     "priceWithoutVat": 96.86,
+    "priceWithVat": 119.14,
     "pricePerPiece": 39.71,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 119.14,
+    "timestamp": "2026-02-16T17:10:29.181Z"
   },
   {
     "id": 34,
     "width": 500,
     "height": 3000,
     "quantity": 5,
-    "priceText": "187.75 €",
-    "priceEur": 187.75,
     "priceWithoutVat": 152.64,
+    "priceWithVat": 187.75,
     "pricePerPiece": 37.55,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 187.75,
+    "timestamp": "2026-02-16T17:10:30.197Z"
   },
   {
     "id": 35,
     "width": 500,
     "height": 3000,
     "quantity": 10,
-    "priceText": "353.81 €",
-    "priceEur": 353.81,
     "priceWithoutVat": 287.65,
+    "priceWithVat": 353.81,
     "pricePerPiece": 35.38,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 353.81,
+    "timestamp": "2026-02-16T17:10:30.904Z"
   },
   {
     "id": 36,
     "width": 500,
     "height": 3000,
     "quantity": 20,
-    "priceText": "678.37 €",
-    "priceEur": 678.37,
     "priceWithoutVat": 551.52,
+    "priceWithVat": 678.37,
     "pricePerPiece": 33.92,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 678.37,
+    "timestamp": "2026-02-16T17:10:31.920Z"
   },
   {
     "id": 37,
     "width": 500,
     "height": 5000,
     "quantity": 1,
-    "priceText": "70.85 €",
-    "priceEur": 70.85,
     "priceWithoutVat": 57.6,
+    "priceWithVat": 70.85,
     "pricePerPiece": 70.85,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.85,
+    "timestamp": "2026-02-16T17:10:32.632Z"
   },
   {
     "id": 38,
     "width": 500,
     "height": 5000,
     "quantity": 2,
-    "priceText": "127.08 €",
-    "priceEur": 127.08,
     "priceWithoutVat": 103.32,
+    "priceWithVat": 127.08,
     "pricePerPiece": 63.54,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 127.08,
+    "timestamp": "2026-02-16T17:10:33.646Z"
   },
   {
     "id": 39,
     "width": 500,
     "height": 5000,
     "quantity": 3,
-    "priceText": "182.52 €",
-    "priceEur": 182.52,
     "priceWithoutVat": 148.39,
+    "priceWithVat": 182.52,
     "pricePerPiece": 60.84,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 182.52,
+    "timestamp": "2026-02-16T17:10:34.356Z"
   },
   {
     "id": 40,
     "width": 500,
     "height": 5000,
     "quantity": 5,
-    "priceText": "290.76 €",
-    "priceEur": 290.76,
     "priceWithoutVat": 236.39,
+    "priceWithVat": 290.76,
     "pricePerPiece": 58.15,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 290.76,
+    "timestamp": "2026-02-16T17:10:35.397Z"
   },
   {
     "id": 41,
     "width": 500,
     "height": 5000,
     "quantity": 10,
-    "priceText": "550.31 €",
-    "priceEur": 550.31,
     "priceWithoutVat": 447.41,
+    "priceWithVat": 550.31,
     "pricePerPiece": 55.03,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 550.31,
+    "timestamp": "2026-02-16T17:10:36.107Z"
   },
   {
     "id": 42,
     "width": 500,
     "height": 5000,
     "quantity": 20,
-    "priceText": "87.71 €",
-    "priceEur": 87.71,
     "priceWithoutVat": 884.32,
+    "priceWithVat": 87.71,
     "pricePerPiece": 54.39,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 87.71,
+    "timestamp": "2026-02-16T17:10:37.120Z"
   },
   {
     "id": 43,
     "width": 800,
     "height": 500,
     "quantity": 1,
-    "priceText": "25.31 €",
-    "priceEur": 25.31,
     "priceWithoutVat": 20.58,
+    "priceWithVat": 25.31,
     "pricePerPiece": 25.31,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 25.31,
+    "timestamp": "2026-02-16T17:10:38.133Z"
   },
   {
     "id": 44,
     "width": 800,
     "height": 500,
     "quantity": 2,
-    "priceText": "36.78 €",
-    "priceEur": 36.78,
     "priceWithoutVat": 29.9,
+    "priceWithVat": 36.78,
     "pricePerPiece": 18.39,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 36.78,
+    "timestamp": "2026-02-16T17:10:38.844Z"
   },
   {
     "id": 45,
     "width": 800,
     "height": 500,
     "quantity": 3,
-    "priceText": "48.23 €",
-    "priceEur": 48.23,
     "priceWithoutVat": 39.21,
+    "priceWithVat": 48.23,
     "pricePerPiece": 16.08,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 48.23,
+    "timestamp": "2026-02-16T17:10:39.556Z"
   },
   {
     "id": 46,
     "width": 800,
     "height": 500,
     "quantity": 5,
-    "priceText": "70.76 €",
-    "priceEur": 70.76,
     "priceWithoutVat": 57.53,
+    "priceWithVat": 70.76,
     "pricePerPiece": 14.15,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.76,
+    "timestamp": "2026-02-16T17:10:40.568Z"
   },
   {
     "id": 47,
     "width": 800,
     "height": 500,
     "quantity": 10,
-    "priceText": "126.92 €",
-    "priceEur": 126.92,
     "priceWithoutVat": 103.19,
+    "priceWithVat": 126.92,
     "pricePerPiece": 12.69,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 126.92,
+    "timestamp": "2026-02-16T17:10:42.493Z"
   },
   {
     "id": 48,
     "width": 800,
     "height": 500,
     "quantity": 20,
-    "priceText": "236.86 €",
-    "priceEur": 236.86,
     "priceWithoutVat": 192.57,
+    "priceWithVat": 236.86,
     "pricePerPiece": 11.84,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 236.86,
+    "timestamp": "2026-02-16T17:10:43.807Z"
   },
   {
     "id": 49,
     "width": 800,
     "height": 700,
     "quantity": 1,
-    "priceText": "28.45 €",
-    "priceEur": 28.45,
     "priceWithoutVat": 23.13,
+    "priceWithVat": 28.45,
     "pricePerPiece": 28.45,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 28.45,
+    "timestamp": "2026-02-16T17:10:44.817Z"
   },
   {
     "id": 50,
     "width": 800,
     "height": 700,
     "quantity": 2,
-    "priceText": "42.82 €",
-    "priceEur": 42.82,
     "priceWithoutVat": 34.81,
+    "priceWithVat": 42.82,
     "pricePerPiece": 21.41,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 42.82,
+    "timestamp": "2026-02-16T17:10:46.432Z"
   },
   {
     "id": 51,
     "width": 800,
     "height": 700,
     "quantity": 3,
-    "priceText": "57.12 €",
-    "priceEur": 57.12,
     "priceWithoutVat": 46.44,
+    "priceWithVat": 57.12,
     "pricePerPiece": 19.04,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 57.12,
+    "timestamp": "2026-02-16T17:10:47.147Z"
   },
   {
     "id": 52,
     "width": 800,
     "height": 700,
     "quantity": 5,
-    "priceText": "85.58 €",
-    "priceEur": 85.58,
     "priceWithoutVat": 69.58,
+    "priceWithVat": 85.58,
     "pricePerPiece": 17.12,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 85.58,
+    "timestamp": "2026-02-16T17:10:48.159Z"
   },
   {
     "id": 53,
     "width": 800,
     "height": 700,
     "quantity": 10,
-    "priceText": "156.07 €",
-    "priceEur": 156.07,
     "priceWithoutVat": 126.89,
+    "priceWithVat": 156.07,
     "pricePerPiece": 15.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 156.07,
+    "timestamp": "2026-02-16T17:10:49.471Z"
   },
   {
     "id": 54,
     "width": 800,
     "height": 700,
     "quantity": 20,
-    "priceText": "293.04 €",
-    "priceEur": 293.04,
     "priceWithoutVat": 238.24,
+    "priceWithVat": 293.04,
     "pricePerPiece": 14.65,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 293.04,
+    "timestamp": "2026-02-16T17:10:50.485Z"
   },
   {
     "id": 55,
     "width": 800,
     "height": 1000,
     "quantity": 1,
-    "priceText": "32.93 €",
-    "priceEur": 32.93,
     "priceWithoutVat": 26.77,
+    "priceWithVat": 32.93,
     "pricePerPiece": 32.93,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 32.93,
+    "timestamp": "2026-02-16T17:10:51.806Z"
   },
   {
     "id": 56,
     "width": 800,
     "height": 1000,
     "quantity": 2,
-    "priceText": "51.72 €",
-    "priceEur": 51.72,
     "priceWithoutVat": 42.05,
+    "priceWithVat": 51.72,
     "pricePerPiece": 25.86,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 51.72,
+    "timestamp": "2026-02-16T17:10:52.514Z"
   },
   {
     "id": 57,
     "width": 800,
     "height": 1000,
     "quantity": 3,
-    "priceText": "70.43 €",
-    "priceEur": 70.43,
     "priceWithoutVat": 57.26,
+    "priceWithVat": 70.43,
     "pricePerPiece": 23.48,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.43,
+    "timestamp": "2026-02-16T17:10:53.525Z"
   },
   {
     "id": 58,
     "width": 800,
     "height": 1000,
     "quantity": 5,
-    "priceText": "107.58 €",
-    "priceEur": 107.58,
     "priceWithoutVat": 87.46,
+    "priceWithVat": 107.58,
     "pricePerPiece": 21.52,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 107.58,
+    "timestamp": "2026-02-16T17:10:54.233Z"
   },
   {
     "id": 59,
     "width": 800,
     "height": 1000,
     "quantity": 10,
-    "priceText": "199.16 €",
-    "priceEur": 199.16,
     "priceWithoutVat": 161.92,
+    "priceWithVat": 199.16,
     "pricePerPiece": 19.92,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 199.16,
+    "timestamp": "2026-02-16T17:10:56.151Z"
   },
   {
     "id": 60,
     "width": 800,
     "height": 1000,
     "quantity": 20,
-    "priceText": "375.57 €",
-    "priceEur": 375.57,
     "priceWithoutVat": 305.34,
+    "priceWithVat": 375.57,
     "pricePerPiece": 18.78,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 375.57,
+    "timestamp": "2026-02-16T17:10:56.862Z"
   },
   {
     "id": 61,
     "width": 800,
     "height": 1500,
     "quantity": 1,
-    "priceText": "40.29 €",
-    "priceEur": 40.29,
     "priceWithoutVat": 32.76,
+    "priceWithVat": 40.29,
     "pricePerPiece": 40.29,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 40.29,
+    "timestamp": "2026-02-16T17:10:57.877Z"
   },
   {
     "id": 62,
     "width": 800,
     "height": 1500,
     "quantity": 2,
-    "priceText": "66.37 €",
-    "priceEur": 66.37,
     "priceWithoutVat": 53.96,
+    "priceWithVat": 66.37,
     "pricePerPiece": 33.19,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 66.37,
+    "timestamp": "2026-02-16T17:11:14.853Z"
   },
   {
     "id": 63,
     "width": 800,
     "height": 1500,
     "quantity": 3,
-    "priceText": "92.51 €",
-    "priceEur": 92.51,
     "priceWithoutVat": 75.21,
+    "priceWithVat": 92.51,
     "pricePerPiece": 30.84,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 92.51,
+    "timestamp": "2026-02-16T17:11:15.881Z"
   },
   {
     "id": 64,
     "width": 800,
     "height": 1500,
     "quantity": 5,
-    "priceText": "144.05 €",
-    "priceEur": 144.05,
     "priceWithoutVat": 117.11,
+    "priceWithVat": 144.05,
     "pricePerPiece": 28.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 144.05,
+    "timestamp": "2026-02-16T17:11:16.590Z"
   },
   {
     "id": 65,
     "width": 800,
     "height": 1500,
     "quantity": 10,
-    "priceText": "269.81 €",
-    "priceEur": 269.81,
     "priceWithoutVat": 219.36,
+    "priceWithVat": 269.81,
     "pricePerPiece": 26.98,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 269.81,
+    "timestamp": "2026-02-16T17:11:17.300Z"
   },
   {
     "id": 66,
     "width": 800,
     "height": 1500,
     "quantity": 20,
-    "priceText": "508.85 €",
-    "priceEur": 508.85,
     "priceWithoutVat": 413.7,
+    "priceWithVat": 508.85,
     "pricePerPiece": 25.44,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 508.85,
+    "timestamp": "2026-02-16T17:11:18.310Z"
   },
   {
     "id": 67,
     "width": 800,
     "height": 2000,
     "quantity": 1,
-    "priceText": "47.64 €",
-    "priceEur": 47.64,
     "priceWithoutVat": 38.73,
+    "priceWithVat": 47.64,
     "pricePerPiece": 47.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 47.64,
+    "timestamp": "2026-02-16T17:11:19.621Z"
   },
   {
     "id": 68,
     "width": 800,
     "height": 2000,
     "quantity": 2,
-    "priceText": "81.19 €",
-    "priceEur": 81.19,
     "priceWithoutVat": 66.01,
+    "priceWithVat": 81.19,
     "pricePerPiece": 40.6,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 81.19,
+    "timestamp": "2026-02-16T17:11:20.638Z"
   },
   {
     "id": 69,
     "width": 800,
     "height": 2000,
     "quantity": 3,
-    "priceText": "114.46 €",
-    "priceEur": 114.46,
     "priceWithoutVat": 93.06,
+    "priceWithVat": 114.46,
     "pricePerPiece": 38.15,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 114.46,
+    "timestamp": "2026-02-16T17:11:21.961Z"
   },
   {
     "id": 70,
     "width": 800,
     "height": 2000,
     "quantity": 5,
-    "priceText": "179.94 €",
-    "priceEur": 179.94,
     "priceWithoutVat": 146.29,
+    "priceWithVat": 179.94,
     "pricePerPiece": 35.99,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 179.94,
+    "timestamp": "2026-02-16T17:11:22.972Z"
   },
   {
     "id": 71,
     "width": 800,
     "height": 2000,
     "quantity": 10,
-    "priceText": "339.10 €",
-    "priceEur": 339.1,
     "priceWithoutVat": 275.69,
+    "priceWithVat": 339.1,
     "pricePerPiece": 33.91,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 339.1,
+    "timestamp": "2026-02-16T17:11:24.291Z"
   },
   {
     "id": 72,
     "width": 800,
     "height": 2000,
     "quantity": 20,
-    "priceText": "648.28 €",
-    "priceEur": 648.28,
     "priceWithoutVat": 527.06,
+    "priceWithVat": 648.28,
     "pricePerPiece": 32.41,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 648.28,
+    "timestamp": "2026-02-16T17:11:25.306Z"
   },
   {
     "id": 73,
     "width": 800,
     "height": 3000,
     "quantity": 1,
-    "priceText": "62.53 €",
-    "priceEur": 62.53,
     "priceWithoutVat": 50.84,
+    "priceWithVat": 62.53,
     "pricePerPiece": 62.53,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 62.53,
+    "timestamp": "2026-02-16T17:11:26.319Z"
   },
   {
     "id": 74,
     "width": 800,
     "height": 3000,
     "quantity": 2,
-    "priceText": "110.45 €",
-    "priceEur": 110.45,
     "priceWithoutVat": 89.8,
+    "priceWithVat": 110.45,
     "pricePerPiece": 55.23,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 110.45,
+    "timestamp": "2026-02-16T17:11:27.030Z"
   },
   {
     "id": 75,
     "width": 800,
     "height": 3000,
     "quantity": 3,
-    "priceText": "158.02 €",
-    "priceEur": 158.02,
     "priceWithoutVat": 128.47,
+    "priceWithVat": 158.02,
     "pricePerPiece": 52.67,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 158.02,
+    "timestamp": "2026-02-16T17:11:28.504Z"
   },
   {
     "id": 76,
     "width": 800,
     "height": 3000,
     "quantity": 5,
-    "priceText": "251.18 €",
-    "priceEur": 251.18,
     "priceWithoutVat": 204.21,
+    "priceWithVat": 251.18,
     "pricePerPiece": 50.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 251.18,
+    "timestamp": "2026-02-16T17:11:29.222Z"
   },
   {
     "id": 77,
     "width": 800,
     "height": 3000,
     "quantity": 10,
-    "priceText": "473.82 €",
-    "priceEur": 473.82,
     "priceWithoutVat": 385.22,
+    "priceWithVat": 473.82,
     "pricePerPiece": 47.38,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 473.82,
+    "timestamp": "2026-02-16T17:11:30.260Z"
   },
   {
     "id": 78,
     "width": 800,
     "height": 3000,
     "quantity": 20,
-    "priceText": "928.79 €",
-    "priceEur": 928.79,
     "priceWithoutVat": 755.11,
+    "priceWithVat": 928.79,
     "pricePerPiece": 46.44,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 928.79,
+    "timestamp": "2026-02-16T17:11:30.969Z"
   },
   {
     "id": 79,
     "width": 800,
     "height": 5000,
     "quantity": 1,
-    "priceText": "91.93 €",
-    "priceEur": 91.93,
     "priceWithoutVat": 74.74,
+    "priceWithVat": 91.93,
     "pricePerPiece": 91.93,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 91.93,
+    "timestamp": "2026-02-16T17:11:31.982Z"
   },
   {
     "id": 80,
     "width": 800,
     "height": 5000,
     "quantity": 2,
-    "priceText": "168.55 €",
-    "priceEur": 168.55,
     "priceWithoutVat": 137.03,
+    "priceWithVat": 168.55,
     "pricePerPiece": 84.28,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 168.55,
+    "timestamp": "2026-02-16T17:11:32.709Z"
   },
   {
     "id": 81,
     "width": 800,
     "height": 5000,
     "quantity": 3,
-    "priceText": "243.65 €",
-    "priceEur": 243.65,
     "priceWithoutVat": 198.09,
+    "priceWithVat": 243.65,
     "pricePerPiece": 81.22,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 243.65,
+    "timestamp": "2026-02-16T17:11:33.729Z"
   },
   {
     "id": 82,
     "width": 800,
     "height": 5000,
     "quantity": 5,
-    "priceText": "389.12 €",
-    "priceEur": 389.12,
     "priceWithoutVat": 316.36,
+    "priceWithVat": 389.12,
     "pricePerPiece": 77.82,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 389.12,
+    "timestamp": "2026-02-16T17:11:34.439Z"
   },
   {
     "id": 83,
     "width": 800,
     "height": 5000,
     "quantity": 10,
-    "priceText": "751.12 €",
-    "priceEur": 751.12,
     "priceWithoutVat": 610.67,
+    "priceWithVat": 751.12,
     "pricePerPiece": 75.11,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 751.12,
+    "timestamp": "2026-02-16T17:11:35.146Z"
   },
   {
     "id": 84,
     "width": 800,
     "height": 5000,
     "quantity": 20,
-    "priceText": "489.33 €",
-    "priceEur": 489.33,
     "priceWithoutVat": 397.83,
+    "priceWithVat": 489.33,
     "pricePerPiece": 74.47,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 489.33,
+    "timestamp": "2026-02-16T17:11:36.163Z"
   },
   {
     "id": 85,
     "width": 1000,
     "height": 500,
     "quantity": 1,
-    "priceText": "27.65 €",
-    "priceEur": 27.65,
     "priceWithoutVat": 22.48,
+    "priceWithVat": 27.65,
     "pricePerPiece": 27.65,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 27.65,
+    "timestamp": "2026-02-16T17:11:37.242Z"
   },
   {
     "id": 86,
     "width": 1000,
     "height": 500,
     "quantity": 2,
-    "priceText": "41.21 €",
-    "priceEur": 41.21,
     "priceWithoutVat": 33.5,
+    "priceWithVat": 41.21,
     "pricePerPiece": 20.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 41.21,
+    "timestamp": "2026-02-16T17:11:37.952Z"
   },
   {
     "id": 87,
     "width": 1000,
     "height": 500,
     "quantity": 3,
-    "priceText": "54.72 €",
-    "priceEur": 54.72,
     "priceWithoutVat": 44.49,
+    "priceWithVat": 54.72,
     "pricePerPiece": 18.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 54.72,
+    "timestamp": "2026-02-16T17:11:38.965Z"
   },
   {
     "id": 88,
     "width": 1000,
     "height": 500,
     "quantity": 5,
-    "priceText": "81.61 €",
-    "priceEur": 81.61,
     "priceWithoutVat": 66.35,
+    "priceWithVat": 81.61,
     "pricePerPiece": 16.32,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 81.61,
+    "timestamp": "2026-02-16T17:11:39.681Z"
   },
   {
     "id": 89,
     "width": 1000,
     "height": 500,
     "quantity": 10,
-    "priceText": "148.28 €",
-    "priceEur": 148.28,
     "priceWithoutVat": 120.55,
+    "priceWithVat": 148.28,
     "pricePerPiece": 14.83,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 148.28,
+    "timestamp": "2026-02-16T17:11:40.390Z"
   },
   {
     "id": 90,
     "width": 1000,
     "height": 500,
     "quantity": 20,
-    "priceText": "277.99 €",
-    "priceEur": 277.99,
     "priceWithoutVat": 226.01,
+    "priceWithVat": 277.99,
     "pricePerPiece": 13.9,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 277.99,
+    "timestamp": "2026-02-16T17:11:43.521Z"
   },
   {
     "id": 91,
     "width": 1000,
     "height": 700,
     "quantity": 1,
-    "priceText": "31.09 €",
-    "priceEur": 31.09,
     "priceWithoutVat": 25.28,
+    "priceWithVat": 31.09,
     "pricePerPiece": 31.09,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 31.09,
+    "timestamp": "2026-02-16T17:11:44.833Z"
   },
   {
     "id": 92,
     "width": 1000,
     "height": 700,
     "quantity": 2,
-    "priceText": "48.06 €",
-    "priceEur": 48.06,
     "priceWithoutVat": 39.07,
+    "priceWithVat": 48.06,
     "pricePerPiece": 24.03,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 48.06,
+    "timestamp": "2026-02-16T17:11:45.843Z"
   },
   {
     "id": 93,
     "width": 1000,
     "height": 700,
     "quantity": 3,
-    "priceText": "65.20 €",
-    "priceEur": 65.2,
     "priceWithoutVat": 53.01,
+    "priceWithVat": 65.2,
     "pricePerPiece": 21.73,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 65.2,
+    "timestamp": "2026-02-16T17:11:47.776Z"
   },
   {
     "id": 94,
     "width": 1000,
     "height": 700,
     "quantity": 5,
-    "priceText": "99.02 €",
-    "priceEur": 99.02,
     "priceWithoutVat": 80.5,
+    "priceWithVat": 99.02,
     "pricePerPiece": 19.8,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 99.02,
+    "timestamp": "2026-02-16T17:11:48.787Z"
   },
   {
     "id": 95,
     "width": 1000,
     "height": 700,
     "quantity": 10,
-    "priceText": "182.20 €",
-    "priceEur": 182.2,
     "priceWithoutVat": 148.13,
+    "priceWithVat": 182.2,
     "pricePerPiece": 18.22,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 182.2,
+    "timestamp": "2026-02-16T17:11:49.502Z"
   },
   {
     "id": 96,
     "width": 1000,
     "height": 700,
     "quantity": 20,
-    "priceText": "343.43 €",
-    "priceEur": 343.43,
     "priceWithoutVat": 279.21,
+    "priceWithVat": 343.43,
     "pricePerPiece": 17.17,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 343.43,
+    "timestamp": "2026-02-16T17:11:50.510Z"
   },
   {
     "id": 97,
     "width": 1000,
     "height": 1000,
     "quantity": 1,
-    "priceText": "36.36 €",
-    "priceEur": 36.36,
     "priceWithoutVat": 29.56,
+    "priceWithVat": 36.36,
     "pricePerPiece": 36.36,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 36.36,
+    "timestamp": "2026-02-16T17:11:51.220Z"
   },
   {
     "id": 98,
     "width": 1000,
     "height": 1000,
     "quantity": 2,
-    "priceText": "58.55 €",
-    "priceEur": 58.55,
     "priceWithoutVat": 47.6,
+    "priceWithVat": 58.55,
     "pricePerPiece": 29.28,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 58.55,
+    "timestamp": "2026-02-16T17:11:52.235Z"
   },
   {
     "id": 99,
     "width": 1000,
     "height": 1000,
     "quantity": 3,
-    "priceText": "80.86 €",
-    "priceEur": 80.86,
     "priceWithoutVat": 65.74,
+    "priceWithVat": 80.86,
     "pricePerPiece": 26.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 80.86,
+    "timestamp": "2026-02-16T17:11:53.248Z"
   },
   {
     "id": 100,
     "width": 1000,
     "height": 1000,
     "quantity": 5,
-    "priceText": "124.87 €",
-    "priceEur": 124.87,
     "priceWithoutVat": 101.52,
+    "priceWithVat": 124.87,
     "pricePerPiece": 24.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 124.87,
+    "timestamp": "2026-02-16T17:11:53.972Z"
   },
   {
     "id": 101,
     "width": 1000,
     "height": 1000,
     "quantity": 10,
-    "priceText": "232.63 €",
-    "priceEur": 232.63,
     "priceWithoutVat": 189.13,
+    "priceWithVat": 232.63,
     "pricePerPiece": 23.26,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 232.63,
+    "timestamp": "2026-02-16T17:11:55.893Z"
   },
   {
     "id": 102,
     "width": 1000,
     "height": 1000,
     "quantity": 20,
-    "priceText": "439.18 €",
-    "priceEur": 439.18,
     "priceWithoutVat": 357.06,
+    "priceWithVat": 439.18,
     "pricePerPiece": 21.96,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 439.18,
+    "timestamp": "2026-02-16T17:11:56.608Z"
   },
   {
     "id": 103,
     "width": 1000,
     "height": 1500,
     "quantity": 1,
-    "priceText": "45.05 €",
-    "priceEur": 45.05,
     "priceWithoutVat": 36.63,
+    "priceWithVat": 45.05,
     "pricePerPiece": 45.05,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 45.05,
+    "timestamp": "2026-02-16T17:11:57.623Z"
   },
   {
     "id": 104,
     "width": 1000,
     "height": 1500,
     "quantity": 2,
-    "priceText": "76.06 €",
-    "priceEur": 76.06,
     "priceWithoutVat": 61.84,
+    "priceWithVat": 76.06,
     "pricePerPiece": 38.03,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 76.06,
+    "timestamp": "2026-02-16T17:11:58.634Z"
   },
   {
     "id": 105,
     "width": 1000,
     "height": 1500,
     "quantity": 3,
-    "priceText": "106.83 €",
-    "priceEur": 106.83,
     "priceWithoutVat": 86.85,
+    "priceWithVat": 106.83,
     "pricePerPiece": 35.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 106.83,
+    "timestamp": "2026-02-16T17:12:01.772Z"
   },
   {
     "id": 106,
     "width": 1000,
     "height": 1500,
     "quantity": 5,
-    "priceText": "167.43 €",
-    "priceEur": 167.43,
     "priceWithoutVat": 136.12,
+    "priceWithVat": 167.43,
     "pricePerPiece": 33.49,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 167.43,
+    "timestamp": "2026-02-16T17:12:02.492Z"
   },
   {
     "id": 107,
     "width": 1000,
     "height": 1500,
     "quantity": 10,
-    "priceText": "315.09 €",
-    "priceEur": 315.09,
     "priceWithoutVat": 256.17,
+    "priceWithVat": 315.09,
     "pricePerPiece": 31.51,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 315.09,
+    "timestamp": "2026-02-16T17:12:03.503Z"
   },
   {
     "id": 108,
     "width": 1000,
     "height": 1500,
     "quantity": 20,
-    "priceText": "599.45 €",
-    "priceEur": 599.45,
     "priceWithoutVat": 487.36,
+    "priceWithVat": 599.45,
     "pricePerPiece": 29.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 599.45,
+    "timestamp": "2026-02-16T17:12:04.212Z"
   },
   {
     "id": 109,
     "width": 1000,
     "height": 2000,
     "quantity": 1,
-    "priceText": "53.97 €",
-    "priceEur": 53.97,
     "priceWithoutVat": 43.88,
+    "priceWithVat": 53.97,
     "pricePerPiece": 53.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 53.97,
+    "timestamp": "2026-02-16T17:12:05.223Z"
   },
   {
     "id": 110,
     "width": 1000,
     "height": 2000,
     "quantity": 2,
-    "priceText": "93.49 €",
-    "priceEur": 93.49,
     "priceWithoutVat": 76.01,
+    "priceWithVat": 93.49,
     "pricePerPiece": 46.75,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 93.49,
+    "timestamp": "2026-02-16T17:12:05.941Z"
   },
   {
     "id": 111,
     "width": 1000,
     "height": 2000,
     "quantity": 3,
-    "priceText": "132.63 €",
-    "priceEur": 132.63,
     "priceWithoutVat": 107.83,
+    "priceWithVat": 132.63,
     "pricePerPiece": 44.21,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 132.63,
+    "timestamp": "2026-02-16T17:12:06.955Z"
   },
   {
     "id": 112,
     "width": 1000,
     "height": 2000,
     "quantity": 5,
-    "priceText": "209.74 €",
-    "priceEur": 209.74,
     "priceWithoutVat": 170.52,
+    "priceWithVat": 209.74,
     "pricePerPiece": 41.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 209.74,
+    "timestamp": "2026-02-16T17:12:08.268Z"
   },
   {
     "id": 113,
     "width": 1000,
     "height": 2000,
     "quantity": 10,
-    "priceText": "395.89 €",
-    "priceEur": 395.89,
     "priceWithoutVat": 321.86,
+    "priceWithVat": 395.89,
     "pricePerPiece": 39.59,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 395.89,
+    "timestamp": "2026-02-16T17:12:09.585Z"
   },
   {
     "id": 114,
     "width": 1000,
     "height": 2000,
     "quantity": 20,
-    "priceText": "764.91 €",
-    "priceEur": 764.91,
     "priceWithoutVat": 621.88,
+    "priceWithVat": 764.91,
     "pricePerPiece": 38.25,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 764.91,
+    "timestamp": "2026-02-16T17:12:10.608Z"
   },
   {
     "id": 115,
     "width": 1000,
     "height": 3000,
     "quantity": 1,
-    "priceText": "71.25 €",
-    "priceEur": 71.25,
     "priceWithoutVat": 57.93,
+    "priceWithVat": 71.25,
     "pricePerPiece": 71.25,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 71.25,
+    "timestamp": "2026-02-16T17:12:11.318Z"
   },
   {
     "id": 116,
     "width": 1000,
     "height": 3000,
     "quantity": 2,
-    "priceText": "127.90 €",
-    "priceEur": 127.9,
     "priceWithoutVat": 103.98,
+    "priceWithVat": 127.9,
     "pricePerPiece": 63.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 127.9,
+    "timestamp": "2026-02-16T17:12:15.359Z"
   },
   {
     "id": 117,
     "width": 1000,
     "height": 3000,
     "quantity": 3,
-    "priceText": "183.73 €",
-    "priceEur": 183.73,
     "priceWithoutVat": 149.37,
+    "priceWithVat": 183.73,
     "pricePerPiece": 61.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 183.73,
+    "timestamp": "2026-02-16T17:12:16.068Z"
   },
   {
     "id": 118,
     "width": 1000,
     "height": 3000,
     "quantity": 5,
-    "priceText": "292.72 €",
-    "priceEur": 292.72,
     "priceWithoutVat": 237.98,
+    "priceWithVat": 292.72,
     "pricePerPiece": 58.54,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 292.72,
+    "timestamp": "2026-02-16T17:12:17.080Z"
   },
   {
     "id": 119,
     "width": 1000,
     "height": 3000,
     "quantity": 10,
-    "priceText": "554.24 €",
-    "priceEur": 554.24,
     "priceWithoutVat": 450.6,
+    "priceWithVat": 554.24,
     "pricePerPiece": 55.42,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 554.24,
+    "timestamp": "2026-02-16T17:12:17.795Z"
   },
   {
     "id": 120,
     "width": 1000,
     "height": 3000,
     "quantity": 20,
-    "priceText": "95.57 €",
-    "priceEur": 95.57,
     "priceWithoutVat": 890.71,
+    "priceWithVat": 95.57,
     "pricePerPiece": 54.78,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 95.57,
+    "timestamp": "2026-02-16T17:12:18.824Z"
   },
   {
     "id": 121,
     "width": 1000,
     "height": 5000,
     "quantity": 1,
-    "priceText": "106.09 €",
-    "priceEur": 106.09,
     "priceWithoutVat": 86.25,
+    "priceWithVat": 106.09,
     "pricePerPiece": 106.09,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 106.09,
+    "timestamp": "2026-02-16T17:12:19.547Z"
   },
   {
     "id": 122,
     "width": 1000,
     "height": 5000,
     "quantity": 2,
-    "priceText": "196.03 €",
-    "priceEur": 196.03,
     "priceWithoutVat": 159.37,
+    "priceWithVat": 196.03,
     "pricePerPiece": 98.02,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 196.03,
+    "timestamp": "2026-02-16T17:12:20.566Z"
   },
   {
     "id": 123,
     "width": 1000,
     "height": 5000,
     "quantity": 3,
-    "priceText": "283.86 €",
-    "priceEur": 283.86,
     "priceWithoutVat": 230.78,
+    "priceWithVat": 283.86,
     "pricePerPiece": 94.62,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 283.86,
+    "timestamp": "2026-02-16T17:12:21.275Z"
   },
   {
     "id": 124,
     "width": 1000,
     "height": 5000,
     "quantity": 5,
-    "priceText": "453.22 €",
-    "priceEur": 453.22,
     "priceWithoutVat": 368.47,
+    "priceWithVat": 453.22,
     "pricePerPiece": 90.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 453.22,
+    "timestamp": "2026-02-16T17:12:21.987Z"
   },
   {
     "id": 125,
     "width": 1000,
     "height": 5000,
     "quantity": 10,
-    "priceText": "885.14 €",
-    "priceEur": 885.14,
     "priceWithoutVat": 719.63,
+    "priceWithVat": 885.14,
     "pricePerPiece": 88.51,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 885.14,
+    "timestamp": "2026-02-16T17:12:23.002Z"
   },
   {
     "id": 126,
     "width": 1000,
     "height": 5000,
     "quantity": 20,
-    "priceText": "757.14 €",
-    "priceEur": 757.14,
     "priceWithoutVat": 615.56,
+    "priceWithVat": 757.14,
     "pricePerPiece": 87.86,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 757.14,
+    "timestamp": "2026-02-16T17:12:24.023Z"
   },
   {
     "id": 127,
     "width": 1200,
     "height": 500,
     "quantity": 1,
-    "priceText": "29.75 €",
-    "priceEur": 29.75,
     "priceWithoutVat": 24.19,
+    "priceWithVat": 29.75,
     "pricePerPiece": 29.75,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 29.75,
+    "timestamp": "2026-02-16T17:12:24.743Z"
   },
   {
     "id": 128,
     "width": 1200,
     "height": 500,
     "quantity": 2,
-    "priceText": "45.39 €",
-    "priceEur": 45.39,
     "priceWithoutVat": 36.9,
+    "priceWithVat": 45.39,
     "pricePerPiece": 22.7,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 45.39,
+    "timestamp": "2026-02-16T17:12:25.766Z"
   },
   {
     "id": 129,
     "width": 1200,
     "height": 500,
     "quantity": 3,
-    "priceText": "61.20 €",
-    "priceEur": 61.2,
     "priceWithoutVat": 49.76,
+    "priceWithVat": 61.2,
     "pricePerPiece": 20.4,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 61.2,
+    "timestamp": "2026-02-16T17:12:26.474Z"
   },
   {
     "id": 130,
     "width": 1200,
     "height": 500,
     "quantity": 5,
-    "priceText": "92.42 €",
-    "priceEur": 92.42,
     "priceWithoutVat": 75.14,
+    "priceWithVat": 92.42,
     "pricePerPiece": 18.48,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 92.42,
+    "timestamp": "2026-02-16T17:12:27.500Z"
   },
   {
     "id": 131,
     "width": 1200,
     "height": 500,
     "quantity": 10,
-    "priceText": "169.28 €",
-    "priceEur": 169.28,
     "priceWithoutVat": 137.63,
+    "priceWithVat": 169.28,
     "pricePerPiece": 16.93,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 169.28,
+    "timestamp": "2026-02-16T17:12:28.208Z"
   },
   {
     "id": 132,
     "width": 1200,
     "height": 500,
     "quantity": 20,
-    "priceText": "318.67 €",
-    "priceEur": 318.67,
     "priceWithoutVat": 259.08,
+    "priceWithVat": 318.67,
     "pricePerPiece": 15.93,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 318.67,
+    "timestamp": "2026-02-16T17:12:29.222Z"
   },
   {
     "id": 133,
     "width": 1200,
     "height": 700,
     "quantity": 1,
-    "priceText": "33.73 €",
-    "priceEur": 33.73,
     "priceWithoutVat": 27.42,
+    "priceWithVat": 33.73,
     "pricePerPiece": 33.73,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 33.73,
+    "timestamp": "2026-02-16T17:12:29.936Z"
   },
   {
     "id": 134,
     "width": 1200,
     "height": 700,
     "quantity": 2,
-    "priceText": "53.54 €",
-    "priceEur": 53.54,
     "priceWithoutVat": 43.53,
+    "priceWithVat": 53.54,
     "pricePerPiece": 26.77,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 53.54,
+    "timestamp": "2026-02-16T17:12:30.952Z"
   },
   {
     "id": 135,
     "width": 1200,
     "height": 700,
     "quantity": 3,
-    "priceText": "73.26 €",
-    "priceEur": 73.26,
     "priceWithoutVat": 59.56,
+    "priceWithVat": 73.26,
     "pricePerPiece": 24.42,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 73.26,
+    "timestamp": "2026-02-16T17:12:31.667Z"
   },
   {
     "id": 136,
     "width": 1200,
     "height": 700,
     "quantity": 5,
-    "priceText": "112.18 €",
-    "priceEur": 112.18,
     "priceWithoutVat": 91.2,
+    "priceWithVat": 112.18,
     "pricePerPiece": 22.44,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 112.18,
+    "timestamp": "2026-02-16T17:12:32.689Z"
   },
   {
     "id": 137,
     "width": 1200,
     "height": 700,
     "quantity": 10,
-    "priceText": "208.14 €",
-    "priceEur": 208.14,
     "priceWithoutVat": 169.22,
+    "priceWithVat": 208.14,
     "pricePerPiece": 20.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 208.14,
+    "timestamp": "2026-02-16T17:12:33.717Z"
   },
   {
     "id": 138,
     "width": 1200,
     "height": 700,
     "quantity": 20,
-    "priceText": "392.86 €",
-    "priceEur": 392.86,
     "priceWithoutVat": 319.4,
+    "priceWithVat": 392.86,
     "pricePerPiece": 19.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 392.86,
+    "timestamp": "2026-02-16T17:12:34.428Z"
   },
   {
     "id": 139,
     "width": 1200,
     "height": 1000,
     "quantity": 1,
-    "priceText": "39.79 €",
-    "priceEur": 39.79,
     "priceWithoutVat": 32.35,
+    "priceWithVat": 39.79,
     "pricePerPiece": 39.79,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 39.79,
+    "timestamp": "2026-02-16T17:12:35.454Z"
   },
   {
     "id": 140,
     "width": 1200,
     "height": 1000,
     "quantity": 2,
-    "priceText": "65.61 €",
-    "priceEur": 65.61,
     "priceWithoutVat": 53.34,
+    "priceWithVat": 65.61,
     "pricePerPiece": 32.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 65.61,
+    "timestamp": "2026-02-16T17:12:36.467Z"
   },
   {
     "id": 141,
     "width": 1200,
     "height": 1000,
     "quantity": 3,
-    "priceText": "91.27 €",
-    "priceEur": 91.27,
     "priceWithoutVat": 74.2,
+    "priceWithVat": 91.27,
     "pricePerPiece": 30.42,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 91.27,
+    "timestamp": "2026-02-16T17:12:37.483Z"
   },
   {
     "id": 142,
     "width": 1200,
     "height": 1000,
     "quantity": 5,
-    "priceText": "141.86 €",
-    "priceEur": 141.86,
     "priceWithoutVat": 115.33,
+    "priceWithVat": 141.86,
     "pricePerPiece": 28.37,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 141.86,
+    "timestamp": "2026-02-16T17:12:38.501Z"
   },
   {
     "id": 143,
     "width": 1200,
     "height": 1000,
     "quantity": 10,
-    "priceText": "265.79 €",
-    "priceEur": 265.79,
     "priceWithoutVat": 216.09,
+    "priceWithVat": 265.79,
     "pricePerPiece": 26.58,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 265.79,
+    "timestamp": "2026-02-16T17:12:39.215Z"
   },
   {
     "id": 144,
     "width": 1200,
     "height": 1000,
     "quantity": 20,
-    "priceText": "501.37 €",
-    "priceEur": 501.37,
     "priceWithoutVat": 407.62,
+    "priceWithVat": 501.37,
     "pricePerPiece": 25.07,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 501.37,
+    "timestamp": "2026-02-16T17:12:39.927Z"
   },
   {
     "id": 145,
     "width": 1200,
     "height": 1500,
     "quantity": 1,
-    "priceText": "50.05 €",
-    "priceEur": 50.05,
     "priceWithoutVat": 40.69,
+    "priceWithVat": 50.05,
     "pricePerPiece": 50.05,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 50.05,
+    "timestamp": "2026-02-16T17:12:40.947Z"
   },
   {
     "id": 146,
     "width": 1200,
     "height": 1500,
     "quantity": 2,
-    "priceText": "85.73 €",
-    "priceEur": 85.73,
     "priceWithoutVat": 69.7,
+    "priceWithVat": 85.73,
     "pricePerPiece": 42.87,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 85.73,
+    "timestamp": "2026-02-16T17:12:41.659Z"
   },
   {
     "id": 147,
     "width": 1200,
     "height": 1500,
     "quantity": 3,
-    "priceText": "121.11 €",
-    "priceEur": 121.11,
     "priceWithoutVat": 98.46,
+    "priceWithVat": 121.11,
     "pricePerPiece": 40.37,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 121.11,
+    "timestamp": "2026-02-16T17:12:42.681Z"
   },
   {
     "id": 148,
     "width": 1200,
     "height": 1500,
     "quantity": 5,
-    "priceText": "190.88 €",
-    "priceEur": 190.88,
     "priceWithoutVat": 155.19,
+    "priceWithVat": 190.88,
     "pricePerPiece": 38.18,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 190.88,
+    "timestamp": "2026-02-16T17:12:43.403Z"
   },
   {
     "id": 149,
     "width": 1200,
     "height": 1500,
     "quantity": 10,
-    "priceText": "360.02 €",
-    "priceEur": 360.02,
     "priceWithoutVat": 292.7,
+    "priceWithVat": 360.02,
     "pricePerPiece": 36,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 360.02,
+    "timestamp": "2026-02-16T17:12:45.344Z"
   },
   {
     "id": 150,
     "width": 1200,
     "height": 1500,
     "quantity": 20,
-    "priceText": "690.88 €",
-    "priceEur": 690.88,
     "priceWithoutVat": 561.69,
+    "priceWithVat": 690.88,
     "pricePerPiece": 34.54,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 690.88,
+    "timestamp": "2026-02-16T17:12:46.055Z"
   },
   {
     "id": 151,
     "width": 1200,
     "height": 2000,
     "quantity": 1,
-    "priceText": "60.05 €",
-    "priceEur": 60.05,
     "priceWithoutVat": 48.82,
+    "priceWithVat": 60.05,
     "pricePerPiece": 60.05,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 60.05,
+    "timestamp": "2026-02-16T17:12:47.071Z"
   },
   {
     "id": 152,
     "width": 1200,
     "height": 2000,
     "quantity": 2,
-    "priceText": "105.52 €",
-    "priceEur": 105.52,
     "priceWithoutVat": 85.79,
+    "priceWithVat": 105.52,
     "pricePerPiece": 52.76,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 105.52,
+    "timestamp": "2026-02-16T17:12:48.094Z"
   },
   {
     "id": 153,
     "width": 1200,
     "height": 2000,
     "quantity": 3,
-    "priceText": "150.71 €",
-    "priceEur": 150.71,
     "priceWithoutVat": 122.53,
+    "priceWithVat": 150.71,
     "pricePerPiece": 50.24,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 150.71,
+    "timestamp": "2026-02-16T17:12:50.035Z"
   },
   {
     "id": 154,
     "width": 1200,
     "height": 2000,
     "quantity": 5,
-    "priceText": "239.30 €",
-    "priceEur": 239.3,
     "priceWithoutVat": 194.55,
+    "priceWithVat": 239.3,
     "pricePerPiece": 47.86,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 239.3,
+    "timestamp": "2026-02-16T17:12:50.747Z"
   },
   {
     "id": 155,
     "width": 1200,
     "height": 2000,
     "quantity": 10,
-    "priceText": "451.51 €",
-    "priceEur": 451.51,
     "priceWithoutVat": 367.08,
+    "priceWithVat": 451.51,
     "pricePerPiece": 45.15,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 451.51,
+    "timestamp": "2026-02-16T17:12:51.762Z"
   },
   {
     "id": 156,
     "width": 1200,
     "height": 2000,
     "quantity": 20,
-    "priceText": "881.53 €",
-    "priceEur": 881.53,
     "priceWithoutVat": 716.69,
+    "priceWithVat": 881.53,
     "pricePerPiece": 44.08,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 881.53,
+    "timestamp": "2026-02-16T17:12:53.994Z"
   },
   {
     "id": 157,
     "width": 1200,
     "height": 3000,
     "quantity": 1,
-    "priceText": "80.20 €",
-    "priceEur": 80.2,
     "priceWithoutVat": 65.2,
+    "priceWithVat": 80.2,
     "pricePerPiece": 80.2,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 80.2,
+    "timestamp": "2026-02-16T17:12:54.707Z"
   },
   {
     "id": 158,
     "width": 1200,
     "height": 3000,
     "quantity": 2,
-    "priceText": "145.26 €",
-    "priceEur": 145.26,
     "priceWithoutVat": 118.1,
+    "priceWithVat": 145.26,
     "pricePerPiece": 72.63,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 145.26,
+    "timestamp": "2026-02-16T17:12:55.426Z"
   },
   {
     "id": 159,
     "width": 1200,
     "height": 3000,
     "quantity": 3,
-    "priceText": "209.25 €",
-    "priceEur": 209.25,
     "priceWithoutVat": 170.12,
+    "priceWithVat": 209.25,
     "pricePerPiece": 69.75,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 209.25,
+    "timestamp": "2026-02-16T17:12:56.439Z"
   },
   {
     "id": 160,
     "width": 1200,
     "height": 3000,
     "quantity": 5,
-    "priceText": "333.99 €",
-    "priceEur": 333.99,
     "priceWithoutVat": 271.54,
+    "priceWithVat": 333.99,
     "pricePerPiece": 66.8,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 333.99,
+    "timestamp": "2026-02-16T17:12:57.158Z"
   },
   {
     "id": 161,
     "width": 1200,
     "height": 3000,
     "quantity": 10,
-    "priceText": "637.87 €",
-    "priceEur": 637.87,
     "priceWithoutVat": 518.59,
+    "priceWithVat": 637.87,
     "pricePerPiece": 63.79,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 637.87,
+    "timestamp": "2026-02-16T17:12:58.172Z"
   },
   {
     "id": 162,
     "width": 1200,
     "height": 3000,
     "quantity": 20,
-    "priceText": "262.60 €",
-    "priceEur": 262.6,
     "priceWithoutVat": 213.5,
+    "priceWithVat": 262.6,
     "pricePerPiece": 63.13,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 262.6,
+    "timestamp": "2026-02-16T17:12:59.187Z"
   },
   {
     "id": 163,
     "width": 1200,
     "height": 5000,
     "quantity": 1,
-    "priceText": "119.95 €",
-    "priceEur": 119.95,
     "priceWithoutVat": 97.52,
+    "priceWithVat": 119.95,
     "pricePerPiece": 119.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 119.95,
+    "timestamp": "2026-02-16T17:13:02.344Z"
   },
   {
     "id": 164,
     "width": 1200,
     "height": 5000,
     "quantity": 2,
-    "priceText": "223.07 €",
-    "priceEur": 223.07,
     "priceWithoutVat": 181.36,
+    "priceWithVat": 223.07,
     "pricePerPiece": 111.54,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 223.07,
+    "timestamp": "2026-02-16T17:13:03.059Z"
   },
   {
     "id": 165,
     "width": 1200,
     "height": 5000,
     "quantity": 3,
-    "priceText": "323.61 €",
-    "priceEur": 323.61,
     "priceWithoutVat": 263.1,
+    "priceWithVat": 323.61,
     "pricePerPiece": 107.87,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 323.61,
+    "timestamp": "2026-02-16T17:13:04.123Z"
   },
   {
     "id": 166,
     "width": 1200,
     "height": 5000,
     "quantity": 5,
-    "priceText": "516.07 €",
-    "priceEur": 516.07,
     "priceWithoutVat": 419.57,
+    "priceWithVat": 516.07,
     "pricePerPiece": 103.21,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 516.07,
+    "timestamp": "2026-02-16T17:13:04.834Z"
   },
   {
     "id": 167,
     "width": 1200,
     "height": 5000,
     "quantity": 10,
-    "priceText": "18.93 €",
-    "priceEur": 18.93,
     "priceWithoutVat": 828.4,
+    "priceWithVat": 18.93,
     "pricePerPiece": 101.89,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 18.93,
+    "timestamp": "2026-02-16T17:13:05.853Z"
   },
   {
     "id": 168,
     "width": 1200,
     "height": 5000,
     "quantity": 20,
-    "priceText": "24.96 €",
-    "priceEur": 24.96,
     "priceWithoutVat": 20.29,
+    "priceWithVat": 24.96,
     "pricePerPiece": 101.25,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 24.96,
+    "timestamp": "2026-02-16T17:13:08.990Z"
   },
   {
     "id": 169,
     "width": 1500,
     "height": 500,
     "quantity": 1,
-    "priceText": "33.01 €",
-    "priceEur": 33.01,
     "priceWithoutVat": 26.84,
+    "priceWithVat": 33.01,
     "pricePerPiece": 33.01,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 33.01,
+    "timestamp": "2026-02-16T17:13:09.705Z"
   },
   {
     "id": 170,
     "width": 1500,
     "height": 500,
     "quantity": 2,
-    "priceText": "51.89 €",
-    "priceEur": 51.89,
     "priceWithoutVat": 42.19,
+    "priceWithVat": 51.89,
     "pricePerPiece": 25.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 51.89,
+    "timestamp": "2026-02-16T17:13:10.726Z"
   },
   {
     "id": 171,
     "width": 1500,
     "height": 500,
     "quantity": 3,
-    "priceText": "70.92 €",
-    "priceEur": 70.92,
     "priceWithoutVat": 57.66,
+    "priceWithVat": 70.92,
     "pricePerPiece": 23.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.92,
+    "timestamp": "2026-02-16T17:13:11.444Z"
   },
   {
     "id": 172,
     "width": 1500,
     "height": 500,
     "quantity": 5,
-    "priceText": "108.47 €",
-    "priceEur": 108.47,
     "priceWithoutVat": 88.19,
+    "priceWithVat": 108.47,
     "pricePerPiece": 21.69,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 108.47,
+    "timestamp": "2026-02-16T17:13:12.461Z"
   },
   {
     "id": 173,
     "width": 1500,
     "height": 500,
     "quantity": 10,
-    "priceText": "200.69 €",
-    "priceEur": 200.69,
     "priceWithoutVat": 163.16,
+    "priceWithVat": 200.69,
     "pricePerPiece": 20.07,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 200.69,
+    "timestamp": "2026-02-16T17:13:13.170Z"
   },
   {
     "id": 174,
     "width": 1500,
     "height": 500,
     "quantity": 20,
-    "priceText": "378.70 €",
-    "priceEur": 378.7,
     "priceWithoutVat": 307.89,
+    "priceWithVat": 378.7,
     "pricePerPiece": 18.94,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 378.7,
+    "timestamp": "2026-02-16T17:13:14.180Z"
   },
   {
     "id": 175,
     "width": 1500,
     "height": 700,
     "quantity": 1,
-    "priceText": "37.79 €",
-    "priceEur": 37.79,
     "priceWithoutVat": 30.72,
+    "priceWithVat": 37.79,
     "pricePerPiece": 37.79,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 37.79,
+    "timestamp": "2026-02-16T17:13:15.498Z"
   },
   {
     "id": 176,
     "width": 1500,
     "height": 700,
     "quantity": 2,
-    "priceText": "61.62 €",
-    "priceEur": 61.62,
     "priceWithoutVat": 50.1,
+    "priceWithVat": 61.62,
     "pricePerPiece": 30.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 61.62,
+    "timestamp": "2026-02-16T17:13:16.513Z"
   },
   {
     "id": 177,
     "width": 1500,
     "height": 700,
     "quantity": 3,
-    "priceText": "85.33 €",
-    "priceEur": 85.33,
     "priceWithoutVat": 69.37,
+    "priceWithVat": 85.33,
     "pricePerPiece": 28.44,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 85.33,
+    "timestamp": "2026-02-16T17:13:17.837Z"
   },
   {
-    "id": 178,
+    "id": 1000,
     "width": 1500,
     "height": 500,
     "quantity": 1,
-    "priceText": "33.01 €",
-    "priceEur": 33.01,
     "priceWithoutVat": 26.84,
+    "priceWithVat": 33.01,
     "pricePerPiece": 33.01,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 33.01,
+    "timestamp": "2026-02-16T17:15:58.301Z"
   },
   {
-    "id": 179,
+    "id": 1001,
     "width": 1500,
     "height": 500,
     "quantity": 2,
-    "priceText": "51.89 €",
-    "priceEur": 51.89,
     "priceWithoutVat": 42.19,
+    "priceWithVat": 51.89,
     "pricePerPiece": 25.95,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 51.89,
+    "timestamp": "2026-02-16T17:15:59.019Z"
   },
   {
-    "id": 180,
+    "id": 1002,
     "width": 1500,
     "height": 500,
     "quantity": 3,
-    "priceText": "70.92 €",
-    "priceEur": 70.92,
     "priceWithoutVat": 57.66,
+    "priceWithVat": 70.92,
     "pricePerPiece": 23.64,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 70.92,
+    "timestamp": "2026-02-16T17:16:00.031Z"
   },
   {
-    "id": 181,
+    "id": 1003,
     "width": 1500,
     "height": 500,
     "quantity": 5,
-    "priceText": "108.47 €",
-    "priceEur": 108.47,
     "priceWithoutVat": 88.19,
+    "priceWithVat": 108.47,
     "pricePerPiece": 21.69,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 108.47,
+    "timestamp": "2026-02-16T17:16:01.043Z"
   },
   {
-    "id": 182,
+    "id": 1004,
     "width": 1500,
     "height": 500,
     "quantity": 10,
-    "priceText": "200.69 €",
-    "priceEur": 200.69,
     "priceWithoutVat": 163.16,
+    "priceWithVat": 200.69,
     "pricePerPiece": 20.07,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 200.69,
+    "timestamp": "2026-02-16T17:16:02.055Z"
   },
   {
-    "id": 183,
+    "id": 1005,
     "width": 1500,
     "height": 500,
     "quantity": 20,
-    "priceText": "378.70 €",
-    "priceEur": 378.7,
     "priceWithoutVat": 307.89,
+    "priceWithVat": 378.7,
     "pricePerPiece": 18.94,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 378.7,
+    "timestamp": "2026-02-16T17:16:02.766Z"
   },
   {
-    "id": 184,
+    "id": 1006,
     "width": 1500,
     "height": 700,
     "quantity": 1,
-    "priceText": "37.79 €",
-    "priceEur": 37.79,
     "priceWithoutVat": 30.72,
+    "priceWithVat": 37.79,
     "pricePerPiece": 37.79,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 37.79,
+    "timestamp": "2026-02-16T17:16:03.811Z"
   },
   {
-    "id": 185,
+    "id": 1007,
     "width": 1500,
     "height": 700,
     "quantity": 2,
-    "priceText": "61.62 €",
-    "priceEur": 61.62,
     "priceWithoutVat": 50.1,
+    "priceWithVat": 61.62,
     "pricePerPiece": 30.81,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 61.62,
+    "timestamp": "2026-02-16T17:16:04.836Z"
   },
   {
-    "id": 186,
+    "id": 1008,
     "width": 1500,
     "height": 700,
     "quantity": 3,
-    "priceText": "85.33 €",
-    "priceEur": 85.33,
     "priceWithoutVat": 69.37,
+    "priceWithVat": 85.33,
     "pricePerPiece": 28.44,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 85.33,
+    "timestamp": "2026-02-16T17:16:05.550Z"
   },
   {
-    "id": 187,
+    "id": 1009,
     "width": 1500,
     "height": 700,
     "quantity": 5,
-    "priceText": "132.07 €",
-    "priceEur": 132.07,
     "priceWithoutVat": 107.37,
+    "priceWithVat": 132.07,
     "pricePerPiece": 26.41,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 132.07,
+    "timestamp": "2026-02-16T17:16:06.562Z"
   },
   {
-    "id": 188,
+    "id": 1010,
     "width": 1500,
     "height": 700,
     "quantity": 10,
-    "priceText": "246.84 €",
-    "priceEur": 246.84,
     "priceWithoutVat": 200.68,
+    "priceWithVat": 246.84,
     "pricePerPiece": 24.68,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 246.84,
+    "timestamp": "2026-02-16T17:16:07.271Z"
   },
   {
-    "id": 189,
+    "id": 1011,
     "width": 1500,
     "height": 700,
     "quantity": 20,
-    "priceText": "465.90 €",
-    "priceEur": 465.9,
     "priceWithoutVat": 378.78,
+    "priceWithVat": 465.9,
     "pricePerPiece": 23.3,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 465.9,
+    "timestamp": "2026-02-16T17:16:08.286Z"
   },
   {
-    "id": 190,
+    "id": 1012,
     "width": 1500,
     "height": 1000,
     "quantity": 1,
-    "priceText": "45.05 €",
-    "priceEur": 45.05,
     "priceWithoutVat": 36.63,
+    "priceWithVat": 45.05,
     "pricePerPiece": 45.05,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 45.05,
+    "timestamp": "2026-02-16T17:16:08.996Z"
   },
   {
-    "id": 191,
+    "id": 1013,
     "width": 1500,
     "height": 1000,
     "quantity": 2,
-    "priceText": "76.06 €",
-    "priceEur": 76.06,
     "priceWithoutVat": 61.84,
+    "priceWithVat": 76.06,
     "pricePerPiece": 38.03,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 76.06,
+    "timestamp": "2026-02-16T17:16:10.007Z"
   },
   {
-    "id": 192,
+    "id": 1014,
     "width": 1500,
     "height": 1000,
     "quantity": 3,
-    "priceText": "106.83 €",
-    "priceEur": 106.83,
     "priceWithoutVat": 86.85,
+    "priceWithVat": 106.83,
     "pricePerPiece": 35.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 106.83,
+    "timestamp": "2026-02-16T17:16:10.718Z"
   },
   {
-    "id": 193,
+    "id": 1015,
     "width": 1500,
     "height": 1000,
     "quantity": 5,
-    "priceText": "167.43 €",
-    "priceEur": 167.43,
     "priceWithoutVat": 136.12,
+    "priceWithVat": 167.43,
     "pricePerPiece": 33.49,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 167.43,
+    "timestamp": "2026-02-16T17:16:11.732Z"
   },
   {
-    "id": 194,
+    "id": 1016,
     "width": 1500,
     "height": 1000,
     "quantity": 10,
-    "priceText": "315.09 €",
-    "priceEur": 315.09,
     "priceWithoutVat": 256.17,
+    "priceWithVat": 315.09,
     "pricePerPiece": 31.51,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 315.09,
+    "timestamp": "2026-02-16T17:16:12.450Z"
   },
   {
-    "id": 195,
+    "id": 1017,
     "width": 1500,
     "height": 1000,
     "quantity": 20,
-    "priceText": "599.45 €",
-    "priceEur": 599.45,
     "priceWithoutVat": 487.36,
+    "priceWithVat": 599.45,
     "pricePerPiece": 29.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 599.45,
+    "timestamp": "2026-02-16T17:16:13.471Z"
   },
   {
-    "id": 196,
+    "id": 1018,
     "width": 1500,
     "height": 1500,
     "quantity": 1,
-    "priceText": "57.29 €",
-    "priceEur": 57.29,
     "priceWithoutVat": 46.58,
+    "priceWithVat": 57.29,
     "pricePerPiece": 57.29,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 57.29,
+    "timestamp": "2026-02-16T17:16:16.605Z"
   },
   {
-    "id": 197,
+    "id": 1019,
     "width": 1500,
     "height": 1500,
     "quantity": 2,
-    "priceText": "100.09 €",
-    "priceEur": 100.09,
     "priceWithoutVat": 81.37,
+    "priceWithVat": 100.09,
     "pricePerPiece": 50.05,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 100.09,
+    "timestamp": "2026-02-16T17:16:17.319Z"
   },
   {
-    "id": 198,
+    "id": 1020,
     "width": 1500,
     "height": 1500,
     "quantity": 3,
-    "priceText": "142.41 €",
-    "priceEur": 142.41,
     "priceWithoutVat": 115.78,
+    "priceWithVat": 142.41,
     "pricePerPiece": 47.47,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 142.41,
+    "timestamp": "2026-02-16T17:16:18.339Z"
   },
   {
-    "id": 199,
+    "id": 1021,
     "width": 1500,
     "height": 1500,
     "quantity": 5,
-    "priceText": "225.71 €",
-    "priceEur": 225.71,
     "priceWithoutVat": 183.5,
+    "priceWithVat": 225.71,
     "pricePerPiece": 45.14,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 225.71,
+    "timestamp": "2026-02-16T17:16:19.048Z"
   },
   {
-    "id": 200,
+    "id": 1022,
     "width": 1500,
     "height": 1500,
     "quantity": 10,
-    "priceText": "426.11 €",
-    "priceEur": 426.11,
     "priceWithoutVat": 346.43,
+    "priceWithVat": 426.11,
     "pricePerPiece": 42.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 426.11,
+    "timestamp": "2026-02-16T17:16:20.063Z"
   },
   {
-    "id": 201,
+    "id": 1023,
     "width": 1500,
     "height": 1500,
     "quantity": 20,
-    "priceText": "827.90 €",
-    "priceEur": 827.9,
     "priceWithoutVat": 673.09,
+    "priceWithVat": 827.9,
     "pricePerPiece": 41.4,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 827.9,
+    "timestamp": "2026-02-16T17:16:20.775Z"
   },
   {
-    "id": 202,
+    "id": 1024,
     "width": 1500,
     "height": 2000,
     "quantity": 1,
-    "priceText": "69.26 €",
-    "priceEur": 69.26,
     "priceWithoutVat": 56.31,
+    "priceWithVat": 69.26,
     "pricePerPiece": 69.26,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 69.26,
+    "timestamp": "2026-02-16T17:16:21.799Z"
   },
   {
-    "id": 203,
+    "id": 1025,
     "width": 1500,
     "height": 2000,
     "quantity": 2,
-    "priceText": "123.73 €",
-    "priceEur": 123.73,
     "priceWithoutVat": 100.59,
+    "priceWithVat": 123.73,
     "pricePerPiece": 61.87,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 123.73,
+    "timestamp": "2026-02-16T17:16:22.810Z"
   },
   {
-    "id": 204,
+    "id": 1026,
     "width": 1500,
     "height": 2000,
     "quantity": 3,
-    "priceText": "177.67 €",
-    "priceEur": 177.67,
     "priceWithoutVat": 144.45,
+    "priceWithVat": 177.67,
     "pricePerPiece": 59.22,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 177.67,
+    "timestamp": "2026-02-16T17:16:23.821Z"
   },
   {
-    "id": 205,
+    "id": 1027,
     "width": 1500,
     "height": 2000,
     "quantity": 5,
-    "priceText": "283.07 €",
-    "priceEur": 283.07,
     "priceWithoutVat": 230.14,
+    "priceWithVat": 283.07,
     "pricePerPiece": 56.61,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 283.07,
+    "timestamp": "2026-02-16T17:16:25.141Z"
   },
   {
-    "id": 206,
+    "id": 1028,
     "width": 1500,
     "height": 2000,
     "quantity": 10,
-    "priceText": "534.63 €",
-    "priceEur": 534.63,
     "priceWithoutVat": 434.66,
+    "priceWithVat": 534.63,
     "pricePerPiece": 53.46,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 534.63,
+    "timestamp": "2026-02-16T17:16:26.149Z"
   },
   {
-    "id": 207,
+    "id": 1029,
     "width": 1500,
     "height": 2000,
     "quantity": 20,
-    "priceText": "1056.35 €",
-    "priceEur": 1056.35,
     "priceWithoutVat": 858.82,
+    "priceWithVat": 1056.35,
     "pricePerPiece": 52.82,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 1056.35,
+    "timestamp": "2026-02-16T17:16:27.470Z"
   },
   {
-    "id": 208,
+    "id": 1030,
     "width": 1500,
     "height": 3000,
     "quantity": 1,
-    "priceText": "93.32 €",
-    "priceEur": 93.32,
     "priceWithoutVat": 75.87,
+    "priceWithVat": 93.32,
     "pricePerPiece": 93.32,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 93.32,
+    "timestamp": "2026-02-16T17:16:28.180Z"
   },
   {
-    "id": 209,
+    "id": 1031,
     "width": 1500,
     "height": 3000,
     "quantity": 2,
-    "priceText": "171.04 €",
-    "priceEur": 171.04,
     "priceWithoutVat": 139.06,
+    "priceWithVat": 171.04,
     "pricePerPiece": 85.52,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 171.04,
+    "timestamp": "2026-02-16T17:16:29.492Z"
   },
   {
-    "id": 210,
+    "id": 1032,
     "width": 1500,
     "height": 3000,
     "quantity": 3,
-    "priceText": "247.22 €",
-    "priceEur": 247.22,
     "priceWithoutVat": 200.99,
+    "priceWithVat": 247.22,
     "pricePerPiece": 82.41,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 247.22,
+    "timestamp": "2026-02-16T17:16:31.415Z"
   },
   {
-    "id": 211,
+    "id": 1033,
     "width": 1500,
     "height": 3000,
     "quantity": 5,
-    "priceText": "394.89 €",
-    "priceEur": 394.89,
     "priceWithoutVat": 321.05,
+    "priceWithVat": 394.89,
     "pricePerPiece": 78.98,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 394.89,
+    "timestamp": "2026-02-16T17:16:32.123Z"
   },
   {
-    "id": 212,
+    "id": 1034,
     "width": 1500,
     "height": 3000,
     "quantity": 10,
-    "priceText": "763.08 €",
-    "priceEur": 763.08,
     "priceWithoutVat": 620.39,
+    "priceWithVat": 763.08,
     "pricePerPiece": 76.31,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 763.08,
+    "timestamp": "2026-02-16T17:16:33.144Z"
   },
   {
-    "id": 213,
+    "id": 1035,
     "width": 1500,
     "height": 3000,
     "quantity": 20,
-    "priceText": "1513.02 €",
-    "priceEur": 1513.02,
     "priceWithoutVat": 1230.1,
+    "priceWithVat": 1513.02,
     "pricePerPiece": 75.65,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 1513.02,
+    "timestamp": "2026-02-16T17:16:33.854Z"
   },
   {
-    "id": 214,
+    "id": 1036,
     "width": 1500,
     "height": 5000,
     "quantity": 1,
-    "priceText": "140.79 €",
-    "priceEur": 140.79,
     "priceWithoutVat": 114.46,
+    "priceWithVat": 140.79,
     "pricePerPiece": 140.79,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 140.79,
+    "timestamp": "2026-02-16T17:16:34.884Z"
   },
   {
-    "id": 215,
+    "id": 1037,
     "width": 1500,
     "height": 5000,
     "quantity": 2,
-    "priceText": "263.50 €",
-    "priceEur": 263.5,
     "priceWithoutVat": 214.23,
+    "priceWithVat": 263.5,
     "pricePerPiece": 131.75,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 263.5,
+    "timestamp": "2026-02-16T17:16:35.899Z"
   },
   {
-    "id": 216,
+    "id": 1038,
     "width": 1500,
     "height": 5000,
     "quantity": 3,
-    "priceText": "382.41 €",
-    "priceEur": 382.41,
     "priceWithoutVat": 310.9,
+    "priceWithVat": 382.41,
     "pricePerPiece": 127.47,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 382.41,
+    "timestamp": "2026-02-16T17:16:36.608Z"
   },
   {
-    "id": 217,
+    "id": 1039,
     "width": 1500,
     "height": 5000,
     "quantity": 5,
-    "priceText": "616.44 €",
-    "priceEur": 616.44,
     "priceWithoutVat": 501.17,
+    "priceWithVat": 616.44,
     "pricePerPiece": 123.29,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 616.44,
+    "timestamp": "2026-02-16T17:16:37.319Z"
   },
   {
-    "id": 218,
+    "id": 1040,
     "width": 1500,
     "height": 5000,
     "quantity": 10,
-    "priceText": "1219.74 €",
-    "priceEur": 1219.74,
     "priceWithoutVat": 991.66,
+    "priceWithVat": 1219.74,
     "pricePerPiece": 121.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 1219.74,
+    "timestamp": "2026-02-16T17:16:38.332Z"
   },
   {
-    "id": 219,
+    "id": 1041,
     "width": 1500,
     "height": 5000,
     "quantity": 20,
-    "priceText": "2426.58 €",
-    "priceEur": 2426.58,
     "priceWithoutVat": 1972.83,
+    "priceWithVat": 2426.58,
     "pricePerPiece": 121.33,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 2426.58,
+    "timestamp": "2026-02-16T17:16:43.281Z"
   },
   {
-    "id": 220,
+    "id": 1042,
     "width": 1600,
     "height": 500,
     "quantity": 1,
-    "priceText": "36.36 €",
-    "priceEur": 36.36,
     "priceWithoutVat": 29.56,
+    "priceWithVat": 36.36,
     "pricePerPiece": 36.36,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 36.36,
+    "timestamp": "2026-02-16T17:16:55.305Z"
   },
   {
-    "id": 221,
+    "id": 1043,
     "width": 1600,
     "height": 500,
     "quantity": 2,
-    "priceText": "34.18 €",
-    "priceEur": 34.18,
     "priceWithoutVat": 27.79,
+    "priceWithVat": 34.18,
     "pricePerPiece": 34.18,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 34.18,
+    "timestamp": "2026-02-16T17:16:59.048Z"
   },
   {
-    "id": 222,
+    "id": 1044,
     "width": 1600,
     "height": 500,
     "quantity": 3,
-    "priceText": "74.16 €",
-    "priceEur": 74.16,
     "priceWithoutVat": 60.29,
+    "priceWithVat": 74.16,
     "pricePerPiece": 24.72,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 74.16,
+    "timestamp": "2026-02-16T17:16:59.763Z"
   },
   {
-    "id": 223,
+    "id": 1045,
     "width": 1600,
     "height": 500,
     "quantity": 5,
-    "priceText": "113.74 €",
-    "priceEur": 113.74,
     "priceWithoutVat": 92.47,
+    "priceWithVat": 113.74,
     "pricePerPiece": 22.75,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 113.74,
+    "timestamp": "2026-02-16T17:17:00.771Z"
   },
   {
-    "id": 224,
+    "id": 1046,
     "width": 1600,
     "height": 500,
     "quantity": 10,
-    "priceText": "211.18 €",
-    "priceEur": 211.18,
     "priceWithoutVat": 171.69,
+    "priceWithVat": 211.18,
     "pricePerPiece": 21.12,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 211.18,
+    "timestamp": "2026-02-16T17:17:01.480Z"
   },
   {
-    "id": 225,
+    "id": 1047,
     "width": 1600,
     "height": 500,
     "quantity": 20,
-    "priceText": "398.41 €",
-    "priceEur": 398.41,
     "priceWithoutVat": 323.91,
+    "priceWithVat": 398.41,
     "pricePerPiece": 19.92,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 398.41,
+    "timestamp": "2026-02-16T17:17:02.494Z"
   },
   {
-    "id": 226,
+    "id": 1048,
     "width": 1600,
     "height": 700,
     "quantity": 1,
-    "priceText": "39.22 €",
-    "priceEur": 39.22,
     "priceWithoutVat": 31.89,
+    "priceWithVat": 39.22,
     "pricePerPiece": 39.22,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 39.22,
+    "timestamp": "2026-02-16T17:17:03.208Z"
   },
   {
-    "id": 227,
+    "id": 1049,
     "width": 1600,
     "height": 700,
     "quantity": 2,
-    "priceText": "64.24 €",
-    "priceEur": 64.24,
     "priceWithoutVat": 52.23,
+    "priceWithVat": 64.24,
     "pricePerPiece": 32.12,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 64.24,
+    "timestamp": "2026-02-16T17:17:04.226Z"
   },
   {
-    "id": 228,
+    "id": 1050,
     "width": 1600,
     "height": 700,
     "quantity": 3,
-    "priceText": "89.33 €",
-    "priceEur": 89.33,
     "priceWithoutVat": 72.63,
+    "priceWithVat": 89.33,
     "pricePerPiece": 29.78,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 89.33,
+    "timestamp": "2026-02-16T17:17:04.936Z"
   },
   {
-    "id": 229,
+    "id": 1051,
     "width": 1600,
     "height": 700,
     "quantity": 5,
-    "priceText": "138.83 €",
-    "priceEur": 138.83,
     "priceWithoutVat": 112.87,
+    "priceWithVat": 138.83,
     "pricePerPiece": 27.77,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 138.83,
+    "timestamp": "2026-02-16T17:17:08.081Z"
   },
   {
-    "id": 230,
+    "id": 1052,
     "width": 1600,
     "height": 700,
     "quantity": 10,
-    "priceText": "259.73 €",
-    "priceEur": 259.73,
     "priceWithoutVat": 211.16,
+    "priceWithVat": 259.73,
     "pricePerPiece": 25.97,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 259.73,
+    "timestamp": "2026-02-16T17:17:08.790Z"
   },
   {
-    "id": 231,
+    "id": 1053,
     "width": 1600,
     "height": 700,
     "quantity": 20,
-    "priceText": "490.02 €",
-    "priceEur": 490.02,
     "priceWithoutVat": 398.39,
+    "priceWithVat": 490.02,
     "pricePerPiece": 24.5,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 490.02,
+    "timestamp": "2026-02-16T17:17:09.801Z"
   },
   {
-    "id": 232,
+    "id": 1054,
     "width": 1600,
     "height": 1000,
     "quantity": 1,
-    "priceText": "46.89 €",
-    "priceEur": 46.89,
     "priceWithoutVat": 38.12,
+    "priceWithVat": 46.89,
     "pricePerPiece": 46.89,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 46.89,
+    "timestamp": "2026-02-16T17:17:10.512Z"
   },
   {
-    "id": 233,
+    "id": 1055,
     "width": 1600,
     "height": 1000,
     "quantity": 2,
-    "priceText": "79.46 €",
-    "priceEur": 79.46,
     "priceWithoutVat": 64.6,
+    "priceWithVat": 79.46,
     "pricePerPiece": 39.73,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 79.46,
+    "timestamp": "2026-02-16T17:17:11.533Z"
   },
   {
-    "id": 234,
+    "id": 1056,
     "width": 1600,
     "height": 1000,
     "quantity": 3,
-    "priceText": "112.00 €",
-    "priceEur": 112,
     "priceWithoutVat": 91.06,
+    "priceWithVat": 112,
     "pricePerPiece": 37.33,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 112,
+    "timestamp": "2026-02-16T17:17:12.247Z"
   },
   {
-    "id": 235,
+    "id": 1057,
     "width": 1600,
     "height": 1000,
     "quantity": 5,
-    "priceText": "176.06 €",
-    "priceEur": 176.06,
     "priceWithoutVat": 143.14,
+    "priceWithVat": 176.06,
     "pricePerPiece": 35.21,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 176.06,
+    "timestamp": "2026-02-16T17:17:13.269Z"
   },
   {
-    "id": 236,
+    "id": 1058,
     "width": 1600,
     "height": 1000,
     "quantity": 10,
-    "priceText": "331.45 €",
-    "priceEur": 331.45,
     "priceWithoutVat": 269.47,
+    "priceWithVat": 331.45,
     "pricePerPiece": 33.15,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 331.45,
+    "timestamp": "2026-02-16T17:17:16.407Z"
   },
   {
-    "id": 237,
+    "id": 1059,
     "width": 1600,
     "height": 1000,
     "quantity": 20,
-    "priceText": "632.69 €",
-    "priceEur": 632.69,
     "priceWithoutVat": 514.38,
+    "priceWithVat": 632.69,
     "pricePerPiece": 31.63,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 632.69,
+    "timestamp": "2026-02-16T17:17:17.123Z"
   },
   {
-    "id": 238,
+    "id": 1060,
     "width": 1600,
     "height": 1500,
     "quantity": 1,
-    "priceText": "59.54 €",
-    "priceEur": 59.54,
     "priceWithoutVat": 48.41,
+    "priceWithVat": 59.54,
     "pricePerPiece": 59.54,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 59.54,
+    "timestamp": "2026-02-16T17:17:17.832Z"
   },
   {
-    "id": 239,
+    "id": 1061,
     "width": 1600,
     "height": 1500,
     "quantity": 2,
-    "priceText": "104.77 €",
-    "priceEur": 104.77,
     "priceWithoutVat": 85.18,
+    "priceWithVat": 104.77,
     "pricePerPiece": 52.39,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 104.77,
+    "timestamp": "2026-02-16T17:17:18.846Z"
   },
   {
-    "id": 240,
+    "id": 1062,
     "width": 1600,
     "height": 1500,
     "quantity": 3,
-    "priceText": "149.49 €",
-    "priceEur": 149.49,
     "priceWithoutVat": 121.54,
+    "priceWithVat": 149.49,
     "pricePerPiece": 49.83,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 149.49,
+    "timestamp": "2026-02-16T17:17:19.556Z"
   },
   {
-    "id": 241,
+    "id": 1063,
     "width": 1600,
     "height": 1500,
     "quantity": 5,
-    "priceText": "237.16 €",
-    "priceEur": 237.16,
     "priceWithoutVat": 192.81,
+    "priceWithVat": 237.16,
     "pricePerPiece": 47.43,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 237.16,
+    "timestamp": "2026-02-16T17:17:20.568Z"
   },
   {
-    "id": 242,
+    "id": 1064,
     "width": 1600,
     "height": 1500,
     "quantity": 10,
-    "priceText": "447.71 €",
-    "priceEur": 447.71,
     "priceWithoutVat": 363.99,
+    "priceWithVat": 447.71,
     "pricePerPiece": 44.77,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 447.71,
+    "timestamp": "2026-02-16T17:17:21.880Z"
   },
   {
-    "id": 243,
+    "id": 1065,
     "width": 1600,
     "height": 1500,
     "quantity": 20,
-    "priceText": "873.51 €",
-    "priceEur": 873.51,
     "priceWithoutVat": 710.17,
+    "priceWithVat": 873.51,
     "pricePerPiece": 43.68,
-    "timestamp": "2026-02-16T17:21:11.241Z"
+    "priceEur": 873.51,
+    "timestamp": "2026-02-16T17:17:22.894Z"
   }
 ]

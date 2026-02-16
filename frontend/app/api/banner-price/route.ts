@@ -68,7 +68,7 @@ function computePrice(
   const smallest = rowsWithArea.reduce((min, r) => (r.areaM2 < min.areaM2 ? r : min), rowsWithArea[0]);
   if (areaM2Single <= smallest.areaM2) {
     const totalWithVat = minPrice;
-    const totalWithoutVat = totalWithVat / 1.2; // približné rozdelenie DPH 20%
+    const totalWithoutVat = totalWithVat / 1.23; // približné rozdelenie DPH 23%
     const pricePerM2WithVat = totalWithVat / (areaM2Single * qty);
 
     return {
@@ -98,7 +98,7 @@ function computePrice(
     totalWithVat = minPrice;
   }
 
-  const totalWithoutVat = totalWithVat / 1.2;
+  const totalWithoutVat = totalWithVat / 1.23;
 
   return {
     areaM2Single,
