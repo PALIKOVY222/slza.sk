@@ -35,14 +35,8 @@ export async function POST(req: NextRequest) {
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      // Povoliť všetky moderné platobné metódy
+      // Karta + Apple Pay / Google Pay cez wallets
       payment_method_types: ['card'],
-      // Automaticky zobrazí Apple Pay, Google Pay, Link ak sú dostupné
-      payment_method_options: {
-        card: {
-          request_three_d_secure: 'automatic',
-        },
-      },
       line_items: [
         ...items.map((item: any) => ({
           price_data: {

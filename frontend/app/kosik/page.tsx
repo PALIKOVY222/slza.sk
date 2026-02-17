@@ -40,36 +40,40 @@ function StripePaymentForm({
     e.preventDefault();
     if (!stripe || !elements || processing) return;
     setProcessing(true);
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/kosik/success`,
+        return_url: `${window.location.origin}/kosik/success?paid=true`,
       },
       redirect: "if_required",
     });
     if (error) {
       onError(error.message || "Platba zlyhala");
       setProcessing(false);
-    } else {
+    } else if (paymentIntent?.status === "succeeded") {
       onSuccess();
+    } else {
+      onError("Platba nebola dokončená. Skúste to znova.");
+      setProcessing(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="bg-white border border-gray-200 rounded-xl p-4">
-        <PaymentElement
-          options={{
-            layout: "accordion",
-            wallets: { applePay: "auto", googlePay: "auto" },
-            paymentMethodOrder: ["apple_pay", "google_pay", "card", "bancontact", "ideal"],
-          }}
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <PaymentElement
+        options={{
+          layout: "tabs",
+          wallets: { applePay: "auto", googlePay: "auto" },
+          paymentMethodOrder: ["apple_pay", "google_pay", "card"],
+          defaultValues: {
+            billingDetails: { address: { country: "SK" } },
+          },
+        }}
+      />
       <button
         type="submit"
         disabled={!stripe || processing}
-        className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#0087E3] to-[#006bb3] text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-[1.02] transition-all disabled:opacity-50"
+        className="w-full flex items-center justify-center gap-3 bg-[#0087E3] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#006bb3] transition-all disabled:opacity-50"
       >
         {processing ? (
           <>
@@ -88,6 +92,10 @@ function StripePaymentForm({
           </>
         )}
       </button>
+      <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+        Bezpečná platba cez Stripe
+      </div>
     </form>
   );
 }
@@ -395,42 +403,73 @@ const KosikPage = () => {
               </a>
             </div>
           ) : clientSecret ? (
-            <div className="max-w-[520px] mx-auto">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-                <div className="flex items-center gap-3 text-green-600 bg-green-50 rounded-xl p-4 mb-6">
-                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-sm font-medium">Objednávka #{orderNumber} vytvorená</span>
+            <div className="max-w-[680px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+                {/* Payment form */}
+                <div className="md:col-span-3">
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
+                    <div className="flex items-center gap-3 text-green-600 bg-green-50 rounded-xl p-3 mb-5">
+                      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-sm font-medium">Objednávka #{orderNumber} vytvorená</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-[#111518] mb-4">Platba</h3>
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        clientSecret,
+                        appearance: {
+                          theme: "stripe",
+                          variables: {
+                            colorPrimary: "#0087E3",
+                            borderRadius: "10px",
+                            fontFamily: "inherit",
+                            spacingUnit: "4px",
+                          },
+                          rules: {
+                            ".Tab": { borderRadius: "10px", padding: "10px 12px" },
+                            ".Tab--selected": { backgroundColor: "#0087E3", color: "#fff" },
+                            ".Input": { borderRadius: "8px", padding: "10px 12px" },
+                            ".Label": { fontSize: "13px", fontWeight: "500" },
+                          },
+                        },
+                        locale: "sk",
+                      }}
+                    >
+                      <StripePaymentForm
+                        onSuccess={handlePaymentSuccess}
+                        onError={(msg) => setSubmitError(msg)}
+                      />
+                    </Elements>
+                    {submitError && (
+                      <div className="text-sm text-red-600 bg-red-50 rounded-lg p-3 mt-3">{submitError}</div>
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-[#111518] mb-4">Vyberte spôsob platby</h3>
-                <Elements
-                  stripe={stripePromise}
-                  options={{
-                    clientSecret,
-                    appearance: {
-                      theme: "stripe",
-                      variables: {
-                        colorPrimary: "#0087E3",
-                        borderRadius: "12px",
-                        fontFamily: "inherit",
-                      },
-                      rules: {
-                        ".Tab": { borderRadius: "12px" },
-                        ".Input": { borderRadius: "10px" },
-                      },
-                    },
-                    locale: "sk",
-                  }}
-                >
-                  <StripePaymentForm
-                    onSuccess={handlePaymentSuccess}
-                    onError={(msg) => setSubmitError(msg)}
-                  />
-                </Elements>
-                {submitError && (
-                  <div className="text-sm text-red-600 mt-3">{submitError}</div>
-                )}
+                {/* Order summary */}
+                <div className="md:col-span-2">
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <h4 className="text-sm font-bold text-[#111518] mb-3">Súhrn objednávky</h4>
+                    <div className="space-y-2 mb-3 pb-3 border-b border-gray-100">
+                      {cartItems.map((item) => (
+                        <div key={item.id} className="flex justify-between text-sm">
+                          <span className="text-gray-600 truncate pr-2">{item.productName} ×{item.quantity}</span>
+                          <span className="font-medium text-gray-900 flex-shrink-0">{(item.price * item.quantity).toFixed(2)} €</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between text-gray-500"><span>Produkty</span><span>{itemsTotal.toFixed(2)} €</span></div>
+                      <div className="flex justify-between text-gray-500"><span>DPH 23%</span><span>{vatTotal.toFixed(2)} €</span></div>
+                      <div className="flex justify-between text-gray-500"><span>Doprava</span><span>{shippingCost.toFixed(2)} €</span></div>
+                      <div className="border-t pt-2 mt-2 flex justify-between font-bold text-[#111518]">
+                        <span>Celkom</span>
+                        <span className="text-[#0087E3]">{total.toFixed(2)} €</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ) : step === 1 ? (

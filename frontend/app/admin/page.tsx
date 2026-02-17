@@ -33,6 +33,7 @@ interface Order {
     quantity: number;
     unitPrice: number;
     totalPrice: number;
+    options?: Record<string, unknown>;
   }>;
   uploads: Array<{
     id: number;
@@ -455,22 +456,44 @@ const AdminPage = () => {
 
                       <h4 className="font-semibold text-gray-900 mb-3">Položky objednávky:</h4>
                       <div className="space-y-2">
-                        {order.items.map((item) => (
+                        {order.items.map((item) => {
+                          const opts = (item.options || {}) as Record<string, unknown>;
+                          const details: string[] = [];
+                          if (opts.widthMm || opts.heightMm) details.push(`${opts.widthMm || '?'} × ${opts.heightMm || '?'} mm`);
+                          if (opts.width && opts.height) details.push(`${opts.width} × ${opts.height}`);
+                          if (opts.model) details.push(String(opts.model));
+                          if (opts.variant) details.push(String(opts.variant));
+                          if (opts.eyelet) details.push(String(opts.eyelet));
+                          if (opts.format) details.push(typeof opts.format === 'object' && (opts.format as Record<string,unknown>).label ? String((opts.format as Record<string,unknown>).label) : String(opts.format));
+                          if (opts.paper) details.push(typeof opts.paper === 'object' && (opts.paper as Record<string,unknown>).label ? String((opts.paper as Record<string,unknown>).label) : String(opts.paper));
+                          if (opts.material) details.push(String(opts.material));
+                          if (opts.quantity) details.push(`${opts.quantity} ks`);
+                          const artworkObj = opts.artwork as Record<string,unknown> | undefined;
+                          return (
                           <div
                             key={item.id}
-                            className="flex justify-between items-center bg-gray-50 p-3 rounded"
+                            className="bg-gray-50 p-3 rounded"
                           >
-                            <div>
-                              <p className="font-medium text-gray-900">{item.productName}</p>
-                              <p className="text-sm text-gray-600">
-                                {item.quantity}x {item.unitPrice.toFixed(2)} €
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <p className="font-medium text-gray-900">{item.productName}</p>
+                                {details.length > 0 && (
+                                  <p className="text-sm text-gray-600 mt-0.5">{details.join(' · ')}</p>
+                                )}
+                                {artworkObj?.name ? (
+                                  <p className="text-sm text-blue-600 mt-0.5">📎 {String(artworkObj.name)}</p>
+                                ) : null}
+                                <p className="text-sm text-gray-600 mt-0.5">
+                                  {item.quantity}× {item.unitPrice.toFixed(2)} €
+                                </p>
+                              </div>
+                              <p className="font-semibold text-gray-900">
+                                {item.totalPrice.toFixed(2)} €
                               </p>
                             </div>
-                            <p className="font-semibold text-gray-900">
-                              {item.totalPrice.toFixed(2)} €
-                            </p>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
 
                       {order.uploads.length > 0 && (

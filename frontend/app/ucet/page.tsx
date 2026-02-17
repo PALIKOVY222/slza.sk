@@ -214,16 +214,31 @@ export default function AccountPage() {
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 mb-3">Položky objednávky</h4>
                     <div className="space-y-3">
-                      {order.items.map((item) => (
+                      {order.items.map((item) => {
+                        const opts = (item.options || {}) as Record<string, unknown>;
+                        const details: string[] = [];
+                        if (opts.widthMm || opts.heightMm) details.push(`Rozmer: ${opts.widthMm || '?'} × ${opts.heightMm || '?'} mm`);
+                        if (opts.width && opts.height) details.push(`Rozmer: ${opts.width} × ${opts.height}`);
+                        if (opts.model) details.push(`Model: ${String(opts.model)}`);
+                        if (opts.variant) details.push(`Variant: ${String(opts.variant)}`);
+                        if (opts.eyelet) details.push(`Očkovanie: ${String(opts.eyelet)}`);
+                        if (opts.format) details.push(`Formát: ${typeof opts.format === 'object' && (opts.format as Record<string,unknown>).label ? String((opts.format as Record<string,unknown>).label) : String(opts.format)}`);
+                        if (opts.paper) details.push(`Papier: ${typeof opts.paper === 'object' && (opts.paper as Record<string,unknown>).label ? String((opts.paper as Record<string,unknown>).label) : String(opts.paper)}`);
+                        if (opts.material) details.push(`Materiál: ${String(opts.material)}`);
+                        if (opts.lamination) details.push(`Laminácia: ${String(opts.lamination)}`);
+                        if (opts.cutting) details.push(`Orez: ${String(opts.cutting)}`);
+                        if (opts.sides) details.push(`Strany: ${String(opts.sides)}`);
+                        if (opts.quantity) details.push(`Množstvo: ${opts.quantity} ks`);
+                        const artworkObj = opts.artwork as Record<string,unknown> | undefined;
+                        if (artworkObj?.name) details.push(`📎 ${String(artworkObj.name)}`);
+                        return (
                         <div key={item.id} className="flex justify-between items-start border-b border-gray-100 pb-3 last:border-0">
                           <div className="flex-1">
                             <p className="font-medium text-gray-900">{item.productName}</p>
-                            {item.options && Object.keys(item.options).length > 0 && (
-                              <div className="text-sm text-gray-600 mt-1">
-                                {Object.entries(item.options).map(([key, value]) => (
-                                  <span key={key} className="mr-3">
-                                    {key}: {typeof value === 'object' ? JSON.stringify(value) : String(value)}
-                                  </span>
+                            {details.length > 0 && (
+                              <div className="text-sm text-gray-600 mt-1 space-y-0.5">
+                                {details.map((d, i) => (
+                                  <p key={i}>{d}</p>
                                 ))}
                               </div>
                             )}
@@ -237,7 +252,8 @@ export default function AccountPage() {
                             </p>
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

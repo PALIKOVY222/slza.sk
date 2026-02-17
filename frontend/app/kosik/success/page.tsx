@@ -9,19 +9,22 @@ import Link from 'next/link';
 function SuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams?.get('session_id');
+  const paid = searchParams?.get('paid');
+  const method = searchParams?.get('method');
   const [loading, setLoading] = useState(true);
 
+  const isValid = sessionId || paid || method;
+
   useEffect(() => {
-    if (sessionId) {
-      // Vyčistiť košík
+    if (isValid) {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('cart');
       }
       setLoading(false);
     }
-  }, [sessionId]);
+  }, [isValid]);
 
-  if (!sessionId) {
+  if (!isValid) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
@@ -36,6 +39,9 @@ function SuccessContent() {
       </div>
     );
   }
+
+  const isBankTransfer = method === 'bank_transfer';
+  const isCashOnDelivery = method === 'cash_on_delivery';
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -55,17 +61,19 @@ function SuccessContent() {
             />
           </svg>
         </div>
-        <h1 className="text-3xl font-bold mb-4 text-gray-900">Platba úspešná!</h1>
+        <h1 className="text-3xl font-bold mb-4 text-gray-900">
+          {isBankTransfer ? 'Objednávka prijatá!' : isCashOnDelivery ? 'Objednávka prijatá!' : 'Platba úspešná!'}
+        </h1>
         <p className="text-gray-600 mb-2">
           Ďakujeme za vašu objednávku.
         </p>
         <p className="text-gray-600 mb-6">
-          Potvrdenie sme vám odoslali na email.
+          {isBankTransfer
+            ? 'Platobné údaje sme vám odoslali na email. Po prijatí platby spracujeme vašu objednávku.'
+            : isCashOnDelivery
+            ? 'Objednávku uhradíte pri prevzatí. Potvrdenie sme vám odoslali na email.'
+            : 'Potvrdenie sme vám odoslali na email.'}
         </p>
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-500 mb-1">Session ID:</p>
-          <p className="text-xs text-gray-700 font-mono break-all">{sessionId}</p>
-        </div>
         <div className="space-y-3">
           <Link 
             href="/"
