@@ -11,8 +11,7 @@ type EyeletOption = {
 };
 
 const eyeletOptions: EyeletOption[] = [
-  { label: 'Bez očiek', price: 0 },
-  { label: 'S očkovaním', price: 8 }
+  { label: 'Štandardné očkovanie', price: 0 }
 ];
 
 type PriceState = {
@@ -174,20 +173,9 @@ export default function BanerCalculator({ artwork }: { artwork?: ArtworkInfo }) 
         {/* Očkovanie */}
         <div>
           <h3 className="text-xl font-bold text-[#111518] mb-4">Očkovanie</h3>
-          <select
-            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base"
-            value={eyelet.label}
-            onChange={(e) => {
-              const next = eyeletOptions.find((o) => o.label === e.target.value);
-              if (next) setEyelet(next);
-            }}
-          >
-            {eyeletOptions.map((o) => (
-              <option key={o.label} value={o.label}>
-                {o.label} {o.price > 0 ? `(+${o.price.toFixed(2)} €)` : ''}
-              </option>
-            ))}
-          </select>
+          <div className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base bg-gray-50">
+            Štandardné očkovanie (zahrnuté v cene)
+          </div>
         </div>
       </div>
 
