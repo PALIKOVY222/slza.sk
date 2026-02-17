@@ -108,6 +108,18 @@ export default function RootLayout({
   return (
     <html lang="sk">
       <head>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7MFH3XCMFB"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-7MFH3XCMFB');
+            `,
+          }}
+        />
         <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
         <script
           type="application/ld+json"
