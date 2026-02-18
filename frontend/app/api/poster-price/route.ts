@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     if (entry) {
       const totalWithVat = entry.priceWithVAT;
-      const totalWithoutVat = totalWithVat / 1.2;
+      const totalWithoutVat = totalWithVat / 1.23;
       const unitPriceWithoutVat = totalWithoutVat / quantity;
 
       return NextResponse.json({

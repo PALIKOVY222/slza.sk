@@ -1,105 +1,126 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
+import AddedToCartModal from '../AddedToCartModal';
 
-type SizeOption = {
-  label: string;
-  width: number;
-  height: number;
+// ─── Price table ─────────────────────────────────────────────────────────────
+// Base prices WITH VAT (23%) for: format × quantity
+// A3, Natieraný matný 115 g/m², Jednostranná (4+0), OPTIMAL
+// Confirmed anchor: 100 ks A3 = 49,97 € (Anwell)
+const A3_BASE: Record<number, number> = {
+  10: 19.00,
+  25: 30.65,
+  50: 37.96,
+  100: 49.97,
+  250: 91.06,
+  500: 154.07,
+  1000: 251.38,
 };
 
-type MaterialOption = {
-  label: string;
-  value: string;
+// A4 ≈ 77 % of A3 (derived from Anwell letáky table ratio)
+const A4_FACTOR = 0.77;
+
+// Multipliers
+const FORMAT_FACTOR: Record<string, number> = { A3: 1.0, A4: A4_FACTOR };
+const PAPER_FACTOR: Record<string, number> = {
+  'Natieraný matný 115 g/m²': 1.00,
+  'Natieraný lesklý 115 g/m²': 1.00,
+  'Natieraný matný 170 g/m²': 1.25,
+};
+const SIDES_FACTOR: Record<string, number> = { '4+0': 1.00, '4+4': 1.20 };
+const SPEED_FACTOR: Record<string, number> = {
+  OPTIMAL: 1.00,
+  EXPRESS: 1.30,
+  'SUPER EXPRESS': 1.60,
 };
 
-const sizeOptions: SizeOption[] = [
-  { label: 'A3 (420 × 594 mm)', width: 420, height: 594 },
-  { label: 'A2 (594 × 841 mm)', width: 594, height: 841 },
-  { label: 'A1 (841 × 1189 mm)', width: 841, height: 1189 },
-];
+const VAT_RATE = 0.23;
 
-const materialOptions: MaterialOption[] = [
-  { label: 'Hladký papier 120g', value: 'Hladký papier 120g' },
-  { label: 'Lesklý papier 135g', value: 'Lesklý papier 135g' },
-  { label: 'Matný papier 150g', value: 'Matný papier 150g' },
-];
+// Log-scale interpolation between known quantity points
+function interpolatePrice(basePoints: Record<number, number>, qty: number): number {
+  const pts = Object.entries(basePoints)
+    .map(([k, v]) => ({ qty: Number(k), price: v }))
+    .sort((a, b) => a.qty - b.qty);
 
-const quantityOptions = [1, 5, 10, 25, 50, 100, 200, 500];
-
-type PriceState = {
-  unitPrice: number;
-  totalWithoutVat: number;
-  totalWithVat: number;
-};
-
-function formatBytes(bytes: number) {
-  if (!Number.isFinite(bytes)) return '0 B';
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  const value = bytes / Math.pow(1024, i);
-  return `${value.toFixed(1)} ${sizes[i]}`;
+  if (qty <= pts[0].qty) return pts[0].price;
+  if (qty >= pts[pts.length - 1].qty) {
+    const p1 = pts[pts.length - 2];
+    const p2 = pts[pts.length - 1];
+    const slope = (p2.price - p1.price) / (Math.log(p2.qty) - Math.log(p1.qty));
+    return Math.max(0, p2.price + slope * (Math.log(qty) - Math.log(p2.qty)));
+  }
+  for (let i = 0; i < pts.length - 1; i++) {
+    if (qty >= pts[i].qty && qty <= pts[i + 1].qty) {
+      const ratio =
+        (Math.log(qty) - Math.log(pts[i].qty)) /
+        (Math.log(pts[i + 1].qty) - Math.log(pts[i].qty));
+      return pts[i].price + (pts[i + 1].price - pts[i].price) * ratio;
+    }
+  }
+  return pts[pts.length - 1].price;
 }
 
-export default function PlagatyCalculator() {
-  const [size, setSize] = useState<SizeOption>(sizeOptions[0]);
-  const [material, setMaterial] = useState<MaterialOption>(materialOptions[0]);
-  const [quantity, setQuantity] = useState<number>(quantityOptions[0]);
-  const [price, setPrice] = useState<PriceState>({ unitPrice: 0, totalWithoutVat: 0, totalWithVat: 0 });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+function calcPrice(
+  format: string,
+  paper: string,
+  sides: string,
+  speed: string,
+  qty: number,
+) {
+  if (qty < 1) return { priceIncVat: 0, priceExVat: 0, unitPriceExVat: 0 };
+  const base = interpolatePrice(A3_BASE, qty);
+  const multiplied =
+    base *
+    (FORMAT_FACTOR[format] ?? 1) *
+    (PAPER_FACTOR[paper] ?? 1) *
+    (SIDES_FACTOR[sides] ?? 1) *
+    (SPEED_FACTOR[speed] ?? 1);
+  const priceIncVat = Math.round(multiplied * 100) / 100;
+  const priceExVat = Math.round((priceIncVat / (1 + VAT_RATE)) * 100) / 100;
+  const unitPriceExVat = Math.round((priceExVat / qty) * 100) / 100;
+  return { priceIncVat, priceExVat, unitPriceExVat };
+}
+
+function fmt(n: number) {
+  return n.toFixed(2) + ' €';
+}
+
+// ─── Options ─────────────────────────────────────────────────────────────────
+const formatOptions = ['A4', 'A3'] as const;
+const paperOptions = [
+  'Natieraný matný 115 g/m²',
+  'Natieraný lesklý 115 g/m²',
+  'Natieraný matný 170 g/m²',
+] as const;
+const sidesOptions = [
+  { label: 'Jednostranná (4+0)', value: '4+0' },
+  { label: 'Obojstranná (4+4)', value: '4+4' },
+];
+const speedOptions = [
+  { label: 'OPTIMAL', sub: '3 pracovné dni', value: 'OPTIMAL' },
+  { label: 'EXPRESS', sub: '2 pracovné dni', value: 'EXPRESS' },
+  { label: 'SUPER EXPRESS', sub: '1 pracovný deň', value: 'SUPER EXPRESS' },
+];
+const qtyPresets = [10, 25, 50, 100, 250, 500, 1000];
+
+// ─── Component ───────────────────────────────────────────────────────────────
+export default function PlagatyCalculator({ artwork }: { artwork?: ArtworkInfo }) {
+  const router = useRouter();
+  const [format, setFormat] = useState<string>('A3');
+  const [paper, setPaper] = useState<string>('Natieraný matný 115 g/m²');
+  const [sides, setSides] = useState<string>('4+0');
+  const [speed, setSpeed] = useState<string>('OPTIMAL');
+  const [quantity, setQuantity] = useState<number>(100);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
-  const [artworkBase64, setArtworkBase64] = useState<string | null>(null);
-  const [artworkError, setArtworkError] = useState<string | null>(null);
+  const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
+  const [showAdded, setShowAdded] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchPrice = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const res = await fetch('/api/poster-price', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            width: size.width,
-            height: size.height,
-            material: material.value,
-            quantity,
-          }),
-          signal: controller.signal,
-        });
-
-        if (!res.ok) {
-          throw new Error('Chyba pri načítaní ceny');
-        }
-
-        const data: {
-          unitPriceWithoutVat: number;
-          totalWithoutVat: number;
-          totalWithVat: number;
-        } = await res.json();
-
-        setPrice({
-          unitPrice: data.unitPriceWithoutVat,
-          totalWithoutVat: data.totalWithoutVat,
-          totalWithVat: data.totalWithVat,
-        });
-      } catch (err) {
-        if (err instanceof DOMException && err.name === 'AbortError') return;
-        console.error(err);
-        setError('Nepodarilo sa načítať cenu');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPrice();
-
-    return () => controller.abort();
-  }, [size, material, quantity]);
+  const price = useMemo(
+    () => calcPrice(format, paper, sides, speed, quantity),
+    [format, paper, sides, speed, quantity],
+  );
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -107,186 +128,195 @@ export default function PlagatyCalculator() {
       productName: 'Plagáty',
       productSlug: 'plagaty',
       options: {
-        size: size.label,
-        material: material.label,
+        format,
+        paper,
+        sides: sidesOptions.find((s) => s.value === sides)?.label ?? sides,
+        speed,
         quantity,
         ...(artworkFile
           ? {
               artwork: {
-                name: artworkFile.name,
-                size: artworkFile.size,
-                base64: artworkBase64,
+                name: artworkStored?.name || artworkFile.name,
+                size: artworkStored?.size || artworkFile.size,
+                type: artworkStored?.type,
+                fileId: artworkStored?.id,
               },
             }
           : {}),
       },
+      artworkFileName: artworkFile?.name || null,
       quantity: 1,
-      price: price.totalWithVat,
-      image: '/images/plagaty.svg',
+      price: price.priceExVat,
+      image: '/images/plagat.svg',
     };
 
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     cart.push(cartItem);
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Produkt bol pridaný do košíka!');
+    setShowAdded(true);
   };
 
   return (
-    <div className="bg-white rounded-xl border-2 border-gray-200 p-8 max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-[#111518] mb-6">Kalkulácia ceny</h2>
+    <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
+      <AddedToCartModal
+        open={showAdded}
+        productName="Plagáty"
+        onClose={() => setShowAdded(false)}
+        onGoToCart={() => router.push('/kosik')}
+      />
 
-      <div className="space-y-6">
-        {/* Veľkosť */}
+      <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor plagátov</h2>
+
+      <div className="space-y-8">
+
+        {/* Formát */}
         <div>
-          <label className="block text-sm font-semibold text-[#111518] mb-2">
-            Veľkosť plagátu
-          </label>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Formát</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {formatOptions.map((f) => (
+              <button
+                key={f}
+                onClick={() => setFormat(f)}
+                className={`p-4 rounded-xl border-2 text-left transition-all ${
+                  format === f
+                    ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
+                    : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
+                }`}
+              >
+                <div className="font-bold text-lg">{f}</div>
+                <div className="text-sm text-[#4d5d6d] mt-0.5">
+                  {f === 'A4' ? '210 × 297 mm' : '297 × 420 mm'}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Papier */}
+        <div>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Papier</h3>
           <select
-            value={size.label}
-            onChange={(e) => {
-              const selected = sizeOptions.find((s) => s.label === e.target.value);
-              if (selected) setSize(selected);
-            }}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3] text-[#111518] font-medium"
+            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base focus:outline-none focus:border-[#0087E3]"
+            value={paper}
+            onChange={(e) => setPaper(e.target.value)}
           >
-            {sizeOptions.map((s) => (
-              <option key={s.label} value={s.label}>
-                {s.label}
-              </option>
+            {paperOptions.map((p) => (
+              <option key={p} value={p}>{p}</option>
             ))}
           </select>
         </div>
 
-        {/* Materiál */}
+        {/* Tlač */}
         <div>
-          <label className="block text-sm font-semibold text-[#111518] mb-2">
-            Materiál
-          </label>
-          <select
-            value={material.label}
-            onChange={(e) => {
-              const selected = materialOptions.find((m) => m.label === e.target.value);
-              if (selected) setMaterial(selected);
-            }}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3] text-[#111518] font-medium"
-          >
-            {materialOptions.map((m) => (
-              <option key={m.label} value={m.label}>
-                {m.label}
-              </option>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Tlač</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {sidesOptions.map((s) => (
+              <button
+                key={s.value}
+                onClick={() => setSides(s.value)}
+                className={`p-4 rounded-xl border-2 text-left transition-all ${
+                  sides === s.value
+                    ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
+                    : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
+                }`}
+              >
+                <div className="font-semibold">{s.label}</div>
+              </button>
             ))}
-          </select>
+          </div>
+        </div>
+
+        {/* Rýchlosť výroby */}
+        <div>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Rýchlosť výroby</h3>
+          <div className="grid grid-cols-3 gap-3">
+            {speedOptions.map((s) => (
+              <button
+                key={s.value}
+                onClick={() => setSpeed(s.value)}
+                className={`p-4 rounded-xl border-2 text-left transition-all ${
+                  speed === s.value
+                    ? 'border-[#0087E3] bg-[#0087E3]/5'
+                    : 'border-gray-200 hover:border-[#0087E3]/50'
+                }`}
+              >
+                <div className={`font-bold text-sm ${speed === s.value ? 'text-[#0087E3]' : 'text-[#111518]'}`}>
+                  {s.label}
+                </div>
+                <div className="text-xs text-[#4d5d6d] mt-1">{s.sub}</div>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Množstvo */}
         <div>
-          <label className="block text-sm font-semibold text-[#111518] mb-2">
-            Počet kusov
-          </label>
-          <select
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3] text-[#111518] font-medium"
-          >
-            {quantityOptions.map((q) => (
-              <option key={q} value={q}>
-                {q} ks
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* PDF Upload */}
-        <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-2">Podklady (PDF)</h3>
-          <div className="text-sm text-[#4d5d6d] mb-3">
-            Podporovaný formát: <span className="font-semibold">PDF</span>
-          </div>
-          <div className="text-xs text-[#4d5d6d] mb-3">
-            Súbor sa nahrá na cloud až pri odoslaní objednávky.
-          </div>
-          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <input
-              type="file"
-              accept="application/pdf,.pdf"
-              onChange={(e) => {
-                const file = e.target.files?.[0] || null;
-                setArtworkError(null);
-                setArtworkFile(file);
-                setArtworkBase64(null);
-
-                if (!file) return;
-                if (file.type && file.type !== 'application/pdf') {
-                  setArtworkError('Prosím nahrajte iba PDF súbor.');
-                  return;
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Množstvo</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
+              <input
+                type="number"
+                min={1}
+                value={quantity}
+                onChange={(e) =>
+                  setQuantity(e.target.value === '' ? 0 : Math.max(1, Math.floor(Number(e.target.value))))
                 }
-
-                const maxBytes = 6 * 1024 * 1024;
-                if (file.size > maxBytes) {
-                  setArtworkError(
-                    `PDF je príliš veľké (${formatBytes(file.size)}). Maximálna veľkosť je ${formatBytes(maxBytes)}.`
-                  );
-                  return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = () => {
-                  const result = typeof reader.result === 'string' ? reader.result : null;
-                  setArtworkBase64(result);
-                };
-                reader.onerror = () => {
-                  setArtworkError('Nepodarilo sa načítať PDF. Skúste to prosím znovu.');
-                };
-                reader.readAsDataURL(file);
-              }}
-              className="block w-full text-sm text-[#4d5d6d] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#0087E3] file:text-white file:font-semibold hover:file:bg-[#006bb3]"
-            />
-
-            {artworkFile && (
-              <div className="mt-3 text-sm text-[#111518]">
-                Vybraný súbor: <span className="font-semibold">{artworkFile.name}</span>{' '}
-                <span className="text-[#4d5d6d]">({formatBytes(artworkFile.size)})</span>
-              </div>
-            )}
-            {artworkError && <div className="mt-2 text-sm text-red-600">{artworkError}</div>}
-          </div>
-        </div>
-
-        {/* Cenový prehľad */}
-        <div className="bg-gray-50 rounded-lg p-6 border-2 border-gray-200">
-          {loading && <p className="text-[#4d5d6d] text-center">Načítavam cenu...</p>}
-          {error && <p className="text-red-600 text-center">{error}</p>}
-          {!loading && !error && (
-            <div className="space-y-3">
-              <div className="flex justify-between text-[#4d5d6d]">
-                <span>Cena za 1 ks (bez DPH):</span>
-                <span className="font-semibold">{price.unitPrice.toFixed(2)} €</span>
-              </div>
-              <div className="flex justify-between text-[#4d5d6d]">
-                <span>Medzisúčet (bez DPH):</span>
-                <span className="font-semibold">{price.totalWithoutVat.toFixed(2)} €</span>
-              </div>
-              <div className="flex justify-between text-[#4d5d6d]">
-                <span>DPH (20%):</span>
-                <span className="font-semibold">
-                  {(price.totalWithVat - price.totalWithoutVat).toFixed(2)} €
-                </span>
-              </div>
-              <div className="flex justify-between text-xl font-bold text-[#111518] pt-3 border-t-2 border-gray-200">
-                <span>Celkom s DPH:</span>
-                <span className="text-[#0087E3]">{price.totalWithVat.toFixed(2)} €</span>
-              </div>
+                onBlur={(e) => {
+                  if (!e.target.value || Number(e.target.value) < 1) setQuantity(1);
+                }}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-[#111518]"
+              />
             </div>
-          )}
+            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
+              {qtyPresets.map((q) => (
+                <button
+                  key={q}
+                  onClick={() => setQuantity(q)}
+                  className={`py-3 rounded-lg border-2 text-sm font-bold transition-all ${
+                    quantity === q
+                      ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
+                      : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
+                  }`}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
 
-        <button
-          onClick={handleAddToCart}
-          disabled={loading}
-          className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Pridať do košíka
-        </button>
+      {/* Artwork upload */}
+      <ArtworkUpload
+        info={artwork}
+        productSlug="plagaty"
+        onFileChange={(file, upload) => {
+          setArtworkFile(file);
+          setArtworkStored(upload || null);
+        }}
+      />
+
+      {/* Cena + tlačidlo */}
+      <div className="mt-10 pt-8 border-t-2 border-gray-200">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
+            <div className="text-4xl font-bold text-[#0087E3]">{fmt(price.priceExVat)}</div>
+            <div className="text-sm text-[#4d5d6d] mt-1">
+              bez DPH · {fmt(price.unitPriceExVat)}/ks
+            </div>
+            <div className="text-sm text-[#4d5d6d] mt-0.5">
+              S DPH (23 %): <span className="font-semibold">{fmt(price.priceIncVat)}</span>
+            </div>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="bg-[#0087E3] text-white py-4 px-12 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Pridať do košíka
+          </button>
+        </div>
       </div>
     </div>
   );

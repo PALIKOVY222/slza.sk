@@ -10,69 +10,161 @@ export default function PlagatyPage() {
     <div>
       <Header />
 
-      {/* Hero Section */}
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="bg-[#0087E3] pt-48 pb-20 text-center">
         <div className="max-w-[1320px] mx-auto px-5">
-          <nav className="text-white/80 text-sm mb-4">
+          <nav className="text-white/70 text-sm mb-4 flex items-center justify-center gap-2">
             <a href="/" className="hover:text-white transition-colors">Domov</a>
-            <span className="mx-2">/</span>
+            <span>/</span>
             <a href="/produkty" className="hover:text-white transition-colors">Produkty</a>
-            <span className="mx-2">/</span>
+            <span>/</span>
             <span className="text-white">Plagáty</span>
           </nav>
-          <h1 className="text-5xl font-bold text-white mb-4">Plagáty</h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Kvalitná tlač plagátov vo viacerých formátoch a materiáloch
+          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-4">Plagáty</h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            Rýchla a profesionálna tlač maloformátových plagátov do A3.
+            Čím viac kusov, tým nižšia cena za kus.
           </p>
         </div>
       </section>
 
-      {/* Calculator Section */}
-      <section className="py-16 bg-gray-50">
+      {/* ── Product + Calculator ──────────────────────────────────────────── */}
+      <section className="py-16 bg-white">
         <div className="max-w-[1320px] mx-auto px-5">
-          <PlagatyCalculator />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+            {/* Left – product image + info */}
+            <div className="space-y-8">
+              {/* Product image */}
+              <div className="bg-gray-50 rounded-2xl p-12 flex items-center justify-center min-h-[360px]">
+                <img
+                  src="/images/plagat.svg"
+                  alt="Plagáty – tlač"
+                  className="max-w-full max-h-[280px] object-contain"
+                />
+              </div>
+
+              {/* Short description */}
+              <div>
+                <p className="text-[#4d5d6d] text-lg leading-relaxed">
+                  Plagáty sú osvedčený spôsob, ako zviditeľniť svoju akciu, produkt alebo
+                  udalosť. Vytlačíme plagáty, ktoré zaujmú všetkých naokolo – na kvalitnom
+                  papieri s presnou farebnou reprodukciou.
+                </p>
+              </div>
+
+              {/* Feature list */}
+              <div className="bg-gray-50 rounded-2xl p-6">
+                <h3 className="text-lg font-bold text-[#111518] mb-4">Prečo naše plagáty?</h3>
+                <ul className="space-y-3">
+                  {[
+                    'Formáty A4 a A3 (max. vlastný rozmer 440 × 310 mm)',
+                    'Natieraný matný aj lesklý papier 115 g/m²',
+                    'Jednostranná aj obojstranná plnofarebná tlač',
+                    '3 rýchlosti výroby – OPTIMAL, EXPRESS, SUPER EXPRESS',
+                    'Množstevné zľavy – čím viac, tým menej zaplatíš za kus',
+                    'Doprava zadarmo pri objednávke nad 50 €',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-[#4d5d6d]">
+                      <svg
+                        className="w-5 h-5 text-[#0087E3] mt-0.5 shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Right – calculator */}
+            <div className="lg:sticky lg:top-8">
+              <PlagatyCalculator />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Info Section */}
-      <section className="py-16 bg-white">
+      {/* ── Tech specs ────────────────────────────────────────────────────── */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-[1320px] mx-auto px-5">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-bold text-[#111518] mb-6">Charakteristika</h2>
-              <div className="space-y-4 text-[#4d5d6d]">
-                <p>
-                  Plagáty sú ideálne na propagáciu podujatí, akcií alebo na dekoratívne účely.
-                  Vyberte si z viacerých formátov a materiálov podľa vašich potrieb.
+          <div className="grid md:grid-cols-2 gap-10">
+
+            {/* Technické požiadavky */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-[#111518] mb-6">
+                Technické požiadavky
+              </h2>
+              <ul className="space-y-4 text-[#4d5d6d]">
+                {[
+                  ['Formát súboru', 'PDF s orezom 3 mm na každej strane'],
+                  ['Rozlíšenie', 'min. 300 DPI (pre ostrý výtlačok)'],
+                  ['Farebný priestor', 'CMYK (RGB bude konvertované)'],
+                  ['Maximálna veľkosť súboru', '25 MB'],
+                  ['Fontky', 'Vložené alebo prevedené na krivky'],
+                ].map(([label, value]) => (
+                  <li key={label} className="flex gap-3">
+                    <svg
+                      className="w-5 h-5 text-[#0087E3] mt-0.5 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <div>
+                      <span className="font-semibold text-[#111518]">{label}:</span>{' '}
+                      {value}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Potrebujete pomoc */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-[#111518] mb-6">
+                  Potrebujete pomoc s podkladmi?
+                </h2>
+                <p className="text-[#4d5d6d] mb-4 leading-relaxed">
+                  Ak neviete pripraviť podklady sami, radi vám pomôžeme. Stačí nám zaslať
+                  vaše materiály (logá, texty, fotky) a naši grafici pripravia plagát
+                  presne podľa vašich predstáv.
                 </p>
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Formáty A3, A2, A1</li>
-                  <li>Rôzne typy papiera (hladký, lesklý, matný)</li>
-                  <li>Gramáž od 120g do 150g</li>
-                  <li>Farebná digitálna tlač</li>
-                </ul>
+                <p className="text-[#4d5d6d] mb-6 leading-relaxed">
+                  V konfigurátore si zvolíte možnosť <strong>„Využijem služby grafika"</strong> –
+                  dohodnutie ceny prebehne individuálne.
+                </p>
+              </div>
+              <div className="bg-blue-50 rounded-xl p-5 border-l-4 border-[#0087E3]">
+                <p className="text-sm font-semibold text-[#111518] mb-1">Kontakt</p>
+                <p className="text-sm text-[#4d5d6d]">
+                  E-mail:{' '}
+                  <a href="mailto:info@slza.sk" className="text-[#0087E3] hover:underline font-medium">
+                    info@slza.sk
+                  </a>
+                </p>
+                <p className="text-sm text-[#4d5d6d] mt-1">
+                  Pondelok – piatok, 9:00 – 17:00
+                </p>
               </div>
             </div>
 
-            <div>
-              <h2 className="text-3xl font-bold text-[#111518] mb-6">Technické požiadavky</h2>
-              <div className="space-y-4 text-[#4d5d6d]">
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Formát súboru: PDF (s orezom 3mm)</li>
-                  <li>Rozlíšenie: minimálne 300 DPI</li>
-                  <li>Farebný priestor: CMYK</li>
-                  <li>Max. veľkosť súboru: 6 MB</li>
-                </ul>
-                <div className="bg-blue-50 border-l-4 border-[#0087E3] p-4 mt-6">
-                  <p className="text-sm font-semibold text-[#111518]">
-                    Potrebujete pomoc s prípravou podkladov?
-                  </p>
-                  <p className="text-sm text-[#4d5d6d] mt-1">
-                    Kontaktujte nás na <a href="mailto:info@slza.sk" className="text-[#0087E3] hover:underline">info@slza.sk</a>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -81,3 +173,4 @@ export default function PlagatyPage() {
     </div>
   );
 }
+
