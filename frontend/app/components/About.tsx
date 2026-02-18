@@ -21,15 +21,15 @@ const About = () => {
 
   return (
     <>
-      <section className="py-0 bg-[#111518] text-white relative min-h-[700px] lg:min-h-[800px] flex items-end" id="about">
+      <section className="py-0 bg-[#111518] text-white relative min-h-[90vh] lg:min-h-[800px] flex items-end lg:items-center" id="about">
         <div className="absolute inset-0 z-0">
-          <img src="/images/portrait-makeup.jpg" alt="Background" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+          <img src="/images/portrait-makeup.jpg" alt="Background" className="w-full h-full object-cover object-left-top lg:object-top" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 lg:bg-gradient-to-t lg:from-black/80 lg:via-black/30 lg:to-transparent"></div>
         </div>
-        <div className="max-w-[1320px] mx-auto px-5 relative z-10 w-full pb-16 lg:pb-20 pt-[300px] lg:pt-20">
+        <div className="max-w-[1320px] mx-auto px-5 relative z-10 w-full pb-12 lg:pb-20 pt-16 lg:pt-20">
           <div className="text-center lg:text-left lg:max-w-[600px] lg:ml-auto">
-            <h2 className="text-4xl md:text-[50px] font-bold mb-6 text-white">Tlačiareň SLZA</h2>
-            <div className="mb-8 space-y-3">
+            <h2 className="text-4xl md:text-[50px] font-bold mb-8 text-white">Tlačiareň SLZA</h2>
+            <div className="mb-10 space-y-6">
               <p className="text-xl md:text-2xl font-bold text-white leading-tight">OD VIZITKY PO <span className="text-yellow-400">KNIHU</span></p>
               <p className="text-xl md:text-2xl font-bold leading-tight"><span className="text-red-500">DODÁME ZÁKAZKU</span> <span className="text-white font-black">AJ DO 24 HODÍN</span></p>
               <p className="text-xl md:text-2xl font-bold leading-tight"><span className="text-red-500">DOKÁŽEME VIAC</span> <span className="text-yellow-400 font-black">AKO LEN VYTLAČIŤ...</span></p>
