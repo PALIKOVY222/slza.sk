@@ -66,13 +66,44 @@ export default function PlagatyCalculator({
   const [format, setFormat] = useState<FormatOption>(formatOptions[1]);
   const [quantity, setQuantity] = useState<number>(100);
   const [color, setColor] = useState<ColorKey>('4/0');
+  const [price, setPrice] = useState<PlagatyPriceResult>({ priceExVat: 0, priceIncVat: 0 });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
   const [note, setNote] = useState('');
 
   useEffect(() => {
-    if (onPriceChange) onPriceChange({ priceExVat: 0 });
+    let cancelled = false;
+    async function fetchPrice() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/poster-price', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            format: format.key,
+            grammage: paper.grammage,
+            colorKey: color,
+            quantity,
+          }),
+        });
+        if (!res.ok) throw new Error('Chyba pri načítaní ceny');
+        const data = (await res.json()) as PlagatyPriceResult;
+        if (!cancelled) {
+          setPrice(data);
+          if (onPriceChange) onPriceChange(data);
+        }
+      } catch (err) {
+        if (!cancelled) setError('Nepodarilo sa načítať cenu.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    fetchPrice();
+    return () => { cancelled = true; };
   }, [paper, format, quantity, color, onPriceChange]);
 
   const handleAddToCart = () => {
@@ -99,7 +130,7 @@ export default function PlagatyCalculator({
       },
       artworkFileName: artworkFile?.name || null,
       quantity: 1,
-      price: 0,
+      price: price.priceExVat,
       image: '/images/plagat.svg',
     };
 
@@ -237,14 +268,24 @@ export default function PlagatyCalculator({
         }}
       />
 
-      {/* Tlačidlo */}
-      <div className="mt-10 pt-8 border-t-2 border-gray-200 flex justify-end">
-        <button
-          onClick={handleAddToCart}
-          className="bg-[#0087E3] text-white py-4 px-12 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
-        >
-          Pridať do košíka
-        </button>
+      {/* Cena a tlačidlo */}
+      <div className="mt-10 pt-8 border-t-2 border-gray-200">
+        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
+            <div className="text-4xl font-bold text-[#0087E3]">
+              {loading ? '…' : formatCurrency(price.priceExVat ?? 0)}
+            </div>
+            <div className="text-sm text-[#4d5d6d] mt-1">bez DPH</div>
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="bg-[#0087E3] text-white py-4 px-12 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Pridať do košíka
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { ArtworkInfo } from '../ArtworkUpload';
+import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
 import AddedToCartModal from '../AddedToCartModal';
 
 type PaperOption = {
@@ -222,14 +222,6 @@ const defaultConfig: VizitkyCalculatorConfig = {
   vatRate: undefined
 };
 
-function formatBytes(bytes: number) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
-  const units = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-  const value = bytes / Math.pow(1024, i);
-  return `${value.toFixed(value >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
-}
-
 export default function VizitkyCalculator({
   config = defaultConfig,
   onPriceChange,
@@ -251,8 +243,6 @@ export default function VizitkyCalculator({
   const [quantity, setQuantity] = useState<number>(config.defaultQuantity ?? defaultConfig.defaultQuantity ?? 100);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
-  const [artworkError, setArtworkError] = useState<string | null>(null);
-  const [artworkSaving, setArtworkSaving] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
   const [note, setNote] = useState('');
 
@@ -405,64 +395,6 @@ export default function VizitkyCalculator({
           </select>
         </div>
 
-        {/* PDF */}
-        <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-2">Podklady (PDF)</h3>
-          {artwork?.description && (
-            <p className="text-sm text-[#4d5d6d] mb-3">{artwork.description}</p>
-          )}
-          <div className="text-sm text-[#4d5d6d] mb-3">
-            Podporovaný formát: <span className="font-semibold">PDF</span>
-          </div>
-          <div className="text-xs text-[#4d5d6d] mb-3">
-            Súbor sa odošle na cloud po odoslaní objednávky.
-          </div>
-          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <input
-              type="file"
-              accept="application/pdf,.pdf"
-              onChange={async (e) => {
-                const file = e.target.files?.[0] || null;
-                setArtworkError(null);
-                setArtworkFile(file);
-                setArtworkStored(null);
-
-                if (!file) return;
-                if (file.type && file.type !== 'application/pdf') {
-                  setArtworkError('Prosím nahrajte iba PDF súbor.');
-                  return;
-                }
-
-                try {
-                  setArtworkSaving(true);
-                  const { saveArtworkFile } = await import('../../../lib/artwork-store');
-                  const saved = await saveArtworkFile(file);
-                  setArtworkStored(saved);
-                } catch (err) {
-                  setArtworkError((err as Error).message || 'Nepodarilo sa uložiť PDF.');
-                } finally {
-                  setArtworkSaving(false);
-                }
-              }}
-              className="block w-full text-sm text-[#4d5d6d] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#0087E3] file:text-white file:font-semibold hover:file:bg-[#006bb3]"
-            />
-
-            {artworkFile && (
-              <div className="mt-3 text-sm text-[#111518]">
-                Vybraný súbor: <span className="font-semibold">{artworkFile.name}</span>{' '}
-                <span className="text-[#4d5d6d]">({formatBytes(artworkFile.size)})</span>
-              </div>
-            )}
-            {artworkSaving && (
-              <div className="mt-2 text-sm text-[#4d5d6d]">Ukladám súbor…</div>
-            )}
-            {artworkStored && !artworkSaving && !artworkError && (
-              <div className="mt-2 text-sm text-green-600">Súbor pripravený na odoslanie.</div>
-            )}
-            {artworkError && <div className="mt-2 text-sm text-red-600">{artworkError}</div>}
-          </div>
-        </div>
-
         {/* Poznámka */}
         <div>
           <h3 className="text-xl font-bold text-[#111518] mb-2">Poznámka</h3>
@@ -478,6 +410,15 @@ export default function VizitkyCalculator({
           />
         </div>
       </div>
+
+      <ArtworkUpload
+        info={artwork}
+        productSlug="vizitky"
+        onFileChange={(file, upload) => {
+          setArtworkFile(file);
+          setArtworkStored(upload || null);
+        }}
+      />
 
       {/* Cena a tlačidlo */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">

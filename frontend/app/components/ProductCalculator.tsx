@@ -18,6 +18,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
+  const [note, setNote] = useState('');
 
   // Inicializácia prvých možností
   useEffect(() => {
@@ -353,6 +354,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
       productSlug: slug || product.slug,
       options: {
         ...selectedOptions,
+        ...(note ? { note } : {}),
         ...(artworkFile
           ? {
               artwork: {
@@ -470,10 +472,9 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
                   // Pre množstvo - špeciálne zobrazenie s množstevnými zľavami
                   <div className="space-y-4">
                     {product.quantityInput && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
-                          <input
+                      <div className="mb-2">
+                        <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
+                        <input
                             type="number"
                             min={1}
                             value={selectedOptions[category]?.amount ?? ''}
@@ -484,10 +485,9 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
                             placeholder="napr. 100"
                           />
-                        </div>
                       </div>
                     )}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-4 gap-3">
                       {options.map((option: any, index: number) => (
                         <button
                           key={index}
@@ -635,6 +635,21 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
         })}
       </div>
 
+      {/* Poznámka */}
+      <div className="mt-8">
+        <h3 className="text-xl font-bold text-[#111518] mb-2">Poznámka</h3>
+        <p className="text-sm text-[#4d5d6d] mb-3">
+          Špeciálne požiadavky alebo link na súbory (WeTransfer, Úschovna…).
+        </p>
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Vaša poznámka alebo link na podklady..."
+          rows={3}
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-[#0087E3] resize-y"
+        />
+      </div>
+
       <ArtworkUpload
         info={product.artwork as ArtworkInfo}
         productSlug={slug || product.slug}
@@ -650,7 +665,7 @@ const ProductCalculator: React.FC<ProductCalculatorProps> = ({ product, slug }) 
           <div>
             <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
             <div className="text-4xl font-bold text-[#0087E3]">{(totalPrice || 0).toFixed(2)} €</div>
-            <div className="text-sm text-[#4d5d6d] mt-1">+ DPH</div>
+            <div className="text-sm text-[#4d5d6d] mt-1">bez DPH</div>
           </div>
           <button
             onClick={handleAddToCart}
