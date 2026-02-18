@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getSessionToken, generateToken } from '@/lib/security';
+import { getSessionToken } from '@/lib/security';
 import bcrypt from 'bcryptjs';
 
 async function getAuthenticatedUser(request: NextRequest) {

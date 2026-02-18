@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { getSessionToken, sanitizeInput, isValidEmail, isValidPhone } from '@/lib/security';
+import { getSessionToken, sanitizeInput, validateEmail, validatePhone } from '@/lib/security';
 
 async function getAuthenticatedUser(request: NextRequest) {
   const sessionToken = request.cookies.get('session_token')?.value || getSessionToken(request);
@@ -68,7 +68,7 @@ export async function PUT(request: NextRequest) {
     if (lastName !== undefined && typeof lastName !== 'string') {
       return NextResponse.json({ error: 'Neplatné priezvisko' }, { status: 400 });
     }
-    if (phone !== undefined && phone !== '' && !isValidPhone(phone)) {
+    if (phone !== undefined && phone !== '' && !validatePhone(phone)) {
       return NextResponse.json({ error: 'Neplatné telefónne číslo (formát: +421... alebo 09...)' }, { status: 400 });
     }
 
