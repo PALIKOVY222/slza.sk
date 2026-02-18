@@ -8,12 +8,10 @@ import Link from 'next/link';
 
 function SuccessContent() {
   const searchParams = useSearchParams();
-  const sessionId = searchParams?.get('session_id');
-  const paid = searchParams?.get('paid');
   const method = searchParams?.get('method');
   const [loading, setLoading] = useState(true);
 
-  const isValid = sessionId || paid || method;
+  const isValid = !!method;
 
   useEffect(() => {
     if (isValid) {
@@ -41,7 +39,7 @@ function SuccessContent() {
   }
 
   const isBankTransfer = method === 'bank_transfer';
-  const isCashOnDelivery = method === 'cash_on_delivery';
+  const isCashOnPickup = method === 'cash_on_pickup';
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -62,15 +60,15 @@ function SuccessContent() {
           </svg>
         </div>
         <h1 className="text-3xl font-bold mb-4 text-gray-900">
-          {isBankTransfer ? 'Objednávka prijatá!' : isCashOnDelivery ? 'Objednávka prijatá!' : 'Platba úspešná!'}
+          Objednávka prijatá!
         </h1>
         <p className="text-gray-600 mb-2">
           Ďakujeme za vašu objednávku.
         </p>
         <p className="text-gray-600 mb-6">
           {isBankTransfer
-            ? 'Platobné údaje sme vám odoslali na email. Po prijatí platby spracujeme vašu objednávku.'
-            : isCashOnDelivery
+            ? 'Faktúru Ti zašleme po vyhotovení objednávky na email.'
+            : isCashOnPickup
             ? 'Objednávku uhradíte pri prevzatí. Potvrdenie sme vám odoslali na email.'
             : 'Potvrdenie sme vám odoslali na email.'}
         </p>
