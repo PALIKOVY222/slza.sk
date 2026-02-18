@@ -13,13 +13,6 @@ export default function PlagatyPage() {
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="bg-[#0087E3] pt-48 pb-20 text-center">
         <div className="max-w-[1320px] mx-auto px-5">
-          <nav className="text-white/70 text-sm mb-4 flex items-center justify-center gap-2">
-            <a href="/" className="hover:text-white transition-colors">Domov</a>
-            <span>/</span>
-            <a href="/produkty" className="hover:text-white transition-colors">Produkty</a>
-            <span>/</span>
-            <span className="text-white">Plagáty</span>
-          </nav>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-4">Plagáty</h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             Tlač plagátov vo formátoch A4 a A3 na kvalitnom papieri.
