@@ -16,15 +16,27 @@ interface CartItem {
 
 const PICKUP_POINTS = [
   {
+    id: "packeta",
+    name: "Packeta",
+    address: "Výdajné miesto Packeta",
+    price: 3.5,
+  },
+  {
+    id: "courier",
+    name: "Kuriér",
+    address: "Doručenie na adresu",
+    price: 5.0,
+  },
+  {
     id: "reproservis",
-    name: "Osobný odber – REPROservis M.M",
-    address: "Hodžu, Liptovský Mikuláš",
+    name: "Osobný odber – REPROservis Liptovský Mikuláš",
+    address: "M. M. Hodžu 1160, 031 01 Liptovský Mikuláš",
     price: 0,
   },
   {
     id: "borova_sihot",
     name: "Osobný odber – Hotel Borová Sihoť",
-    address: "Borová Sihoť, Liptovský Mikuláš",
+    address: "K sihoti 201/1, Podtureň 033 01",
     price: 0,
   },
 ];
@@ -137,7 +149,8 @@ const KosikPage = () => {
   };
 
   const itemsTotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
-  const shippingCost = 0;
+  const selectedPickupPoint = PICKUP_POINTS.find(p => p.id === shippingMethod);
+  const shippingCost = selectedPickupPoint?.price || 0;
   const vatTotal = itemsTotal * 0.23;
   const total = itemsTotal + vatTotal + shippingCost;
 
@@ -291,7 +304,7 @@ const KosikPage = () => {
                   <button
                     onClick={() => { if (s.num <= step) setStep(s.num); }}
                     className={`flex items-center gap-2 text-sm font-semibold transition-colors ${
-                      step === s.num ? "text-[#0087E3]" : step > s.num ? "text-green-600" : "text-gray-400"
+                      step === s.num ? "text-[#0087E3]" : step > s.num ? "text-[#0087E3]" : "text-gray-400"
                     }`}
                   >
                     <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -426,11 +439,31 @@ const KosikPage = () => {
                           <div className="font-semibold text-[#111518] text-sm">{point.name}</div>
                           <div className="text-sm text-gray-500">{point.address}</div>
                         </div>
-                        <div className="text-sm font-medium text-gray-600 pt-0.5">Zadarmo</div>
+                        <div className="text-sm font-medium text-gray-600 pt-0.5">{point.price > 0 ? `${point.price.toFixed(2)} €` : "Zadarmo"}</div>
                         <input type="radio" name="shipping" value={point.id} checked={shippingMethod === point.id} onChange={(e) => setShippingMethod(e.target.value)} className="sr-only" />
                       </label>
                     ))}
                   </div>
+                  {shippingMethod === "packeta" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const w = window as any;
+                        if (w.Packeta) {
+                          w.Packeta.Widget.pick("65d49ba1845d78fb", (point: { id: string; name: string }) => {
+                            if (point) {
+                              setCustomerInfo({ ...customerInfo, address: point.name });
+                            }
+                          });
+                        } else {
+                          alert("Packeta widget nie je načítaný");
+                        }
+                      }}
+                      className="mt-3 w-full px-3 py-3 border-2 border-dashed border-[#0087E3] text-[#0087E3] rounded-xl hover:bg-[#0087E3]/5 transition-colors text-sm font-medium"
+                    >
+                      {customerInfo.address && shippingMethod === "packeta" ? `✓ ${customerInfo.address}` : "Vybrať výdajné miesto Packeta →"}
+                    </button>
+                  )}
                 </div>
 
                 {/* Payment methods */}
@@ -505,7 +538,7 @@ const KosikPage = () => {
                     </div>
                     <div className="border-t pt-3 mt-2 flex justify-between items-center">
                       <span className="text-base font-bold text-[#111518]">Spolu:</span>
-                      <span className="text-xl font-bold text-green-600">{total.toFixed(2)} €</span>
+                      <span className="text-xl font-bold text-[#0087E3]">{total.toFixed(2)} €</span>
                     </div>
                   </div>
                 </div>
@@ -586,7 +619,7 @@ const KosikPage = () => {
                     </div>
                     <div className="border-t pt-3 mt-2 flex justify-between items-center">
                       <span className="text-base font-bold text-[#111518]">Spolu:</span>
-                      <span className="text-xl font-bold text-green-600">{total.toFixed(2)} €</span>
+                      <span className="text-xl font-bold text-[#0087E3]">{total.toFixed(2)} €</span>
                     </div>
                   </div>
                 </div>
@@ -684,7 +717,7 @@ const KosikPage = () => {
                     </div>
                     <div className="border-t pt-3 mt-2 flex justify-between items-center">
                       <span className="text-base font-bold text-[#111518]">Spolu:</span>
-                      <span className="text-xl font-bold text-green-600">{total.toFixed(2)} €</span>
+                      <span className="text-xl font-bold text-[#0087E3]">{total.toFixed(2)} €</span>
                     </div>
                   </div>
                 </div>

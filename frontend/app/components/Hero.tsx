@@ -43,7 +43,7 @@ const Hero = () => {
             </div>
           </div>
           <div className="flex-[0_0_600px] flex items-end justify-end relative z-[1] -mb-[50px]">
-            <div className="relative fish-delayed">
+            <div className="relative">
               <img src="/images/nemo.png" alt="Nemo mascot" className="w-full max-w-[650px] h-auto block" />
             </div>
           </div>
@@ -53,7 +53,7 @@ const Hero = () => {
       {/* Mobile Layout - presne ako screenshot */}
       <div className="lg:hidden px-5 text-center relative min-h-[500px] flex flex-col justify-center">
         {/* Maskot vpravo nahoře */}
-        <div className="absolute top-0 right-0 w-[200px] z-[1] fish-delayed">
+        <div className="absolute top-0 right-0 w-[200px] z-[1]">
           <img src="/images/nemo.png" alt="Nemo mascot" className="w-full h-auto" />
         </div>
         

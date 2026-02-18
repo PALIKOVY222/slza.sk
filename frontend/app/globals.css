@@ -18,13 +18,3 @@
   }
 }
 
-/* Fish mascot delayed appearance */
-@keyframes fish-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.fish-delayed {
-  opacity: 0;
-  animation: fish-fade-in 0.8s ease-out 1.5s forwards;
-}
