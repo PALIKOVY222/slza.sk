@@ -22,8 +22,7 @@ export default function PlagatyPage() {
           </nav>
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-4">Plagáty</h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            Rýchla a profesionálna tlač maloformátových plagátov do A3.
-            Čím viac kusov, tým nižšia cena za kus.
+            Tlač plagátov vo formátoch A4 a A3 na kvalitnom papieri.
           </p>
         </div>
       </section>
@@ -47,23 +46,20 @@ export default function PlagatyPage() {
               {/* Short description */}
               <div>
                 <p className="text-[#4d5d6d] text-lg leading-relaxed">
-                  Plagáty sú osvedčený spôsob, ako zviditeľniť svoju akciu, produkt alebo
-                  udalosť. Vytlačíme plagáty, ktoré zaujmú všetkých naokolo – na kvalitnom
-                  papieri s presnou farebnou reprodukciou.
+                  Plagáty na kvalitnom natieranom papieri – matnom alebo lesklom.
+                  Vyberte si gramáž, farebnosť a množstvo v konfigurátore.
                 </p>
               </div>
 
               {/* Feature list */}
               <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-[#111518] mb-4">Prečo naše plagáty?</h3>
+                <h3 className="text-lg font-bold text-[#111518] mb-4">Parametre</h3>
                 <ul className="space-y-3">
                   {[
-                    'Formáty A4 a A3 (max. vlastný rozmer 440 × 310 mm)',
-                    'Natieraný matný aj lesklý papier 115 g/m²',
-                    'Jednostranná aj obojstranná plnofarebná tlač',
-                    '3 rýchlosti výroby – OPTIMAL, EXPRESS, SUPER EXPRESS',
-                    'Množstevné zľavy – čím viac, tým menej zaplatíš za kus',
-                    'Doprava zadarmo pri objednávke nad 50 €',
+                    'Formáty A4 a A3',
+                    'Natieraný matný aj lesklý papier 115–300 g/m²',
+                    'Jednostranná aj obojstranná tlač (farebná / ČB)',
+                    'Množstevné zľavy od 10 ks',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3 text-[#4d5d6d]">
                       <svg
@@ -109,7 +105,7 @@ export default function PlagatyPage() {
                   ['Formát súboru', 'PDF s orezom 3 mm na každej strane'],
                   ['Rozlíšenie', 'min. 300 DPI (pre ostrý výtlačok)'],
                   ['Farebný priestor', 'CMYK (RGB bude konvertované)'],
-                  ['Maximálna veľkosť súboru', '25 MB'],
+                  ['Maximálna veľkosť súboru', '100 MB (alebo zadajte link v poznámke)'],
                   ['Fontky', 'Vložené alebo prevedené na krivky'],
                 ].map(([label, value]) => (
                   <li key={label} className="flex gap-3">
@@ -147,8 +143,7 @@ export default function PlagatyPage() {
                   presne podľa vašich predstáv.
                 </p>
                 <p className="text-[#4d5d6d] mb-6 leading-relaxed">
-                  V konfigurátore si zvolíte možnosť <strong>„Využijem služby grafika"</strong> –
-                  dohodnutie ceny prebehne individuálne.
+                  <strong>Kontaktujte nás</strong> a dohodneme cenu za prípravu grafiky individuálne.
                 </p>
               </div>
               <div className="bg-blue-50 rounded-xl p-5 border-l-4 border-[#0087E3]">

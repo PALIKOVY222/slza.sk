@@ -15,8 +15,6 @@ const ProductPage = () => {
   const params = useParams();
   const slug = params?.slug as string;
   const [product, setProduct] = useState<any | null>(null);
-  const [vizitkyPrice, setVizitkyPrice] = useState<number | null>(null);
-  const [letakyPrice, setLetakyPrice] = useState<number | null>(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -58,82 +56,147 @@ const ProductPage = () => {
   const specs = Array.isArray(product.specs) ? product.specs : [];
   const useGenericCalculator = product?.calculatorType === 'generic';
 
+  const renderCalculator = () => {
+    if (useGenericCalculator) return <ProductCalculator product={product} slug={slug} />;
+    if (slug === 'vizitky') return <VizitkyCalculator onPriceChange={() => {}} artwork={product?.artwork} />;
+    if (slug === 'letaky') return <LetakyCalculator onPriceChange={() => {}} artwork={product?.artwork} />;
+    if (slug === 'baner') return <BanerCalculator artwork={product?.artwork} />;
+    if (slug === 'peciatky') return <PeciatkyCalculator artwork={product?.artwork} />;
+    return <ProductCalculator product={product} slug={slug} />;
+  };
+
   return (
     <div>
       <Header />
-      
-      {/* Hero Section */}
+
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="bg-[#0087E3] pt-48 pb-20 text-center">
         <div className="max-w-[1320px] mx-auto px-5">
-          <nav className="text-white/80 text-sm mb-4">
+          <nav className="text-white/70 text-sm mb-4 flex items-center justify-center gap-2">
             <a href="/" className="hover:text-white transition-colors">Domov</a>
-            <span className="mx-2">/</span>
+            <span>/</span>
             <a href="/produkty" className="hover:text-white transition-colors">Produkty</a>
-            <span className="mx-2">/</span>
+            <span>/</span>
             <span className="text-white">{product.title}</span>
           </nav>
-          <h1 className="text-5xl font-bold text-white">{product.title}</h1>
+          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-4">{product.title}</h1>
+          {product.description && (
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              {product.description}
+            </p>
+          )}
         </div>
       </section>
 
-      {/* Product Detail */}
+      {/* ── Product + Calculator ──────────────────────────────────────────── */}
       <section className="py-16 bg-white">
         <div className="max-w-[1320px] mx-auto px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            {/* Product Image */}
-            <div className="bg-[#f9f9f9] rounded-2xl p-12 flex items-center justify-center min-h-[500px]">
-              <img src={product.image} alt={product.title} className="max-w-full max-h-[400px] object-contain" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+            {/* Left – product image + specs */}
+            <div className="space-y-8">
+              {/* Product image */}
+              <div className="bg-gray-50 rounded-2xl p-12 flex items-center justify-center min-h-[360px]">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="max-w-full max-h-[280px] object-contain"
+                />
+              </div>
+
+              {/* Specs list */}
+              {specs.length > 0 && (
+                <div className="bg-gray-50 rounded-2xl p-6">
+                  <h3 className="text-lg font-bold text-[#111518] mb-4">Vlastnosti produktu</h3>
+                  <ul className="space-y-3">
+                    {specs.map((spec: string) => (
+                      <li key={spec} className="flex items-start gap-3 text-[#4d5d6d]">
+                        <svg
+                          className="w-5 h-5 text-[#0087E3] mt-0.5 shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{spec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
-            {/* Product Info */}
-            <div>
-              <p className="text-sm text-[#0087E3] font-semibold mb-2 uppercase">{product.category || 'Produkt'}</p>
-              <h2 className="text-4xl font-bold text-[#111518] mb-4">{product.title}</h2>
-              <p className="text-lg text-[#4d5d6d] mb-8 leading-relaxed">{product.description}</p>
-              
-              <div className="bg-gray-50 rounded-lg p-6 mb-8">
-                <h3 className="text-lg font-bold text-[#111518] mb-4">Vlastnosti produktu:</h3>
-                <ul className="space-y-2">
-                  {specs.map((spec: any, index: number) => (
-                    <li key={index} className="flex items-start gap-3 text-[#4d5d6d]">
-                      <svg className="w-5 h-5 text-[#0087E3] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{spec}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="text-3xl font-bold text-[#0087E3]">
-                  {product.priceLabel || 'Kalkulácia podľa parametrov'}
-                </div>
-                <span className="text-sm text-[#4d5d6d]">+ DPH</span>
-              </div>
+            {/* Right – calculator (sticky) */}
+            <div className="lg:sticky lg:top-8">
+              {renderCalculator()}
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Calculator Section */}
-          {useGenericCalculator ? (
-            <ProductCalculator product={product} slug={slug} />
-          ) : slug === 'vizitky' ? (
-            <VizitkyCalculator
-              onPriceChange={(p) => setVizitkyPrice(p.priceExVat)}
-              artwork={product?.artwork}
-            />
-          ) : slug === 'letaky' ? (
-            <LetakyCalculator
-              onPriceChange={(p) => setLetakyPrice(p.priceExVat)}
-              artwork={product?.artwork}
-            />
-          ) : slug === 'baner' ? (
-            <BanerCalculator artwork={product?.artwork} />
-          ) : slug === 'peciatky' ? (
-            <PeciatkyCalculator artwork={product?.artwork} />
-          ) : (
-            <ProductCalculator product={product} slug={slug} />
-          )}
+      {/* ── Tech specs ────────────────────────────────────────────────────── */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-[1320px] mx-auto px-5">
+          <div className="grid md:grid-cols-2 gap-10">
+
+            {/* Technické požiadavky */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-[#111518] mb-6">Technické požiadavky</h2>
+              <ul className="space-y-4 text-[#4d5d6d]">
+                {[
+                  ['Formát súboru', 'PDF s orezom 3 mm na každej strane'],
+                  ['Rozlíšenie', 'min. 300 DPI'],
+                  ['Farebný priestor', 'CMYK (RGB bude konvertované)'],
+                  ['Maximálna veľkosť súboru', '100 MB (alebo zadajte link v poznámke)'],
+                  ['Fontky', 'Vložené alebo prevedené na krivky'],
+                ].map(([label, value]) => (
+                  <li key={label} className="flex gap-3">
+                    <svg
+                      className="w-5 h-5 text-[#0087E3] mt-0.5 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <span className="font-semibold text-[#111518]">{label}:</span>{' '}
+                      {value}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Pomoc s podkladmi */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-[#111518] mb-6">
+                  Potrebujete pomoc s podkladmi?
+                </h2>
+                <p className="text-[#4d5d6d] mb-4 leading-relaxed">
+                  Ak neviete pripraviť podklady sami, radi vám pomôžeme.
+                  Stačí nám zaslať vaše materiály (logá, texty, fotky) a naši grafici
+                  pripravia podklady presne podľa vašich predstáv.
+                </p>
+                <p className="text-[#4d5d6d] mb-6 leading-relaxed">
+                  <strong>Kontaktujte nás</strong> a dohodneme cenu za prípravu grafiky individuálne.
+                </p>
+              </div>
+              <div className="bg-blue-50 rounded-xl p-5 border-l-4 border-[#0087E3]">
+                <p className="text-sm font-semibold text-[#111518] mb-1">Kontakt</p>
+                <p className="text-sm text-[#4d5d6d]">
+                  E-mail:{' '}
+                  <a href="mailto:info@slza.sk" className="text-[#0087E3] hover:underline font-medium">
+                    info@slza.sk
+                  </a>
+                </p>
+                <p className="text-sm text-[#4d5d6d] mt-1">Pondelok – piatok, 9:00 – 17:00</p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 

@@ -254,6 +254,7 @@ export default function VizitkyCalculator({
   const [artworkError, setArtworkError] = useState<string | null>(null);
   const [artworkSaving, setArtworkSaving] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
+  const [note, setNote] = useState('');
 
   const price = useMemo(() => {
     return calculateVizitkyPrice({
@@ -278,6 +279,7 @@ export default function VizitkyCalculator({
         format: { name: format.label, value: format.value },
         color: { name: color.label, value: color.value },
         quantity: { amount: quantity },
+        ...(note ? { note } : {}),
         ...(artworkFile
           ? {
               artwork: {
@@ -459,6 +461,21 @@ export default function VizitkyCalculator({
             )}
             {artworkError && <div className="mt-2 text-sm text-red-600">{artworkError}</div>}
           </div>
+        </div>
+
+        {/* Poznámka */}
+        <div>
+          <h3 className="text-xl font-bold text-[#111518] mb-2">Poznámka</h3>
+          <p className="text-sm text-[#4d5d6d] mb-3">
+            Špeciálne požiadavky alebo link na súbory (WeTransfer, Úschovna…).
+          </p>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Vaša poznámka alebo link na podklady..."
+            rows={3}
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-[#0087E3] resize-y"
+          />
         </div>
       </div>
 

@@ -1,0 +1,1682 @@
+[
+  {
+    "id": 1,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:44:56.055Z"
+  },
+  {
+    "id": 2,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:44:58.074Z"
+  },
+  {
+    "id": 3,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:00.086Z"
+  },
+  {
+    "id": 4,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:02.097Z"
+  },
+  {
+    "id": 5,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:04.108Z"
+  },
+  {
+    "id": 6,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:06.120Z"
+  },
+  {
+    "id": 7,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:08.130Z"
+  },
+  {
+    "id": 8,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:11.824Z"
+  },
+  {
+    "id": 9,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:13.831Z"
+  },
+  {
+    "id": 10,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:15.845Z"
+  },
+  {
+    "id": 11,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:17.855Z"
+  },
+  {
+    "id": 12,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:19.869Z"
+  },
+  {
+    "id": 13,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:21.874Z"
+  },
+  {
+    "id": 14,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:23.878Z"
+  },
+  {
+    "id": 15,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:27.568Z"
+  },
+  {
+    "id": 16,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:29.582Z"
+  },
+  {
+    "id": 17,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:31.596Z"
+  },
+  {
+    "id": 18,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:33.606Z"
+  },
+  {
+    "id": 19,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:35.619Z"
+  },
+  {
+    "id": 20,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:37.628Z"
+  },
+  {
+    "id": 21,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:39.637Z"
+  },
+  {
+    "id": 22,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:43.347Z"
+  },
+  {
+    "id": 23,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:45.358Z"
+  },
+  {
+    "id": 24,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:47.371Z"
+  },
+  {
+    "id": 25,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:49.384Z"
+  },
+  {
+    "id": 26,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:51.394Z"
+  },
+  {
+    "id": 27,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:53.401Z"
+  },
+  {
+    "id": 28,
+    "format": "A4",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:45:55.409Z"
+  },
+  {
+    "id": 29,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:00.627Z"
+  },
+  {
+    "id": 30,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:02.640Z"
+  },
+  {
+    "id": 31,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:04.651Z"
+  },
+  {
+    "id": 32,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:06.662Z"
+  },
+  {
+    "id": 33,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:08.675Z"
+  },
+  {
+    "id": 34,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:10.686Z"
+  },
+  {
+    "id": 35,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:12.699Z"
+  },
+  {
+    "id": 36,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:16.411Z"
+  },
+  {
+    "id": 37,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:18.419Z"
+  },
+  {
+    "id": 38,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:20.429Z"
+  },
+  {
+    "id": 39,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:22.437Z"
+  },
+  {
+    "id": 40,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:24.449Z"
+  },
+  {
+    "id": 41,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:26.458Z"
+  },
+  {
+    "id": 42,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:28.469Z"
+  },
+  {
+    "id": 43,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:32.181Z"
+  },
+  {
+    "id": 44,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:34.193Z"
+  },
+  {
+    "id": 45,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:36.203Z"
+  },
+  {
+    "id": 46,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:38.212Z"
+  },
+  {
+    "id": 47,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:40.223Z"
+  },
+  {
+    "id": 48,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:42.234Z"
+  },
+  {
+    "id": 49,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:44.247Z"
+  },
+  {
+    "id": 50,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:47.963Z"
+  },
+  {
+    "id": 51,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:49.980Z"
+  },
+  {
+    "id": 52,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:51.987Z"
+  },
+  {
+    "id": 53,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:53.998Z"
+  },
+  {
+    "id": 54,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:56.009Z"
+  },
+  {
+    "id": 55,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:46:58.021Z"
+  },
+  {
+    "id": 56,
+    "format": "A4",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:00.030Z"
+  },
+  {
+    "id": 57,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:05.257Z"
+  },
+  {
+    "id": 58,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:07.270Z"
+  },
+  {
+    "id": 59,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:09.282Z"
+  },
+  {
+    "id": 60,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:11.294Z"
+  },
+  {
+    "id": 61,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:13.307Z"
+  },
+  {
+    "id": 62,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:15.319Z"
+  },
+  {
+    "id": 63,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:17.330Z"
+  },
+  {
+    "id": 64,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 23.62,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:21.047Z"
+  },
+  {
+    "id": 65,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 26.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:23.056Z"
+  },
+  {
+    "id": 66,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 30.06,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:25.070Z"
+  },
+  {
+    "id": 67,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 37.11,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:27.083Z"
+  },
+  {
+    "id": 68,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 57.87,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:29.094Z"
+  },
+  {
+    "id": 69,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 91.23,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:31.101Z"
+  },
+  {
+    "id": 70,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 153.22,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:33.109Z"
+  },
+  {
+    "id": 71,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:36.840Z"
+  },
+  {
+    "id": 72,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:38.851Z"
+  },
+  {
+    "id": 73,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:40.862Z"
+  },
+  {
+    "id": 74,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:42.876Z"
+  },
+  {
+    "id": 75,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:44.887Z"
+  },
+  {
+    "id": 76,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:46.895Z"
+  },
+  {
+    "id": 77,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:48.903Z"
+  },
+  {
+    "id": 78,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 23.35,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:52.627Z"
+  },
+  {
+    "id": 79,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 25.93,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:54.635Z"
+  },
+  {
+    "id": 80,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 28.7,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:56.645Z"
+  },
+  {
+    "id": 81,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 34.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:47:58.658Z"
+  },
+  {
+    "id": 82,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 51.27,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:00.670Z"
+  },
+  {
+    "id": 83,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 78.56,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:02.679Z"
+  },
+  {
+    "id": 84,
+    "format": "A4",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 130.07,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:04.687Z"
+  },
+  {
+    "id": 85,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:11.476Z"
+  },
+  {
+    "id": 86,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:13.489Z"
+  },
+  {
+    "id": 87,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:15.502Z"
+  },
+  {
+    "id": 88,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:17.514Z"
+  },
+  {
+    "id": 89,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:19.527Z"
+  },
+  {
+    "id": 90,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:21.538Z"
+  },
+  {
+    "id": 91,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:23.549Z"
+  },
+  {
+    "id": 92,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:27.278Z"
+  },
+  {
+    "id": 93,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:29.289Z"
+  },
+  {
+    "id": 94,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:31.302Z"
+  },
+  {
+    "id": 95,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:33.313Z"
+  },
+  {
+    "id": 96,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:35.325Z"
+  },
+  {
+    "id": 97,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:37.337Z"
+  },
+  {
+    "id": 98,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:39.349Z"
+  },
+  {
+    "id": 99,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:43.080Z"
+  },
+  {
+    "id": 100,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:45.091Z"
+  },
+  {
+    "id": 101,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:47.099Z"
+  },
+  {
+    "id": 102,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:49.112Z"
+  },
+  {
+    "id": 103,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:51.126Z"
+  },
+  {
+    "id": 104,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:53.136Z"
+  },
+  {
+    "id": 105,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:55.148Z"
+  },
+  {
+    "id": 106,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:48:58.891Z"
+  },
+  {
+    "id": 107,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:00.902Z"
+  },
+  {
+    "id": 108,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:02.914Z"
+  },
+  {
+    "id": 109,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:04.925Z"
+  },
+  {
+    "id": 110,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:06.934Z"
+  },
+  {
+    "id": 111,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:08.945Z"
+  },
+  {
+    "id": 112,
+    "format": "A3",
+    "paper": "115g matná",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:10.953Z"
+  },
+  {
+    "id": 113,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:16.221Z"
+  },
+  {
+    "id": 114,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:18.302Z"
+  },
+  {
+    "id": 115,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:20.310Z"
+  },
+  {
+    "id": 116,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:22.320Z"
+  },
+  {
+    "id": 117,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:24.334Z"
+  },
+  {
+    "id": 118,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:26.346Z"
+  },
+  {
+    "id": 119,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:28.357Z"
+  },
+  {
+    "id": 120,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:32.122Z"
+  },
+  {
+    "id": 121,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:34.134Z"
+  },
+  {
+    "id": 122,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:36.146Z"
+  },
+  {
+    "id": 123,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:38.157Z"
+  },
+  {
+    "id": 124,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:40.170Z"
+  },
+  {
+    "id": 125,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:42.179Z"
+  },
+  {
+    "id": 126,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:44.192Z"
+  },
+  {
+    "id": 127,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:47.933Z"
+  },
+  {
+    "id": 128,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:49.944Z"
+  },
+  {
+    "id": 129,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:51.951Z"
+  },
+  {
+    "id": 130,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:53.958Z"
+  },
+  {
+    "id": 131,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:55.968Z"
+  },
+  {
+    "id": 132,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:57.980Z"
+  },
+  {
+    "id": 133,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:49:59.992Z"
+  },
+  {
+    "id": 134,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:03.763Z"
+  },
+  {
+    "id": 135,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:05.773Z"
+  },
+  {
+    "id": 136,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:07.785Z"
+  },
+  {
+    "id": 137,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:09.796Z"
+  },
+  {
+    "id": 138,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:11.809Z"
+  },
+  {
+    "id": 139,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:13.821Z"
+  },
+  {
+    "id": 140,
+    "format": "A3",
+    "paper": "115g lesklá",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:15.834Z"
+  },
+  {
+    "id": 141,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:21.092Z"
+  },
+  {
+    "id": 142,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:23.105Z"
+  },
+  {
+    "id": 143,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:25.116Z"
+  },
+  {
+    "id": 144,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:27.124Z"
+  },
+  {
+    "id": 145,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:29.132Z"
+  },
+  {
+    "id": 146,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:31.145Z"
+  },
+  {
+    "id": 147,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+0",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:33.157Z"
+  },
+  {
+    "id": 148,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 10,
+    "priceWithVat": 24.94,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:36.899Z"
+  },
+  {
+    "id": 149,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 25,
+    "priceWithVat": 29.79,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:38.912Z"
+  },
+  {
+    "id": 150,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 50,
+    "priceWithVat": 36.58,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:40.919Z"
+  },
+  {
+    "id": 151,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 100,
+    "priceWithVat": 49.97,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:42.927Z"
+  },
+  {
+    "id": 152,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 250,
+    "priceWithVat": 88.77,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:44.940Z"
+  },
+  {
+    "id": 153,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 500,
+    "priceWithVat": 148.76,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:46.953Z"
+  },
+  {
+    "id": 154,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "4+4",
+    "quantity": 1000,
+    "priceWithVat": 251.29,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:48.966Z"
+  },
+  {
+    "id": 155,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:52.697Z"
+  },
+  {
+    "id": 156,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:54.708Z"
+  },
+  {
+    "id": 157,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:56.720Z"
+  },
+  {
+    "id": 158,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:50:58.732Z"
+  },
+  {
+    "id": 159,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:00.743Z"
+  },
+  {
+    "id": 160,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:02.750Z"
+  },
+  {
+    "id": 161,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+0",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:04.754Z"
+  },
+  {
+    "id": 162,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 10,
+    "priceWithVat": 24.39,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:08.502Z"
+  },
+  {
+    "id": 163,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 25,
+    "priceWithVat": 28.43,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:10.510Z"
+  },
+  {
+    "id": 164,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 50,
+    "priceWithVat": 33.86,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:12.514Z"
+  },
+  {
+    "id": 165,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 100,
+    "priceWithVat": 44.64,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:14.522Z"
+  },
+  {
+    "id": 166,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 250,
+    "priceWithVat": 76.05,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:16.534Z"
+  },
+  {
+    "id": 167,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 500,
+    "priceWithVat": 125.42,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:18.546Z"
+  },
+  {
+    "id": 168,
+    "format": "A3",
+    "paper": "170g matná",
+    "colorKey": "1+1",
+    "quantity": 1000,
+    "priceWithVat": 213.01,
+    "scraped": true,
+    "timestamp": "2026-02-18T15:51:20.559Z"
+  }
+]

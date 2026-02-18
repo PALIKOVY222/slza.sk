@@ -53,6 +53,7 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
+  const [note, setNote] = useState('');
 
   const price = useMemo(() => {
     const qty = Math.max(1, Math.floor(Number(quantity) || 1));
@@ -82,6 +83,7 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
         model: `${model.label} (${model.size})`,
         variant: variant.label,
         quantity: price.qty,
+        ...(note ? { note } : {}),
         ...(artworkFile
           ? {
               artwork: {
@@ -199,6 +201,21 @@ export default function PeciatkyCalculator({ artwork }: { artwork?: ArtworkInfo 
           setArtworkStored(upload || null);
         }}
       />
+
+      {/* Poznámka */}
+      <div className="mt-8">
+        <h3 className="text-xl font-bold text-[#111518] mb-2">Poznámka</h3>
+        <p className="text-sm text-[#4d5d6d] mb-3">
+          Špeciálne požiadavky alebo link na súbory (WeTransfer, Úschovna…).
+        </p>
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Vaša poznámka alebo link na podklady..."
+          rows={3}
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-[#0087E3] resize-y"
+        />
+      </div>
 
       {/* Cena */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">

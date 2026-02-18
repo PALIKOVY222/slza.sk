@@ -1,158 +1,157 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import ArtworkUpload, { ArtworkInfo } from '../ArtworkUpload';
 import AddedToCartModal from '../AddedToCartModal';
 
-// ─── Price table ─────────────────────────────────────────────────────────────
-// Base prices WITH VAT (23%) for: format × quantity
-// A3, Natieraný matný 115 g/m², Jednostranná (4+0), OPTIMAL
-// Confirmed anchor: 100 ks A3 = 49,97 € (Anwell)
-const A3_BASE: Record<number, number> = {
-  10: 19.00,
-  25: 30.65,
-  50: 37.96,
-  100: 49.97,
-  250: 91.06,
-  500: 154.07,
-  1000: 251.38,
+export type PlagatyPriceResult = {
+  priceExVat: number;
+  priceIncVat?: number;
 };
 
-// A4 ≈ 77 % of A3 (derived from Anwell letáky table ratio)
-const A4_FACTOR = 0.77;
-
-// Multipliers
-const FORMAT_FACTOR: Record<string, number> = { A3: 1.0, A4: A4_FACTOR };
-const PAPER_FACTOR: Record<string, number> = {
-  'Natieraný matný 115 g/m²': 1.00,
-  'Natieraný lesklý 115 g/m²': 1.00,
-  'Natieraný matný 170 g/m²': 1.25,
-};
-const SIDES_FACTOR: Record<string, number> = { '4+0': 1.00, '4+4': 1.20 };
-const SPEED_FACTOR: Record<string, number> = {
-  OPTIMAL: 1.00,
-  EXPRESS: 1.30,
-  'SUPER EXPRESS': 1.60,
-};
-
-const VAT_RATE = 0.23;
-
-// Log-scale interpolation between known quantity points
-function interpolatePrice(basePoints: Record<number, number>, qty: number): number {
-  const pts = Object.entries(basePoints)
-    .map(([k, v]) => ({ qty: Number(k), price: v }))
-    .sort((a, b) => a.qty - b.qty);
-
-  if (qty <= pts[0].qty) return pts[0].price;
-  if (qty >= pts[pts.length - 1].qty) {
-    const p1 = pts[pts.length - 2];
-    const p2 = pts[pts.length - 1];
-    const slope = (p2.price - p1.price) / (Math.log(p2.qty) - Math.log(p1.qty));
-    return Math.max(0, p2.price + slope * (Math.log(qty) - Math.log(p2.qty)));
-  }
-  for (let i = 0; i < pts.length - 1; i++) {
-    if (qty >= pts[i].qty && qty <= pts[i + 1].qty) {
-      const ratio =
-        (Math.log(qty) - Math.log(pts[i].qty)) /
-        (Math.log(pts[i + 1].qty) - Math.log(pts[i].qty));
-      return pts[i].price + (pts[i + 1].price - pts[i].price) * ratio;
-    }
-  }
-  return pts[pts.length - 1].price;
-}
-
-function calcPrice(
-  format: string,
-  paper: string,
-  sides: string,
-  speed: string,
-  qty: number,
-) {
-  if (qty < 1) return { priceIncVat: 0, priceExVat: 0, unitPriceExVat: 0 };
-  const base = interpolatePrice(A3_BASE, qty);
-  const multiplied =
-    base *
-    (FORMAT_FACTOR[format] ?? 1) *
-    (PAPER_FACTOR[paper] ?? 1) *
-    (SIDES_FACTOR[sides] ?? 1) *
-    (SPEED_FACTOR[speed] ?? 1);
-  const priceIncVat = Math.round(multiplied * 100) / 100;
-  const priceExVat = Math.round((priceIncVat / (1 + VAT_RATE)) * 100) / 100;
-  const unitPriceExVat = Math.round((priceExVat / qty) * 100) / 100;
-  return { priceIncVat, priceExVat, unitPriceExVat };
-}
-
-function fmt(n: number) {
-  return n.toFixed(2) + ' €';
-}
-
-// ─── Options ─────────────────────────────────────────────────────────────────
-const formatOptions = ['A4', 'A3'] as const;
 const paperOptions = [
-  'Natieraný matný 115 g/m²',
-  'Natieraný lesklý 115 g/m²',
-  'Natieraný matný 170 g/m²',
+  { label: '115g matn\u00e1', grammage: 115, description: 'Ekonomick\u00fd plag\u00e1t' },
+  { label: '115g leskl\u00e1', grammage: 115, description: 'Ekonomick\u00fd plag\u00e1t' },
+  { label: '150g matn\u00e1', grammage: 150, description: 'Univerz\u00e1lny kompromis' },
+  { label: '150g leskl\u00e1', grammage: 150, description: 'Univerz\u00e1lny kompromis' },
+  { label: '200g matn\u00e1', grammage: 200, description: 'Pevnej\u0161\u00ed papier' },
+  { label: '200g leskl\u00e1', grammage: 200, description: 'Pevnej\u0161\u00ed papier' },
+  { label: '250g matn\u00e1', grammage: 250, description: 'Pr\u00e9miovej\u0161\u00ed feel' },
+  { label: '250g leskl\u00e1', grammage: 250, description: 'Pr\u00e9miovej\u0161\u00ed feel' },
+  { label: '300g matn\u00e1', grammage: 300, description: 'Najpevnej\u0161\u00ed z ponuky' },
+  { label: '300g leskl\u00e1', grammage: 300, description: 'Najpevnej\u0161\u00ed z ponuky' }
 ] as const;
-const sidesOptions = [
-  { label: 'Jednostranná (4+0)', value: '4+0' },
-  { label: 'Obojstranná (4+4)', value: '4+4' },
-];
-const speedOptions = [
-  { label: 'OPTIMAL', sub: '3 pracovné dni', value: 'OPTIMAL' },
-  { label: 'EXPRESS', sub: '2 pracovné dni', value: 'EXPRESS' },
-  { label: 'SUPER EXPRESS', sub: '1 pracovný deň', value: 'SUPER EXPRESS' },
-];
-const qtyPresets = [10, 25, 50, 100, 250, 500, 1000];
 
-// ─── Component ───────────────────────────────────────────────────────────────
-export default function PlagatyCalculator({ artwork }: { artwork?: ArtworkInfo }) {
+type PaperOption = (typeof paperOptions)[number];
+
+type FormatOption = {
+  label: string;
+  width: number;
+  height: number;
+  key: FormatKey;
+};
+
+type FormatKey = 'A4' | 'A3';
+
+const formatOptions: FormatOption[] = [
+  { label: 'A4 (210 \u00d7 297 mm)', width: 210, height: 297, key: 'A4' },
+  { label: 'A3 (297 \u00d7 420 mm)', width: 297, height: 420, key: 'A3' }
+];
+
+type QuantityOption = { amount: number };
+
+const quantityOptions: QuantityOption[] = [
+  { amount: 10 },
+  { amount: 25 },
+  { amount: 50 },
+  { amount: 100 },
+  { amount: 250 },
+  { amount: 500 },
+  { amount: 1000 }
+];
+
+const colorOptions = [
+  { label: 'Jednostrann\u00e1 farebn\u00e1 (4/0)', value: '4/0' as const },
+  { label: 'Obojstrann\u00e1 farebn\u00e1 (4/4)', value: '4/4' as const },
+  { label: 'Jednostrann\u00e1 \u010diernobiela (1/0)', value: '1/0' as const },
+  { label: 'Obojstrann\u00e1 \u010diernobiela (1/1)', value: '1/1' as const }
+];
+
+type ColorKey = '1/0' | '1/1' | '4/0' | '4/4';
+
+function formatCurrency(value: number) {
+  return `${value.toFixed(2)} \u20ac`;
+}
+
+export default function PlagatyCalculator({
+  onPriceChange,
+  artwork
+}: {
+  onPriceChange?: (price: PlagatyPriceResult) => void;
+  artwork?: ArtworkInfo;
+}) {
   const router = useRouter();
-  const [format, setFormat] = useState<string>('A3');
-  const [paper, setPaper] = useState<string>('Natieraný matný 115 g/m²');
-  const [sides, setSides] = useState<string>('4+0');
-  const [speed, setSpeed] = useState<string>('OPTIMAL');
+  const [paper, setPaper] = useState<PaperOption>(paperOptions[0]);
+  const [format, setFormat] = useState<FormatOption>(formatOptions[1]);
   const [quantity, setQuantity] = useState<number>(100);
+  const [color, setColor] = useState<ColorKey>('4/0');
+  const [price, setPrice] = useState<PlagatyPriceResult>({ priceExVat: 0, priceIncVat: 0 });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [artworkFile, setArtworkFile] = useState<File | null>(null);
   const [artworkStored, setArtworkStored] = useState<{ id: string; name: string; size: number; type?: string } | null>(null);
   const [showAdded, setShowAdded] = useState(false);
+  const [note, setNote] = useState('');
 
-  const price = useMemo(
-    () => calcPrice(format, paper, sides, speed, quantity),
-    [format, paper, sides, speed, quantity],
-  );
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchPrice() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/poster-price', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            format: format.key,
+            grammage: paper.grammage,
+            colorKey: color,
+            quantity
+          })
+        });
+
+        if (!res.ok) throw new Error('Chyba pri na\u010d\u00edtan\u00ed ceny');
+
+        const data = (await res.json()) as PlagatyPriceResult;
+        if (!cancelled) {
+          setPrice(data);
+          if (onPriceChange) onPriceChange(data);
+        }
+      } catch (err) {
+        console.error(err);
+        if (!cancelled) setError('Nepodarilo sa na\u010d\u00edta\u0165 cenu. Sk\u00faste to pros\u00edm znova.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    fetchPrice();
+    return () => { cancelled = true; };
+  }, [paper, format, quantity, color, onPriceChange]);
 
   const handleAddToCart = () => {
     const cartItem = {
       id: Date.now().toString(),
-      productName: 'Plagáty',
+      productName: 'Plag\u00e1ty',
       productSlug: 'plagaty',
       options: {
-        format,
         paper,
-        sides: sidesOptions.find((s) => s.value === sides)?.label ?? sides,
-        speed,
-        quantity,
+        format,
+        color: colorOptions.find((c) => c.value === color)?.label ?? color,
+        quantity: { amount: quantity },
+        ...(note ? { note } : {}),
         ...(artworkFile
           ? {
               artwork: {
                 name: artworkStored?.name || artworkFile.name,
                 size: artworkStored?.size || artworkFile.size,
                 type: artworkStored?.type,
-                fileId: artworkStored?.id,
-              },
+                fileId: artworkStored?.id
+              }
             }
-          : {}),
+          : {})
       },
       artworkFileName: artworkFile?.name || null,
       quantity: 1,
       price: price.priceExVat,
-      image: '/images/plagat.svg',
+      image: '/images/plagat.svg'
     };
 
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart.push(cartItem);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    existingCart.push(cartItem);
+    localStorage.setItem('cart', JSON.stringify(existingCart));
     setShowAdded(true);
   };
 
@@ -160,134 +159,113 @@ export default function PlagatyCalculator({ artwork }: { artwork?: ArtworkInfo }
     <div className="bg-white rounded-2xl border-2 border-gray-200 p-8">
       <AddedToCartModal
         open={showAdded}
-        productName="Plagáty"
+        productName="Plag\u00e1ty"
         onClose={() => setShowAdded(false)}
         onGoToCart={() => router.push('/kosik')}
       />
-
-      <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigurátor plagátov</h2>
+      <h2 className="text-3xl font-bold text-[#111518] mb-8">Konfigur\u00e1tor plag\u00e1tov</h2>
 
       <div className="space-y-8">
-
-        {/* Formát */}
-        <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Formát</h3>
-          <div className="grid grid-cols-2 gap-3">
-            {formatOptions.map((f) => (
-              <button
-                key={f}
-                onClick={() => setFormat(f)}
-                className={`p-4 rounded-xl border-2 text-left transition-all ${
-                  format === f
-                    ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
-                    : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
-                }`}
-              >
-                <div className="font-bold text-lg">{f}</div>
-                <div className="text-sm text-[#4d5d6d] mt-0.5">
-                  {f === 'A4' ? '210 × 297 mm' : '297 × 420 mm'}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Papier */}
         <div>
           <h3 className="text-xl font-bold text-[#111518] mb-4">Papier</h3>
           <select
-            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base focus:outline-none focus:border-[#0087E3]"
-            value={paper}
-            onChange={(e) => setPaper(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base"
+            value={paper.label}
+            onChange={(e) => {
+              const next = paperOptions.find((o) => o.label === e.target.value);
+              if (next) setPaper(next);
+            }}
           >
-            {paperOptions.map((p) => (
-              <option key={p} value={p}>{p}</option>
+            {paperOptions.map((o) => (
+              <option key={o.label} value={o.label}>{o.label}</option>
             ))}
           </select>
         </div>
 
-        {/* Tlač */}
+        {/* Tla\u010d / farebnos\u0165 */}
         <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Tlač</h3>
-          <div className="grid grid-cols-2 gap-3">
-            {sidesOptions.map((s) => (
-              <button
-                key={s.value}
-                onClick={() => setSides(s.value)}
-                className={`p-4 rounded-xl border-2 text-left transition-all ${
-                  sides === s.value
-                    ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
-                    : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
-                }`}
-              >
-                <div className="font-semibold">{s.label}</div>
-              </button>
+          <h3 className="text-xl font-bold text-[#111518] mb-2">Tla\u010d</h3>
+          <select
+            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base"
+            value={color}
+            onChange={(e) => setColor(e.target.value as ColorKey)}
+          >
+            {colorOptions.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
             ))}
-          </div>
+          </select>
         </div>
 
-        {/* Rýchlosť výroby */}
+        {/* Form\u00e1t */}
         <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Rýchlosť výroby</h3>
-          <div className="grid grid-cols-3 gap-3">
-            {speedOptions.map((s) => (
-              <button
-                key={s.value}
-                onClick={() => setSpeed(s.value)}
-                className={`p-4 rounded-xl border-2 text-left transition-all ${
-                  speed === s.value
-                    ? 'border-[#0087E3] bg-[#0087E3]/5'
-                    : 'border-gray-200 hover:border-[#0087E3]/50'
-                }`}
-              >
-                <div className={`font-bold text-sm ${speed === s.value ? 'text-[#0087E3]' : 'text-[#111518]'}`}>
-                  {s.label}
-                </div>
-                <div className="text-xs text-[#4d5d6d] mt-1">{s.sub}</div>
-              </button>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Form\u00e1t</h3>
+          <select
+            className="w-full border border-gray-300 rounded-lg px-4 py-4 text-base"
+            value={format.label}
+            onChange={(e) => {
+              const next = formatOptions.find((o) => o.label === e.target.value);
+              if (next) setFormat(next);
+            }}
+          >
+            {formatOptions.map((o) => (
+              <option key={o.label} value={o.label}>{o.label}</option>
             ))}
-          </div>
+          </select>
         </div>
 
-        {/* Množstvo */}
+        {/* Mno\u017estvo */}
         <div>
-          <h3 className="text-xl font-bold text-[#111518] mb-4">Množstvo</h3>
+          <h3 className="text-xl font-bold text-[#111518] mb-4">Mno\u017estvo</h3>
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-[#111518] mb-2">Počet kusov</label>
-              <input
-                type="number"
-                min={1}
-                value={quantity}
-                onChange={(e) =>
-                  setQuantity(e.target.value === '' ? 0 : Math.max(1, Math.floor(Number(e.target.value))))
-                }
-                onBlur={(e) => {
-                  if (!e.target.value || Number(e.target.value) < 1) setQuantity(1);
-                }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0087E3] text-[#111518]"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[#111518] mb-2">Po\u010det kusov</label>
+                <input
+                  type="number"
+                  min={1}
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value === '' ? 0 : Math.max(1, Math.floor(Number(e.target.value))))}
+                  onBlur={(e) => { if (!e.target.value || Number(e.target.value) < 1) setQuantity(1); }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#0087E3]"
+                />
+              </div>
             </div>
-            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
-              {qtyPresets.map((q) => (
+
+            <div className="grid grid-cols-4 md:grid-cols-7 gap-3">
+              {quantityOptions.map((q) => (
                 <button
-                  key={q}
-                  onClick={() => setQuantity(q)}
-                  className={`py-3 rounded-lg border-2 text-sm font-bold transition-all ${
-                    quantity === q
-                      ? 'border-[#0087E3] bg-[#0087E3]/5 text-[#0087E3]'
-                      : 'border-gray-200 hover:border-[#0087E3]/50 text-[#111518]'
+                  key={q.amount}
+                  onClick={() => setQuantity(q.amount)}
+                  className={`p-4 rounded-lg border-2 transition-all text-left ${
+                    quantity === q.amount
+                      ? 'border-[#0087E3] bg-[#0087E3]/5'
+                      : 'border-gray-200 hover:border-[#0087E3]/50'
                   }`}
                 >
-                  {q}
+                  <div className="font-bold text-lg text-[#111518]">{q.amount} ks</div>
                 </button>
               ))}
             </div>
           </div>
         </div>
+
+        {/* Pozn\u00e1mka / extern\u00fd link */}
+        <div>
+          <h3 className="text-xl font-bold text-[#111518] mb-2">Pozn\u00e1mka</h3>
+          <p className="text-sm text-[#4d5d6d] mb-3">
+            \u0160peci\u00e1lne po\u017eiadavky alebo link na s\u00fabory (WeTransfer, \u00daschovna\u2026).
+          </p>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Va\u0161a pozn\u00e1mka alebo link na podklady..."
+            rows={3}
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-[#0087E3] resize-y"
+          />
+        </div>
       </div>
 
-      {/* Artwork upload */}
       <ArtworkUpload
         info={artwork}
         productSlug="plagaty"
@@ -297,24 +275,22 @@ export default function PlagatyCalculator({ artwork }: { artwork?: ArtworkInfo }
         }}
       />
 
-      {/* Cena + tlačidlo */}
+      {/* Cena a tla\u010didlo */}
       <div className="mt-10 pt-8 border-t-2 border-gray-200">
+        {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
-            <div className="text-sm text-[#4d5d6d] mb-1">Celková cena</div>
-            <div className="text-4xl font-bold text-[#0087E3]">{fmt(price.priceExVat)}</div>
-            <div className="text-sm text-[#4d5d6d] mt-1">
-              bez DPH · {fmt(price.unitPriceExVat)}/ks
+            <div className="text-sm text-[#4d5d6d] mb-1">Celkov\u00e1 cena</div>
+            <div className="text-4xl font-bold text-[#0087E3]">
+              {loading ? '\u2026' : formatCurrency(price.priceExVat ?? 0)}
             </div>
-            <div className="text-sm text-[#4d5d6d] mt-0.5">
-              S DPH (23 %): <span className="font-semibold">{fmt(price.priceIncVat)}</span>
-            </div>
+            <div className="text-sm text-[#4d5d6d] mt-1">bez DPH</div>
           </div>
           <button
             onClick={handleAddToCart}
             className="bg-[#0087E3] text-white py-4 px-12 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Pridať do košíka
+            Prida\u0165 do ko\u0161\u00edka
           </button>
         </div>
       </div>
