@@ -118,7 +118,8 @@ const KosikPage = () => {
           address: user.company?.address || user.address || "",
           note: "",
         });
-        if (user.company)
+        if (user.company) {
+          setShowCompanyInfo(true);
           setCompanyInfo({
             name: user.company.name || "",
             vatId: user.company.vatId || "",
@@ -127,11 +128,23 @@ const KosikPage = () => {
             email: user.company.email || "",
             phone: user.company.phone || "",
           });
+        }
       } catch {
         /* ignore */
       }
     }
   }, []);
+
+  // Automaticky nastaviť platbu prevodom pre kuriéra a Packetu
+  useEffect(() => {
+    const selectedPickup = PICKUP_POINTS.find(p => p.id === shippingMethod);
+    if (selectedPickup?.id === 'packeta' || selectedPickup?.id === 'courier') {
+      // Pre kuriéra a Packetu je dostupná len platba prevodom
+      if (paymentMethod !== 'bank_transfer') {
+        setPaymentMethod('bank_transfer');
+      }
+    }
+  }, [shippingMethod, paymentMethod]);
 
   const updateCart = (items: CartItem[]) => {
     setCartItems(items);
@@ -290,7 +303,7 @@ const KosikPage = () => {
 
       {/* Steps indicator */}
       {cartItems.length > 0 && (
-        <div className="bg-white border-b">
+        <div className="bg-white">
           <div className="max-w-[1320px] mx-auto px-4 sm:px-5 py-4">
             <div className="flex items-center justify-center gap-3 sm:gap-5">
               {[
@@ -470,7 +483,15 @@ const KosikPage = () => {
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 mb-5">
                   <h3 className="text-lg font-bold text-[#111518] mb-4">Vyber spôsob platby</h3>
                   <div className="divide-y divide-gray-100">
-                    {PAYMENT_METHODS.map((method) => (
+                    {PAYMENT_METHODS.filter((method) => {
+                      // Pre kuriéra a Packetu zobraziť len prevod faktúry
+                      const selectedPickup = PICKUP_POINTS.find(p => p.id === shippingMethod);
+                      if (selectedPickup?.id === 'packeta' || selectedPickup?.id === 'courier') {
+                        return method.id === 'bank_transfer';
+                      }
+                      // Pre osobný odber zobraziť všetky metódy
+                      return true;
+                    }).map((method) => (
                       <label key={method.id} className="flex items-start gap-4 py-4 cursor-pointer">
                         <div className="pt-0.5">
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
