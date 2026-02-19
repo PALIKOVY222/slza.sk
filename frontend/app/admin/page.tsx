@@ -95,19 +95,20 @@ const AdminPage = () => {
   const [customerSearch, setCustomerSearch] = useState('');
   const [deletingCustomer, setDeletingCustomer] = useState<string | null>(null);
   const [expandedCustomer, setExpandedCustomer] = useState<string | null>(null);
+  const [editingCustomer, setEditingCustomer] = useState<string | null>(null);
+  const [customerEditForm, setCustomerEditForm] = useState<{
+    firstName: string; lastName: string; email: string; phone: string;
+    companyName: string; vatId: string; taxId: string;
+  }>({ firstName: '', lastName: '', email: '', phone: '', companyName: '', vatId: '', taxId: '' });
+  const [savingCustomer, setSavingCustomer] = useState(false);
 
   // Product state
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Record<string, unknown>>({});
 
   useEffect(() => {
-    const authUser = localStorage.getItem('authUser');
-    const authToken = localStorage.getItem('authToken');
-    if (!authToken || !authUser) { router.push('/login'); return; }
-    try {
-      const user = JSON.parse(authUser);
-      if (user.email !== 'kovac.jr@slza.sk') { router.push('/'); return; }
-    } catch { router.push('/login'); return; }
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) { router.push('/admin/login'); return; }
     loadAll();
   }, [router]);
 
@@ -152,6 +153,7 @@ const AdminPage = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('adminToken');
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUser');
     router.push('/');
@@ -219,6 +221,48 @@ const AdminPage = () => {
       alert(err instanceof Error ? err.message : 'Chyba pri odstraňovaní');
     } finally {
       setDeletingCustomer(null);
+    }
+  };
+
+  const startEditCustomer = (c: Customer) => {
+    setEditingCustomer(c.id);
+    setCustomerEditForm({
+      firstName: c.firstName || '',
+      lastName: c.lastName || '',
+      email: c.email,
+      phone: c.phone || '',
+      companyName: c.company?.name || '',
+      vatId: c.company?.vatId || '',
+      taxId: c.company?.taxId || '',
+    });
+  };
+
+  const saveCustomer = async (id: string) => {
+    setSavingCustomer(true);
+    try {
+      const res = await fetch(`/api/admin/customers/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: customerEditForm.firstName,
+          lastName: customerEditForm.lastName,
+          email: customerEditForm.email,
+          phone: customerEditForm.phone,
+          company: customerEditForm.companyName ? {
+            name: customerEditForm.companyName,
+            vatId: customerEditForm.vatId,
+            taxId: customerEditForm.taxId,
+          } : undefined,
+        }),
+      });
+      if (!res.ok) { const d = await res.json(); throw new Error(d.error || 'Chyba'); }
+      const data = await res.json();
+      setCustomers(prev => prev.map(c => c.id === id ? data.customer : c));
+      setEditingCustomer(null);
+    } catch (err: unknown) {
+      alert(err instanceof Error ? err.message : 'Chyba pri ukladaní');
+    } finally {
+      setSavingCustomer(false);
     }
   };
 
@@ -679,6 +723,13 @@ const AdminPage = () => {
                         {/* Actions */}
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <button
+                            onClick={() => startEditCustomer(customer)}
+                            className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50"
+                            title="Upraviť"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                          </button>
+                          <button
                             onClick={() => setExpandedCustomer(isExpanded ? null : customer.id)}
                             className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
                             title="Detail"
@@ -697,6 +748,62 @@ const AdminPage = () => {
                           )}
                         </div>
                       </div>
+
+                      {/* Edit form */}
+                      {editingCustomer === customer.id && (
+                        <div className="border-t border-gray-100 px-5 py-4 bg-blue-50/50">
+                          <p className="text-xs text-gray-400 uppercase tracking-wide mb-3">Upraviť zákazníka</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">Meno</label>
+                              <input value={customerEditForm.firstName} onChange={e => setCustomerEditForm(f => ({ ...f, firstName: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">Priezvisko</label>
+                              <input value={customerEditForm.lastName} onChange={e => setCustomerEditForm(f => ({ ...f, lastName: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">Email</label>
+                              <input type="email" value={customerEditForm.email} onChange={e => setCustomerEditForm(f => ({ ...f, email: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">Telefón</label>
+                              <input value={customerEditForm.phone} onChange={e => setCustomerEditForm(f => ({ ...f, phone: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div className="sm:col-span-2">
+                              <hr className="my-2 border-gray-200" />
+                              <p className="text-xs font-semibold text-gray-500 mb-2">Firma</p>
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">Názov firmy</label>
+                              <input value={customerEditForm.companyName} onChange={e => setCustomerEditForm(f => ({ ...f, companyName: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">IČO</label>
+                              <input value={customerEditForm.vatId} onChange={e => setCustomerEditForm(f => ({ ...f, vatId: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 mb-1">DIČ</label>
+                              <input value={customerEditForm.taxId} onChange={e => setCustomerEditForm(f => ({ ...f, taxId: e.target.value }))} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                          </div>
+                          <div className="flex gap-2 mt-4">
+                            <button
+                              onClick={() => saveCustomer(customer.id)}
+                              disabled={savingCustomer}
+                              className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                            >
+                              {savingCustomer ? 'Ukladám...' : 'Uložiť'}
+                            </button>
+                            <button
+                              onClick={() => setEditingCustomer(null)}
+                              className="px-4 py-2 text-gray-600 text-sm hover:bg-gray-100 rounded-lg"
+                            >
+                              Zrušiť
+                            </button>
+                          </div>
+                        </div>
+                      )}
 
                       {/* Expanded: Customer orders */}
                       {isExpanded && (

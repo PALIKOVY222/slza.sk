@@ -19,12 +19,12 @@ const Header = () => {
       try {
         const userData = JSON.parse(authUser);
         setUser(userData);
-        // Check if admin - kovac.jr@slza.sk
-        setIsAdmin(userData.email === 'kovac.jr@slza.sk');
       } catch (e) {
         console.error('Failed to parse authUser', e);
       }
     }
+    // Check if admin via adminToken (independent of customer login)
+    setIsAdmin(!!localStorage.getItem('adminToken'));
   }, []);
 
   // Lock body scroll when mobile menu is open

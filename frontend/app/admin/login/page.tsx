@@ -6,21 +6,37 @@ import { useRouter } from 'next/navigation';
 const AdminLogin = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    // Jednoduché prihlásenie (v produkcii by to bolo cez API)
-    if (formData.email === 'admin@slza.sk' && formData.password === 'admin123') {
-      localStorage.setItem('adminToken', 'logged-in');
-      router.push('/admin/dashboard');
-    } else {
-      setError('Nesprávne prihlasovacie údaje');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Nesprávne prihlasovacie údaje');
+        return;
+      }
+
+      localStorage.setItem('adminToken', data.token);
+      router.push('/admin');
+    } catch {
+      setError('Chyba pri prihlasovaní. Skúste znova.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,15 +60,16 @@ const AdminLogin = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-semibold text-[#111518] mb-2">
-              Email
+              Meno
             </label>
             <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              type="text"
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               required
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3] transition-colors"
-              placeholder="admin@slza.sk"
+              placeholder="admin"
+              autoComplete="username"
             />
           </div>
 
@@ -67,14 +84,16 @@ const AdminLogin = () => {
               required
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3] transition-colors"
               placeholder="••••••••"
+              autoComplete="current-password"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl"
+            disabled={loading}
+            className="w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-60"
           >
-            Prihlásiť sa
+            {loading ? 'Prihlasujem...' : 'Prihlásiť sa'}
           </button>
         </form>
 
@@ -82,14 +101,6 @@ const AdminLogin = () => {
           <a href="/" className="text-sm text-[#0087E3] hover:underline">
             ← Späť na hlavnú stránku
           </a>
-        </div>
-
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-          <p className="text-xs text-[#4d5d6d] text-center">
-            <strong>Demo prístupy:</strong><br/>
-            Email: admin@slza.sk<br/>
-            Heslo: admin123
-          </p>
         </div>
       </div>
     </div>
