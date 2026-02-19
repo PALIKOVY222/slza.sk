@@ -13,6 +13,10 @@ export async function POST(req: NextRequest) {
       firstName,
       lastName,
       phone,
+      street,
+      city,
+      postalCode,
+      country,
       company
     } = body as {
       email: string;
@@ -20,6 +24,10 @@ export async function POST(req: NextRequest) {
       firstName?: string;
       lastName?: string;
       phone?: string;
+      street?: string;
+      city?: string;
+      postalCode?: string;
+      country?: string;
       company?: {
         name: string;
         vatId?: string;
@@ -62,6 +70,20 @@ export async function POST(req: NextRequest) {
           : undefined
       }
     });
+
+    // Create address record if any address field was provided
+    if (street || city || postalCode) {
+      await prisma.address.create({
+        data: {
+          type: 'billing',
+          street: street || '',
+          city: city || '',
+          postalCode: postalCode || '',
+          country: country || 'Slovensko',
+          userId: created.id
+        }
+      });
+    }
 
     return NextResponse.json({
       id: created.id,

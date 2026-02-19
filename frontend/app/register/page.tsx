@@ -12,6 +12,10 @@ const RegisterPage = () => {
     phone: '',
     password: '',
     passwordConfirm: '',
+    street: '',
+    city: '',
+    postalCode: '',
+    country: 'Slovensko',
     companyName: '',
     vatId: '',
     taxId: ''
@@ -39,6 +43,10 @@ const RegisterPage = () => {
           firstName: formData.firstName,
           lastName: formData.lastName,
           phone: formData.phone,
+          street: formData.street || undefined,
+          city: formData.city || undefined,
+          postalCode: formData.postalCode || undefined,
+          country: formData.country || undefined,
           company: formData.companyName
             ? {
                 name: formData.companyName,
@@ -145,6 +153,50 @@ const RegisterPage = () => {
                 required
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
               />
+            </div>
+          </div>
+
+          <div className="border-t pt-6">
+            <h2 className="text-lg font-semibold text-[#111518] mb-4">Adresa</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-[#111518] mb-2">Ulica a číslo</label>
+                <input
+                  type="text"
+                  value={formData.street}
+                  onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-[#111518] mb-2">Mesto</label>
+                  <input
+                    type="text"
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-[#111518] mb-2">PSČ</label>
+                  <input
+                    type="text"
+                    value={formData.postalCode}
+                    onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-[#111518] mb-2">Krajina</label>
+                <input
+                  type="text"
+                  value={formData.country}
+                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-[#0087E3]"
+                />
+              </div>
             </div>
           </div>
 

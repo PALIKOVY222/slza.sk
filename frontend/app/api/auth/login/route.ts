@@ -36,7 +36,15 @@ export async function POST(req: NextRequest) {
     // Try-catch for database connection errors
     let user;
     try {
-      user = await prisma.user.findUnique({ where: { email: sanitizedEmail } });
+      user = await prisma.user.findUnique({
+        where: { email: sanitizedEmail },
+        include: {
+          addresses: {
+            where: { type: 'billing' },
+            take: 1
+          }
+        }
+      });
     } catch (dbError) {
       console.error('Database connection error:', dbError);
       return addSecurityHeaders(
@@ -81,6 +89,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const billingAddress = user.addresses?.[0];
+
     const response = NextResponse.json({
       token,
       user: {
@@ -88,7 +98,12 @@ export async function POST(req: NextRequest) {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        companyId: user.companyId
+        phone: user.phone,
+        companyId: user.companyId,
+        street: billingAddress?.street || '',
+        city: billingAddress?.city || '',
+        postalCode: billingAddress?.postalCode || '',
+        country: billingAddress?.country || 'Slovensko'
       }
     });
 

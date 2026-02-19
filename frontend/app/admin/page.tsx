@@ -69,6 +69,10 @@ const AdminPage = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [trackingInput, setTrackingInput] = useState<{[key: number]: string}>({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
 
   useEffect(() => {
     // Check authentication - admin only
@@ -284,6 +288,29 @@ const AdminPage = () => {
     );
   }
 
+  const filteredOrders = orders.filter((order) => {
+    const q = searchQuery.toLowerCase().trim();
+    if (q) {
+      const nameMatch = order.user ? `${order.user.firstName} ${order.user.lastName}`.toLowerCase().includes(q) : false;
+      const emailMatch = order.user?.email?.toLowerCase().includes(q) ?? false;
+      const orderNumMatch = order.orderNumber.toLowerCase().includes(q);
+      const companyMatch = order.company?.name?.toLowerCase().includes(q) ?? false;
+      if (!nameMatch && !emailMatch && !orderNumMatch && !companyMatch) return false;
+    }
+    if (statusFilter && order.status !== statusFilter) return false;
+    if (dateFrom) {
+      const from = new Date(dateFrom);
+      from.setHours(0, 0, 0, 0);
+      if (new Date(order.createdAt) < from) return false;
+    }
+    if (dateTo) {
+      const to = new Date(dateTo);
+      to.setHours(23, 59, 59, 999);
+      if (new Date(order.createdAt) > to) return false;
+    }
+    return true;
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4">
@@ -317,13 +344,75 @@ const AdminPage = () => {
           </div>
         )}
 
-        {orders.length === 0 ? (
+        {/* Search & Filter Bar */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="sm:col-span-2 lg:col-span-1">
+              <input
+                type="text"
+                placeholder="Hľadať meno, email, číslo..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+              >
+                <option value="">Všetky stavy</option>
+                <option value="NEW">Nová</option>
+                <option value="PAID">Zaplatená</option>
+                <option value="IN_PRODUCTION">Vo výrobe</option>
+                <option value="READY">Pripravená</option>
+                <option value="SHIPPED">Odoslaná</option>
+                <option value="COMPLETED">Dokončená</option>
+                <option value="CANCELLED">Zrušená</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="date"
+                placeholder="Od dátumu"
+                value={dateFrom}
+                onChange={(e) => setDateFrom(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <input
+                type="date"
+                placeholder="Do dátumu"
+                value={dateTo}
+                onChange={(e) => setDateTo(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+          {(searchQuery || statusFilter || dateFrom || dateTo) && (
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+              <span className="text-sm text-gray-500">
+                Nájdené: <strong>{filteredOrders.length}</strong> z {orders.length} objednávok
+              </span>
+              <button
+                onClick={() => { setSearchQuery(''); setStatusFilter(''); setDateFrom(''); setDateTo(''); }}
+                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Zrušiť filtre
+              </button>
+            </div>
+          )}
+        </div>
+
+        {filteredOrders.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
             <p className="text-gray-600">Zatiaľ žiadne objednávky</p>
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <div
                 key={order.id}
                 className="bg-white rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer"

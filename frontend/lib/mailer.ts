@@ -6,31 +6,6 @@ const ADMIN_EMAIL = process.env.EMAIL_TO || process.env.ADMIN_EMAIL || 'kovac.jr
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
-export async function sendInvoiceEmail(params: {
-  to: string;
-  name: string;
-  invoiceNumber: string;
-  orderNumber: string;
-  pdfBuffer: Buffer;
-}) {
-  if (!resend) {
-    throw new Error('Resend not configured – RESEND_API_KEY missing');
-  }
-
-  await resend.emails.send({
-    from: EMAIL_FROM,
-    to: params.to,
-    subject: `Faktúra ${params.invoiceNumber} – SLZA Print`,
-    text: `Dobrý deň ${params.name},\n\nĎakujeme za objednávku ${params.orderNumber}. V prílohe nájdete faktúru ${params.invoiceNumber}.\n\nSLZA Print`,
-    attachments: [
-      {
-        filename: `${params.invoiceNumber}.pdf`,
-        content: params.pdfBuffer
-      }
-    ]
-  });
-}
-
 export async function sendOrderConfirmationEmail(params: {
   to: string;
   name: string;
@@ -47,72 +22,88 @@ export async function sendOrderConfirmationEmail(params: {
 
   const paymentLabels: Record<string, string> = {
     card: 'Platobná karta',
-    bank_transfer: 'Bankový prevod',
-    cash_on_delivery: 'Dobierka'
+    bank_transfer: 'Faktúra prevodom',
+    cash_on_delivery: 'Dobierka',
+    cash_on_pickup: 'Pri prevzatí',
   };
 
   const shippingLabels: Record<string, string> = {
     packeta: 'Packeta',
     courier: 'Kuriér',
-    personal_pickup: 'Osobný odber'
+    personal_pickup: 'Osobný odber',
+    reproservis: 'Osobný odber – REPROservis',
+    borova_sihot: 'Osobný odber – Hotel Borová Sihoť',
   };
 
   const itemsHtml = params.items
     .map(
       (item) =>
         `<tr>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.productName}</td>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${item.price.toFixed(2)} €</td>
+          <td style="padding: 14px 16px; border-bottom: 1px solid #f0f0f0; font-size: 14px; color: #333;">${item.productName}</td>
+          <td style="padding: 14px 16px; border-bottom: 1px solid #f0f0f0; text-align: center; font-size: 14px; color: #555;">${item.quantity}×</td>
+          <td style="padding: 14px 16px; border-bottom: 1px solid #f0f0f0; text-align: right; font-size: 14px; font-weight: 600; color: #333;">${item.price.toFixed(2)} €</td>
         </tr>`
     )
     .join('');
 
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h1 style="color: #0087E3;">Potvrdenie objednávky</h1>
-      <p>Dobrý deň ${params.name},</p>
-      <p>Ďakujeme za vašu objednávku. Vaše číslo objednávky je: <strong>${params.orderNumber}</strong></p>
-      
-      <h2 style="margin-top: 30px;">Objednané produkty:</h2>
-      <table style="width: 100%; border-collapse: collapse;">
+  const html = `<!DOCTYPE html>
+<html lang="sk">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background: linear-gradient(135deg, #0087E3, #005fa3); border-radius: 16px 16px 0 0; padding: 40px 32px; text-align: center;">
+      <h1 style="margin: 0 0 8px; color: #ffffff; font-size: 24px; font-weight: 700;">Ďakujeme za objednávku!</h1>
+      <p style="margin: 0; color: rgba(255,255,255,0.85); font-size: 14px;">Objednávka <strong style="color: #fff;">#${params.orderNumber}</strong></p>
+    </div>
+    <div style="background: #ffffff; padding: 32px; border-radius: 0 0 16px 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06);">
+      <p style="margin: 0 0 24px; font-size: 15px; color: #333; line-height: 1.6;">Dobrý deň <strong>${params.name}</strong>,<br>vaša objednávka bola úspešne prijatá. Nižšie nájdete prehľad.</p>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
         <thead>
-          <tr style="background-color: #f5f5f5;">
-            <th style="padding: 8px; text-align: left; border-bottom: 2px solid #ddd;">Produkt</th>
-            <th style="padding: 8px; text-align: center; border-bottom: 2px solid #ddd;">Množstvo</th>
-            <th style="padding: 8px; text-align: right; border-bottom: 2px solid #ddd;">Cena</th>
+          <tr>
+            <th style="padding: 10px 16px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; border-bottom: 2px solid #0087E3;">Produkt</th>
+            <th style="padding: 10px 16px; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; border-bottom: 2px solid #0087E3;">Množ.</th>
+            <th style="padding: 10px 16px; text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; border-bottom: 2px solid #0087E3;">Cena</th>
           </tr>
         </thead>
-        <tbody>
-          ${itemsHtml}
-        </tbody>
+        <tbody>${itemsHtml}</tbody>
       </table>
-      
-      <div style="margin-top: 20px; text-align: right;">
-        <strong>Celkom: ${params.total.toFixed(2)} €</strong>
+      <div style="background: #f8f9fb; border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: right;">
+        <span style="font-size: 14px; color: #555;">Celkom s DPH: </span>
+        <span style="font-size: 22px; font-weight: 800; color: #0087E3;">${params.total.toFixed(2)} €</span>
       </div>
-      
-      <div style="margin-top: 30px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;">
-        <p style="margin: 5px 0;"><strong>Spôsob platby:</strong> ${paymentLabels[params.paymentMethod] || params.paymentMethod}</p>
-        <p style="margin: 5px 0;"><strong>Spôsob dopravy:</strong> ${shippingLabels[params.shippingMethod] || params.shippingMethod}</p>
-      </div>
-      
-      <p style="margin-top: 30px;">V prípade otázok nás neváhajte kontaktovať.</p>
-      <p>S pozdravom,<br>Tím SLZA Print</p>
-      
-      <hr style="margin: 30px 0;">
-      <p style="font-size: 12px; color: #666;">
-        Tento email bol odoslaný automaticky. Prosím neodpovedajte naň.
-      </p>
+      <table style="width: 100%; margin-bottom: 28px;">
+        <tr>
+          <td style="padding: 8px 0; vertical-align: top; width: 50%;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Spôsob platby</div>
+            <div style="font-size: 14px; font-weight: 600; color: #333;">${paymentLabels[params.paymentMethod] || params.paymentMethod}</div>
+          </td>
+          <td style="padding: 8px 0; vertical-align: top; width: 50%;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Doručenie</div>
+            <div style="font-size: 14px; font-weight: 600; color: #333;">${shippingLabels[params.shippingMethod] || params.shippingMethod}</div>
+          </td>
+        </tr>
+      </table>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 0 0 20px;">
+      <p style="margin: 0 0 4px; font-size: 13px; color: #666; line-height: 1.6;">V prípade otázok nás kontaktujte na <a href="mailto:kovac.jr@slza.sk" style="color: #0087E3; text-decoration: none;">kovac.jr@slza.sk</a></p>
+      <p style="margin: 0; font-size: 13px; color: #666;">S pozdravom, tím <strong>SLZA Print</strong></p>
     </div>
-  `;
+    <div style="text-align: center; padding: 20px; font-size: 11px; color: #aaa;">Tento email bol odoslaný automaticky.</div>
+  </div>
+</body>
+</html>`;
 
-  await resend.emails.send({
-    from: EMAIL_FROM,
-    to: params.to,
-    subject: `Potvrdenie objednávky ${params.orderNumber} – SLZA Print`,
-    html
-  });
+  try {
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: params.to,
+      subject: `Potvrdenie objednávky #${params.orderNumber} – SLZA Print`,
+      html
+    });
+    console.log(`Order confirmation email sent to ${params.to}`);
+  } catch (err) {
+    console.error('Failed to send order confirmation email:', err);
+    throw err;
+  }
 }
 
 export async function sendAdminOrderNotification(params: {
@@ -130,32 +121,49 @@ export async function sendAdminOrderNotification(params: {
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://slza.sk';
 
   const itemsHtml = params.items
-    .map((item) => `<li>${item.productName} (${item.quantity}x)</li>`)
+    .map((item) => `<li style="padding: 4px 0; font-size: 14px; color: #333;">${item.productName} <span style="color: #888;">(${item.quantity}×)</span></li>`)
     .join('');
 
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h1 style="color: #0087E3;">Nová objednávka: ${params.orderNumber}</h1>
-      <p><strong>Zákazník:</strong> ${params.customerName}</p>
-      <p><strong>Email:</strong> ${params.customerEmail}</p>
-      <p><strong>Celková suma:</strong> ${params.total.toFixed(2)} €</p>
-      
-      <h2>Objednané produkty:</h2>
-      <ul>
-        ${itemsHtml}
-      </ul>
-      
-      <p style="margin-top: 30px;">
-        <a href="${siteUrl}/admin" style="background-color: #0087E3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Zobraziť v admin paneli</a>
-      </p>
+  const html = `<!DOCTYPE html>
+<html lang="sk">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,0.06);">
+      <h1 style="margin: 0 0 4px; font-size: 20px; color: #111;">📦 Nová objednávka</h1>
+      <p style="margin: 0 0 24px; font-size: 14px; color: #888;">#${params.orderNumber}</p>
+      <table style="width: 100%; margin-bottom: 20px;">
+        <tr>
+          <td style="padding: 8px 0; vertical-align: top;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Zákazník</div>
+            <div style="font-size: 14px; font-weight: 600; color: #333;">${params.customerName}</div>
+            <div style="font-size: 13px; color: #666;">${params.customerEmail}</div>
+          </td>
+          <td style="padding: 8px 0; vertical-align: top; text-align: right;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Celková suma</div>
+            <div style="font-size: 22px; font-weight: 800; color: #0087E3;">${params.total.toFixed(2)} €</div>
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 8px;">Položky</div>
+      <ul style="margin: 0 0 24px; padding: 0 0 0 20px; list-style: disc;">${itemsHtml}</ul>
+      <a href="${siteUrl}/admin" style="display: block; text-align: center; background: #0087E3; color: #ffffff; padding: 14px 24px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px;">Otvoriť admin panel →</a>
     </div>
-  `;
+  </div>
+</body>
+</html>`;
 
-  await resend.emails.send({
-    from: EMAIL_FROM,
-    to: ADMIN_EMAIL,
-    subject: `Nová objednávka ${params.orderNumber} – SLZA Print`,
-    html
-  });
+  try {
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: ADMIN_EMAIL,
+      subject: `📦 Nová objednávka #${params.orderNumber} – ${params.customerName} – ${params.total.toFixed(2)} €`,
+      html
+    });
+    console.log(`Admin notification email sent to ${ADMIN_EMAIL}`);
+  } catch (err) {
+    console.error('Failed to send admin notification email:', err);
+    throw err;
+  }
 }
 

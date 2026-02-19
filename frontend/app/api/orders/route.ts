@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
 import { getSessionToken } from '../../../lib/security';
 import { uploadToOwnCloud } from '../../../lib/owncloud';
-import { sendOrderConfirmationEmail, sendAdminOrderNotification, sendInvoiceEmail } from '../../../lib/mailer';
-import { buildInvoicePdf } from '../../../lib/invoice';
+import { sendOrderConfirmationEmail, sendAdminOrderNotification } from '../../../lib/mailer';
 
 async function buildOrderNumber() {
   const now = new Date();
@@ -234,80 +233,6 @@ export async function POST(req: NextRequest) {
       } catch (dbError) {
         console.error('DB write failed, continuing with email-only:', dbError);
         dbAvailable = false;
-      }
-    }
-
-    // Generate and send invoice if enabled
-    const enableInvoices = process.env.ENABLE_INVOICES === 'true';
-    
-    if (enableInvoices) {
-      try {
-        // Generate invoice PDF
-        const invoiceNumber = `F-${orderNumber}`;
-        const pdfBuffer = await buildInvoicePdf({
-          invoiceNumber,
-          orderNumber,
-          customer: {
-            name: customer.name,
-            email: customer.email,
-            phone: customer.phone
-          },
-          company: company ? {
-            name: company.name,
-            vatId: company.vatId,
-            taxId: company.taxId,
-            registration: company.registration,
-            email: company.email,
-            phone: company.phone
-          } : undefined,
-          items: items.map(item => ({
-            productName: item.productName,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            totalPrice: item.totalPrice
-          })),
-          totals: {
-            subtotal: totals.subtotal,
-            vatTotal: totals.vatTotal,
-            total: totals.total,
-            currency: totals.currency,
-            vatRate: totals.vatRate
-          }
-        });
-
-        // Upload invoice to ownCloud
-        const now = new Date();
-        const dateFolder = now.toISOString().split('T')[0]; // YYYY-MM-DD
-        const invoicePath = `/faktury/${dateFolder}`;
-        
-        await uploadToOwnCloud(`${invoiceNumber}.pdf`, pdfBuffer, '/faktury', dateFolder);
-
-        // Save invoice reference in database
-        if (dbAvailable && order) {
-          await prisma.upload.create({
-            data: {
-              orderId: order.id,
-              fileName: `${invoiceNumber}.pdf`,
-              mimeType: 'application/pdf',
-              fileSize: pdfBuffer.length,
-              url: `${invoicePath}/${invoiceNumber}.pdf`
-            }
-          });
-        }
-
-        // Send invoice email
-        await sendInvoiceEmail({
-          to: customer.email,
-          name: customer.name,
-          invoiceNumber,
-          orderNumber,
-          pdfBuffer
-        });
-
-        console.log(`Invoice ${invoiceNumber} generated and sent successfully`);
-      } catch (invoiceError) {
-        console.error('Failed to generate/send invoice:', invoiceError);
-        // Don't fail the order if invoice generation fails
       }
     }
 

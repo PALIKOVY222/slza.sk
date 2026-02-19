@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -9,6 +9,7 @@ const Header = () => {
   const [user, setUser] = useState<{ firstName: string; lastName: string; email: string } | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const closedAtRef = useRef(0);
 
   useEffect(() => {
     // Check if user is logged in
@@ -24,6 +25,16 @@ const Header = () => {
       }
     }
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -65,7 +76,11 @@ const Header = () => {
             </svg>
           </a>
           <button
-            onClick={() => setMobileMenuOpen(prev => !prev)}
+            onClick={() => {
+              // Guard against ghost click: ignore if menu was closed less than 400ms ago
+              if (Date.now() - closedAtRef.current < 400) return;
+              setMobileMenuOpen(prev => !prev);
+            }}
             className="lg:hidden w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
             aria-label="Menu"
           >
@@ -179,7 +194,16 @@ const Header = () => {
               </a>
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  closedAtRef.current = Date.now();
+                  setMobileMenuOpen(false);
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  closedAtRef.current = Date.now();
+                  setMobileMenuOpen(false);
+                }}
                 className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 active:bg-white/30 cursor-pointer touch-manipulation"
                 aria-label="Zavrieť menu"
                 style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}

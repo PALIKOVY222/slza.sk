@@ -86,7 +86,10 @@ const KosikPage = () => {
     name: "",
     email: "",
     phone: "",
-    address: "",
+    street: "",
+    city: "",
+    postalCode: "",
+    country: "Slovensko",
     note: "",
   });
   const [companyInfo, setCompanyInfo] = useState({
@@ -115,7 +118,10 @@ const KosikPage = () => {
           name: `${user.firstName || ""} ${user.lastName || ""}`.trim(),
           email: user.email || "",
           phone: user.phone || "",
-          address: user.company?.address || user.address || "",
+          street: user.street || "",
+          city: user.city || "",
+          postalCode: user.postalCode || "",
+          country: user.country || "Slovensko",
           note: "",
         });
         if (user.company) {
@@ -243,7 +249,10 @@ const KosikPage = () => {
           company: companyInfo.name ? companyInfo : undefined,
           billingAddress: {
             name: customerInfo.name,
-            street: customerInfo.address,
+            street: customerInfo.street,
+            city: customerInfo.city,
+            postalCode: customerInfo.postalCode,
+            country: customerInfo.country,
           },
           items: cartItems.map((item) => ({
             productSlug:
@@ -465,7 +474,7 @@ const KosikPage = () => {
                         if (w.Packeta) {
                           w.Packeta.Widget.pick("65d49ba1845d78fb", (point: { id: string; name: string }) => {
                             if (point) {
-                              setCustomerInfo({ ...customerInfo, address: point.name });
+                              setCustomerInfo({ ...customerInfo, street: point.name });
                             }
                           });
                         } else {
@@ -474,7 +483,7 @@ const KosikPage = () => {
                       }}
                       className="mt-3 w-full px-3 py-3 border-2 border-dashed border-[#0087E3] text-[#0087E3] rounded-xl hover:bg-[#0087E3]/5 transition-colors text-sm font-medium"
                     >
-                      {customerInfo.address && shippingMethod === "packeta" ? `✓ ${customerInfo.address}` : "Vybrať výdajné miesto Packeta →"}
+                      {customerInfo.street && shippingMethod === "packeta" ? `✓ ${customerInfo.street}` : "Vybrať výdajné miesto Packeta →"}
                     </button>
                   )}
                 </div>
@@ -577,9 +586,20 @@ const KosikPage = () => {
                       <input type="text" placeholder="Meno a priezvisko *" value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <input type="email" placeholder="Email *" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
-                        <input type="tel" placeholder="Telefón *" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} required={!authUserId} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
+                        <input type="tel" placeholder="Telefón *" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
                       </div>
-                      <textarea placeholder="Adresa (voliteľné)" value={customerInfo.address} onChange={(e) => setCustomerInfo({ ...customerInfo, address: e.target.value })} rows={2} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
+                    <h3 className="text-lg font-bold text-[#111518] mb-4">Adresa</h3>
+                    <div className="space-y-3">
+                      <input type="text" placeholder="Ulica a číslo *" value={customerInfo.street} onChange={(e) => setCustomerInfo({ ...customerInfo, street: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" placeholder="Mesto *" value={customerInfo.city} onChange={(e) => setCustomerInfo({ ...customerInfo, city: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
+                        <input type="text" placeholder="PSČ *" value={customerInfo.postalCode} onChange={(e) => setCustomerInfo({ ...customerInfo, postalCode: e.target.value })} required className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
+                      </div>
+                      <input type="text" placeholder="Krajina" value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm" />
                     </div>
                   </div>
 
@@ -691,6 +711,9 @@ const KosikPage = () => {
                       <p className="text-sm font-semibold text-[#111518]">{customerInfo.name}</p>
                       <p className="text-sm text-gray-500">{customerInfo.email}</p>
                       {customerInfo.phone && <p className="text-sm text-gray-500">{customerInfo.phone}</p>}
+                      {customerInfo.street && <p className="text-sm text-gray-500 mt-1">{customerInfo.street}</p>}
+                      {(customerInfo.postalCode || customerInfo.city) && <p className="text-sm text-gray-500">{customerInfo.postalCode} {customerInfo.city}</p>}
+                      {customerInfo.country && customerInfo.country !== 'Slovensko' && <p className="text-sm text-gray-500">{customerInfo.country}</p>}
                     </div>
                     {companyInfo.name && (
                       <div>
