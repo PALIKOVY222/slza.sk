@@ -56,7 +56,7 @@ const STATUS_MAP: Record<string, { label: string; color: string }> = {
   READY: { label: 'Pripravená', color: 'bg-purple-100 text-purple-800' },
   SHIPPED: { label: 'Odoslaná', color: 'bg-indigo-100 text-indigo-800' },
   COMPLETED: { label: 'Dokončená', color: 'bg-gray-200 text-gray-700' },
-  CANCELLED: { label: 'Zrušená', color: 'bg-red-100 text-red-800' },
+  CANCELED: { label: 'Zrušená', color: 'bg-red-100 text-red-800' },
 };
 
 const SHIPPING: Record<string, string> = {
@@ -583,17 +583,26 @@ const AdminPage = () => {
                                                 <div className="space-y-2">
                                                   {order.items.map(item => {
                                                     const opts = (item.options || {}) as Record<string, unknown>;
+                                                    const optStr = (v: unknown): string => {
+                                                      if (v == null) return '';
+                                                      if (typeof v === 'string' || typeof v === 'number') return String(v);
+                                                      if (typeof v === 'object') {
+                                                        const obj = v as Record<string, unknown>;
+                                                        return obj.label ? String(obj.label) : obj.name ? String(obj.name) : obj.value ? String(obj.value) : '';
+                                                      }
+                                                      return String(v);
+                                                    };
                                                     const details: string[] = [];
                                                     if (opts.widthMm || opts.heightMm) details.push(`${opts.widthMm || '?'} × ${opts.heightMm || '?'} mm`);
                                                     if (opts.width && opts.height) details.push(`${opts.width} × ${opts.height}`);
-                                                    if (opts.model) details.push(String(opts.model));
-                                                    if (opts.variant) details.push(String(opts.variant));
-                                                    if (opts.eyelet) details.push(String(opts.eyelet));
-                                                    if (opts.format) details.push(typeof opts.format === 'object' && (opts.format as Record<string, unknown>).label ? String((opts.format as Record<string, unknown>).label) : String(opts.format));
-                                                    if (opts.paper) details.push(typeof opts.paper === 'object' && (opts.paper as Record<string, unknown>).label ? String((opts.paper as Record<string, unknown>).label) : String(opts.paper));
-                                                    if (opts.material) details.push(String(opts.material));
-                                                    if (opts.lamination) details.push(String(opts.lamination));
-                                                    if (opts.cutting) details.push(String(opts.cutting));
+                                                    if (opts.model) { const v = optStr(opts.model); if (v) details.push(v); }
+                                                    if (opts.variant) { const v = optStr(opts.variant); if (v) details.push(v); }
+                                                    if (opts.eyelet) { const v = optStr(opts.eyelet); if (v) details.push(v); }
+                                                    if (opts.format) { const v = optStr(opts.format); if (v) details.push(v); }
+                                                    if (opts.paper) { const v = optStr(opts.paper); if (v) details.push(v); }
+                                                    if (opts.material) { const v = optStr(opts.material); if (v) details.push(v); }
+                                                    if (opts.lamination) { const v = optStr(opts.lamination); if (v) details.push(v); }
+                                                    if (opts.cutting) { const v = optStr(opts.cutting); if (v) details.push(v); }
                                                     if (opts.quantity) details.push(`${opts.quantity} ks`);
                                                     const art = opts.artwork as Record<string, string> | undefined;
                                                     const artName = art?.name ? String(art.name) : null;
