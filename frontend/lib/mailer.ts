@@ -84,7 +84,7 @@ export async function sendOrderConfirmationEmail(params: {
         </tr>
       </table>
       <hr style="border: none; border-top: 1px solid #eee; margin: 0 0 20px;">
-      <p style="margin: 0 0 4px; font-size: 13px; color: #666; line-height: 1.6;">V prípade otázok nás kontaktujte na <a href="mailto:kovac.jr@slza.sk" style="color: #0087E3; text-decoration: none;">kovac.jr@slza.sk</a></p>
+      <p style="margin: 0 0 4px; font-size: 13px; color: #666; line-height: 1.6;">V prípade otázok nás kontaktujte na <a href="mailto:slza@slza.sk" style="color: #0087E3; text-decoration: none;">slza@slza.sk</a> alebo telefonicky na <a href="tel:+421911536671" style="color: #0087E3; text-decoration: none;">0911 536 671</a></p>
       <p style="margin: 0; font-size: 13px; color: #666;">S pozdravom, tím <strong>SLZA Print</strong></p>
     </div>
     <div style="text-align: center; padding: 20px; font-size: 11px; color: #aaa;">Tento email bol odoslaný automaticky.</div>

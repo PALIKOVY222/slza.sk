@@ -76,9 +76,9 @@ const Header = () => {
             </svg>
           </a>
           <button
-            onClick={() => {
-              // Guard against ghost click: ignore if menu was closed less than 400ms ago
-              if (Date.now() - closedAtRef.current < 400) return;
+            onPointerDown={(e) => {
+              e.preventDefault();
+              if (Date.now() - closedAtRef.current < 500) return;
               setMobileMenuOpen(prev => !prev);
             }}
             className="lg:hidden w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
@@ -176,8 +176,7 @@ const Header = () => {
       </div>
       
       {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[9999] pointer-events-auto">
+      <div className={`lg:hidden fixed inset-0 z-[9999] transition-opacity duration-200 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           {/* Background overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518]" />
           
@@ -194,13 +193,8 @@ const Header = () => {
               </a>
               <button
                 type="button"
-                onTouchEnd={(e) => {
+                onPointerDown={(e) => {
                   e.preventDefault();
-                  closedAtRef.current = Date.now();
-                  setMobileMenuOpen(false);
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
                   closedAtRef.current = Date.now();
                   setMobileMenuOpen(false);
                 }}
@@ -265,7 +259,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };

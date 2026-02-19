@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
           addresses: {
             where: { type: 'billing' },
             take: 1
-          }
+          },
+          company: true
         }
       });
     } catch (dbError) {
@@ -103,7 +104,15 @@ export async function POST(req: NextRequest) {
         street: billingAddress?.street || '',
         city: billingAddress?.city || '',
         postalCode: billingAddress?.postalCode || '',
-        country: billingAddress?.country || 'Slovensko'
+        country: billingAddress?.country || 'Slovensko',
+        company: user.company ? {
+          name: user.company.name,
+          vatId: user.company.vatId || '',
+          taxId: user.company.taxId || '',
+          registration: user.company.registration || '',
+          email: user.company.email || '',
+          phone: user.company.phone || ''
+        } : null
       }
     });
 
