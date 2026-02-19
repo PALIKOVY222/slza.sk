@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuEnabled, setMenuEnabled] = useState(true);
   const [user, setUser] = useState<{ firstName: string; lastName: string; email: string } | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const closedAtRef = useRef(0);
 
   useEffect(() => {
     // Check if user is logged in
@@ -52,6 +52,17 @@ const Header = () => {
     window.location.href = `/produkty?search=${encodeURIComponent(q)}`;
   };
 
+  const openMobileMenu = () => {
+    if (!menuEnabled) return;
+    setMobileMenuOpen(true);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMenuEnabled(false);
+    setTimeout(() => setMenuEnabled(true), 600);
+  };
+
   return (
     <header className="bg-transparent absolute top-0 left-0 right-0 z-[1000] py-5">
       <div className="max-w-[1320px] mx-auto px-5 flex justify-between items-center">
@@ -76,11 +87,7 @@ const Header = () => {
             </svg>
           </a>
           <button
-            onPointerDown={(e) => {
-              e.preventDefault();
-              if (Date.now() - closedAtRef.current < 500) return;
-              setMobileMenuOpen(prev => !prev);
-            }}
+            onClick={openMobileMenu}
             className="lg:hidden w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
             aria-label="Menu"
           >
@@ -178,7 +185,7 @@ const Header = () => {
       {/* Mobile Menu Dropdown */}
       <div className={`lg:hidden fixed inset-0 z-[9999] transition-opacity duration-200 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
           {/* Background overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518] pointer-events-none" />
           
           {/* Content */}
           <div className="relative z-10 flex flex-col h-full">
@@ -186,21 +193,16 @@ const Header = () => {
             <div className="flex justify-between items-center px-5 py-5">
               <a
                 href="/"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
                 className="inline-flex items-center"
               >
                 <img src="/images/slza_logo_biele.svg" alt="SLZA Print" className="h-12 w-auto" />
               </a>
               <button
                 type="button"
-                onPointerDown={(e) => {
-                  e.preventDefault();
-                  closedAtRef.current = Date.now();
-                  setMobileMenuOpen(false);
-                }}
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 active:bg-white/30 cursor-pointer touch-manipulation"
+                onClick={closeMobileMenu}
+                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 active:bg-white/30 cursor-pointer"
                 aria-label="Zavrieť menu"
-                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"/>
@@ -220,7 +222,7 @@ const Header = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                   className="flex items-center text-white font-semibold text-2xl py-4 border-b border-white/5 hover:text-[#0087E3] transition-colors"
                 >
                   {item.label}
@@ -239,9 +241,9 @@ const Header = () => {
                     <span>{user.firstName} {user.lastName}</span>
                   </div>
                   <div className="flex gap-2">
-                    <a href="/ucet" onClick={() => setMobileMenuOpen(false)} className="flex-1 text-center py-3 rounded-xl bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors">Môj účet</a>
+                    <a href="/ucet" onClick={closeMobileMenu} className="flex-1 text-center py-3 rounded-xl bg-white/10 text-white text-sm font-medium hover:bg-white/20 transition-colors">Môj účet</a>
                     {isAdmin && (
-                      <a href="/admin" onClick={() => setMobileMenuOpen(false)} className="flex-1 text-center py-3 rounded-xl bg-[#0087E3]/20 text-[#0087E3] text-sm font-medium hover:bg-[#0087E3]/30 transition-colors">Admin</a>
+                      <a href="/admin" onClick={closeMobileMenu} className="flex-1 text-center py-3 rounded-xl bg-[#0087E3]/20 text-[#0087E3] text-sm font-medium hover:bg-[#0087E3]/30 transition-colors">Admin</a>
                     )}
                   </div>
                   <button
@@ -252,7 +254,7 @@ const Header = () => {
                   </button>
                 </>
               ) : (
-                <a href="/login" onClick={() => setMobileMenuOpen(false)} className="block text-center py-3 rounded-xl bg-[#0087E3] text-white text-sm font-semibold hover:bg-[#006bb3] transition-colors">
+                <a href="/login" onClick={closeMobileMenu} className="block text-center py-3 rounded-xl bg-[#0087E3] text-white text-sm font-semibold hover:bg-[#006bb3] transition-colors">
                   Prihlásiť sa
                 </a>
               )}
