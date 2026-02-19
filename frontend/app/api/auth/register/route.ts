@@ -86,13 +86,29 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Send registration confirmation email (non-blocking)
-    sendRegistrationConfirmationEmail({
-      to: created.email,
-      firstName: firstName || created.email.split('@')[0],
-    }).catch(console.error);
+    // Send registration confirmation email (REQUIRED - if fails, delete account)
+    try {
+      await sendRegistrationConfirmationEmail({
+        to: created.email,
+        firstName: firstName || created.email.split('@')[0],
+      });
+    } catch (emailError) {
+      console.error('Registration email failed, rolling back user:', emailError);
+      // Delete the created user and related data
+      if (street || city || postalCode) {
+        await prisma.address.deleteMany({ where: { userId: created.id } });
+      }
+      await prisma.user.delete({ where: { id: created.id } });
+      if (created.companyId) {
+        await prisma.company.delete({ where: { id: created.companyId } }).catch(() => {});
+      }
+      return NextResponse.json(
+        { error: 'Nepodarilo sa odoslať potvrdzovací email. Skúste to znova.' },
+        { status: 500 }
+      );
+    }
 
-    // Notify admin about new user (non-blocking)
+    // Notify admin about new user (non-blocking, not critical)
     sendAdminNewUserNotification({
       email: created.email,
       firstName: firstName,

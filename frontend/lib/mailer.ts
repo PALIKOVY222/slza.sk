@@ -111,8 +111,7 @@ export async function sendRegistrationConfirmationEmail(params: {
   firstName: string;
 }) {
   if (!resend) {
-    console.warn('Resend not configured – skipping registration email');
-    return;
+    throw new Error('Email služba nie je nakonfigurovaná (RESEND_API_KEY chýba).');
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://slza.sk';
