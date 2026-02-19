@@ -106,6 +106,110 @@ export async function sendOrderConfirmationEmail(params: {
   }
 }
 
+export async function sendRegistrationConfirmationEmail(params: {
+  to: string;
+  firstName: string;
+}) {
+  if (!resend) {
+    console.warn('Resend not configured – skipping registration email');
+    return;
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://slza.sk';
+
+  const html = `<!DOCTYPE html>
+<html lang="sk">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background: linear-gradient(135deg, #0087E3, #005fa3); border-radius: 16px 16px 0 0; padding: 40px 32px; text-align: center;">
+      <h1 style="margin: 0 0 8px; color: #ffffff; font-size: 24px; font-weight: 700;">Vitajte v SLZA Print!</h1>
+      <p style="margin: 0; color: rgba(255,255,255,0.85); font-size: 14px;">Váš účet bol úspešne vytvorený</p>
+    </div>
+    <div style="background: #ffffff; padding: 32px; border-radius: 0 0 16px 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06);">
+      <p style="margin: 0 0 20px; font-size: 15px; color: #333; line-height: 1.6;">Dobrý deň <strong>${params.firstName}</strong>,<br>váš účet bol úspešne vytvorený. Teraz sa môžete prihlásiť a začať nakupovať.</p>
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${siteUrl}/login" style="display: inline-block; background: #0087E3; color: #ffffff; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 15px;">Prihlásiť sa →</a>
+      </div>
+      <hr style="border: none; border-top: 1px solid #eee; margin: 0 0 20px;">
+      <p style="margin: 0 0 4px; font-size: 13px; color: #666; line-height: 1.6;">V prípade otázok nás kontaktujte na <a href="mailto:slza@slza.sk" style="color: #0087E3; text-decoration: none;">slza@slza.sk</a> alebo telefonicky na <a href="tel:+421911536671" style="color: #0087E3; text-decoration: none;">0911 536 671</a></p>
+      <p style="margin: 0; font-size: 13px; color: #666;">S pozdravom, tím <strong>SLZA Print</strong></p>
+    </div>
+    <div style="text-align: center; padding: 20px; font-size: 11px; color: #aaa;">Tento email bol odoslaný automaticky.</div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: params.to,
+      subject: `Váš účet bol vytvorený – SLZA Print`,
+      html
+    });
+    console.log(`Registration confirmation email sent to ${params.to}`);
+  } catch (err) {
+    console.error('Failed to send registration confirmation email:', err);
+    // Don't throw – registration should still succeed even if email fails
+  }
+}
+
+export async function sendAdminNewUserNotification(params: {
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  companyName?: string;
+}) {
+  if (!resend) {
+    console.warn('Resend not configured – skipping admin new user email');
+    return;
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://slza.sk';
+  const fullName = [params.firstName, params.lastName].filter(Boolean).join(' ') || '—';
+
+  const html = `<!DOCTYPE html>
+<html lang="sk">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background: #ffffff; border-radius: 16px; padding: 32px; box-shadow: 0 2px 16px rgba(0,0,0,0.06);">
+      <h1 style="margin: 0 0 4px; font-size: 20px; color: #111;">👤 Nový používateľ</h1>
+      <p style="margin: 0 0 24px; font-size: 14px; color: #888;">Nová registrácia na slza.sk</p>
+      <table style="width: 100%; margin-bottom: 20px;">
+        <tr>
+          <td style="padding: 8px 0; vertical-align: top;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Meno</div>
+            <div style="font-size: 14px; font-weight: 600; color: #333;">${fullName}</div>
+          </td>
+          <td style="padding: 8px 0; vertical-align: top;">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Email</div>
+            <div style="font-size: 14px; color: #333;">${params.email}</div>
+          </td>
+        </tr>
+        ${params.phone ? `<tr><td colspan="2" style="padding: 8px 0;"><div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Telefón</div><div style="font-size: 14px; color: #333;">${params.phone}</div></td></tr>` : ''}
+        ${params.companyName ? `<tr><td colspan="2" style="padding: 8px 0;"><div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 4px;">Firma</div><div style="font-size: 14px; color: #333;">${params.companyName}</div></td></tr>` : ''}
+      </table>
+      <a href="${siteUrl}/admin" style="display: block; text-align: center; background: #0087E3; color: #ffffff; padding: 14px 24px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px;">Otvoriť admin panel →</a>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: ADMIN_EMAIL,
+      subject: `👤 Nový používateľ: ${fullName} (${params.email})`,
+      html
+    });
+    console.log(`Admin new user notification sent to ${ADMIN_EMAIL}`);
+  } catch (err) {
+    console.error('Failed to send admin new user notification:', err);
+  }
+}
+
 export async function sendAdminOrderNotification(params: {
   orderNumber: string;
   customerName: string;

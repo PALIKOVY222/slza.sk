@@ -39,9 +39,6 @@ export async function GET(request: NextRequest) {
             name: user.company.name,
             vatId: user.company.vatId,
             taxId: user.company.taxId,
-            registration: user.company.registration,
-            email: user.company.email,
-            phone: user.company.phone,
           }
         : null,
     });
@@ -91,9 +88,6 @@ export async function PUT(request: NextRequest) {
           name: company.name !== undefined ? sanitizeInput(company.name) : undefined,
           vatId: company.vatId !== undefined ? sanitizeInput(company.vatId) : undefined,
           taxId: company.taxId !== undefined ? sanitizeInput(company.taxId) : undefined,
-          registration: company.registration !== undefined ? sanitizeInput(company.registration) : undefined,
-          email: company.email !== undefined ? sanitizeInput(company.email) : undefined,
-          phone: company.phone !== undefined ? sanitizeInput(company.phone) : undefined,
         },
       });
     }
@@ -119,9 +113,6 @@ export async function PUT(request: NextRequest) {
               name: refreshedUser!.company.name,
               vatId: refreshedUser!.company.vatId,
               taxId: refreshedUser!.company.taxId,
-              registration: refreshedUser!.company.registration,
-              email: refreshedUser!.company.email,
-              phone: refreshedUser!.company.phone,
             }
           : null,
       },

@@ -42,9 +42,6 @@ interface UserProfile {
     name: string;
     vatId: string | null;
     taxId: string | null;
-    registration: string | null;
-    email: string | null;
-    phone: string | null;
   } | null;
 }
 
@@ -68,9 +65,6 @@ export default function AccountPage() {
     companyName: '',
     companyVatId: '',
     companyTaxId: '',
-    companyRegistration: '',
-    companyEmail: '',
-    companyPhone: '',
   });
 
   // Password change state
@@ -105,9 +99,6 @@ export default function AccountPage() {
           companyName: profileData.company?.name || '',
           companyVatId: profileData.company?.vatId || '',
           companyTaxId: profileData.company?.taxId || '',
-          companyRegistration: profileData.company?.registration || '',
-          companyEmail: profileData.company?.email || '',
-          companyPhone: profileData.company?.phone || '',
         });
       }
 
@@ -138,9 +129,6 @@ export default function AccountPage() {
                 name: editForm.companyName,
                 vatId: editForm.companyVatId,
                 taxId: editForm.companyTaxId,
-                registration: editForm.companyRegistration,
-                email: editForm.companyEmail,
-                phone: editForm.companyPhone,
               }
             : undefined,
         }),
@@ -343,9 +331,6 @@ export default function AccountPage() {
                           companyName: profile.company?.name || '',
                           companyVatId: profile.company?.vatId || '',
                           companyTaxId: profile.company?.taxId || '',
-                          companyRegistration: profile.company?.registration || '',
-                          companyEmail: profile.company?.email || '',
-                          companyPhone: profile.company?.phone || '',
                         });
                       }}
                       className="text-sm font-semibold text-gray-500 hover:underline"
@@ -472,54 +457,6 @@ export default function AccountPage() {
                     ) : (
                       <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm text-gray-700 border border-gray-100">
                         {profile.company.taxId || <span className="text-gray-400">Nezadané</span>}
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Registrácia</label>
-                    {editing ? (
-                      <input
-                        type="text"
-                        value={editForm.companyRegistration}
-                        onChange={(e) => setEditForm({ ...editForm, companyRegistration: e.target.value })}
-                        className="w-full px-4 py-3 bg-white rounded-xl text-sm border border-gray-200 focus:border-[#0087E3] focus:ring-1 focus:ring-[#0087E3] outline-none transition-colors"
-                      />
-                    ) : (
-                      <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm text-gray-700 border border-gray-100">
-                        {profile.company.registration || <span className="text-gray-400">Nezadané</span>}
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Firemný email</label>
-                    {editing ? (
-                      <input
-                        type="email"
-                        value={editForm.companyEmail}
-                        onChange={(e) => setEditForm({ ...editForm, companyEmail: e.target.value })}
-                        className="w-full px-4 py-3 bg-white rounded-xl text-sm border border-gray-200 focus:border-[#0087E3] focus:ring-1 focus:ring-[#0087E3] outline-none transition-colors"
-                      />
-                    ) : (
-                      <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm text-gray-700 border border-gray-100">
-                        {profile.company.email || <span className="text-gray-400">Nezadané</span>}
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Firemný telefón</label>
-                    {editing ? (
-                      <input
-                        type="tel"
-                        value={editForm.companyPhone}
-                        onChange={(e) => setEditForm({ ...editForm, companyPhone: e.target.value })}
-                        className="w-full px-4 py-3 bg-white rounded-xl text-sm border border-gray-200 focus:border-[#0087E3] focus:ring-1 focus:ring-[#0087E3] outline-none transition-colors"
-                      />
-                    ) : (
-                      <div className="px-4 py-3 bg-gray-50 rounded-xl text-sm text-gray-700 border border-gray-100">
-                        {profile.company.phone || <span className="text-gray-400">Nezadané</span>}
                       </div>
                     )}
                   </div>

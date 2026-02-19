@@ -625,49 +625,76 @@ const AdminPage = () => {
             <div className="bg-white rounded-lg shadow p-6 text-gray-600">Načítavam zákazníkov...</div>
           ) : customers.length === 0 ? (
             <div className="bg-white rounded-lg shadow p-6 text-gray-600">Zatiaľ žiadni zákazníci</div>
-          ) : (
-            <div className="bg-white rounded-lg shadow overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead className="bg-gray-50 text-gray-600">
-                  <tr>
-                    <th className="text-left px-4 py-3">Meno</th>
-                    <th className="text-left px-4 py-3">Email</th>
-                    <th className="text-left px-4 py-3">Telefón</th>
-                    <th className="text-left px-4 py-3">Firma</th>
-                    <th className="text-right px-4 py-3">Objednávky</th>
-                    <th className="text-right px-4 py-3">Suma</th>
-                    <th className="text-left px-4 py-3">Registrácia</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {customers.map((customer) => (
-                    <tr key={customer.id} className="border-t">
-                      <td className="px-4 py-3 text-gray-900">
-                        {`${customer.firstName || ''} ${customer.lastName || ''}`.trim() || '—'}
-                      </td>
-                      <td className="px-4 py-3 text-gray-700">{customer.email}</td>
-                      <td className="px-4 py-3 text-gray-700">{customer.phone || '—'}</td>
-                      <td className="px-4 py-3 text-gray-700">
-                        {customer.company?.name || '—'}
-                        {customer.company?.vatId ? (
-                          <div className="text-xs text-gray-500">IČ DPH: {customer.company.vatId}</div>
-                        ) : null}
-                      </td>
-                      <td className="px-4 py-3 text-right font-semibold text-gray-900">
-                        {customer.ordersCount}
-                      </td>
-                      <td className="px-4 py-3 text-right font-semibold text-gray-900">
-                        {customer.ordersTotal.toFixed(2)} €
-                      </td>
-                      <td className="px-4 py-3 text-gray-700">
-                        {new Date(customer.createdAt).toLocaleDateString('sk-SK')}
-                      </td>
+          ) : (() => {
+            const now = new Date();
+            const last7days = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const newCustomers = customers.filter(c => new Date(c.createdAt) >= last7days);
+            return (
+            <>
+              {newCustomers.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+                  <h3 className="text-sm font-bold text-blue-800 mb-2">🆕 Noví používatelia (posledných 7 dní)</h3>
+                  <div className="space-y-2">
+                    {newCustomers.map(c => (
+                      <div key={c.id} className="flex items-center gap-3 text-sm text-blue-700">
+                        <span className="font-semibold">{`${c.firstName || ''} ${c.lastName || ''}`.trim() || '—'}</span>
+                        <span>{c.email}</span>
+                        {c.phone && <span>{c.phone}</span>}
+                        {c.company?.name && <span className="text-blue-500">({c.company.name})</span>}
+                        <span className="text-blue-400 ml-auto">{new Date(c.createdAt).toLocaleDateString('sk-SK')}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="bg-white rounded-lg shadow overflow-x-auto">
+                <table className="min-w-full text-sm">
+                  <thead className="bg-gray-50 text-gray-600">
+                    <tr>
+                      <th className="text-left px-4 py-3">Meno</th>
+                      <th className="text-left px-4 py-3">Email</th>
+                      <th className="text-left px-4 py-3">Telefón</th>
+                      <th className="text-left px-4 py-3">Firma</th>
+                      <th className="text-right px-4 py-3">Objednávky</th>
+                      <th className="text-right px-4 py-3">Suma</th>
+                      <th className="text-left px-4 py-3">Registrácia</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody>
+                    {customers.map((customer) => {
+                      const isNew = new Date(customer.createdAt) >= last7days;
+                      return (
+                        <tr key={customer.id} className={`border-t ${isNew ? 'bg-blue-50/30' : ''}`}>
+                          <td className="px-4 py-3 text-gray-900">
+                            {isNew && <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2" title="Nový" />}
+                            {`${customer.firstName || ''} ${customer.lastName || ''}`.trim() || '—'}
+                          </td>
+                          <td className="px-4 py-3 text-gray-700">{customer.email}</td>
+                          <td className="px-4 py-3 text-gray-700">{customer.phone || '—'}</td>
+                          <td className="px-4 py-3 text-gray-700">
+                            {customer.company?.name || '—'}
+                            {customer.company?.vatId ? (
+                              <div className="text-xs text-gray-500">IČO: {customer.company.vatId}</div>
+                            ) : null}
+                          </td>
+                          <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                            {customer.ordersCount}
+                          </td>
+                          <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                            {customer.ordersTotal.toFixed(2)} €
+                          </td>
+                          <td className="px-4 py-3 text-gray-700">
+                            {new Date(customer.createdAt).toLocaleDateString('sk-SK')}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+            );
+          })()}
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '../../../../lib/prisma';
+import { sendRegistrationConfirmationEmail, sendAdminNewUserNotification } from '../../../../lib/mailer';
 
 export const runtime = 'nodejs';
 
@@ -84,6 +85,21 @@ export async function POST(req: NextRequest) {
         }
       });
     }
+
+    // Send registration confirmation email (non-blocking)
+    sendRegistrationConfirmationEmail({
+      to: created.email,
+      firstName: firstName || created.email.split('@')[0],
+    }).catch(console.error);
+
+    // Notify admin about new user (non-blocking)
+    sendAdminNewUserNotification({
+      email: created.email,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      companyName: company?.name,
+    }).catch(console.error);
 
     return NextResponse.json({
       id: created.id,

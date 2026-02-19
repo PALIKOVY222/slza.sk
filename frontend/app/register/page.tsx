@@ -22,6 +22,7 @@ const RegisterPage = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,13 +63,38 @@ const RegisterPage = () => {
         throw new Error(payload.error || 'Registrácia zlyhala.');
       }
 
-      router.push('/login');
+      setSuccess(true);
     } catch (err) {
       setError((err as Error).message || 'Registrácia zlyhala.');
     } finally {
       setLoading(false);
     }
   };
+
+  if (success) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#0087E3] to-[#006bb3] flex items-center justify-center px-5">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 w-full max-w-md text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-[#111518] mb-3">Účet bol vytvorený!</h1>
+          <p className="text-[#4d5d6d] mb-2">
+            Na adresu <strong>{formData.email}</strong> sme vám poslali potvrdzovací email.
+          </p>
+          <p className="text-[#4d5d6d] mb-8 text-sm">Môžete sa teraz prihlásiť.</p>
+          <a
+            href="/login"
+            className="inline-block w-full bg-[#0087E3] text-white py-4 rounded-lg font-semibold text-lg hover:bg-[#006bb3] transition-all duration-300 shadow-lg hover:shadow-xl text-center"
+          >
+            Prihlásiť sa
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0087E3] to-[#006bb3] flex items-center justify-center px-5">
@@ -213,7 +239,7 @@ const RegisterPage = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-[#111518] mb-2">IČ DPH</label>
+                <label className="block text-sm font-semibold text-[#111518] mb-2">IČO</label>
                 <input
                   type="text"
                   value={formData.vatId}

@@ -31,7 +31,7 @@ const LoginPage = () => {
 
       const data = (await res.json()) as {
         token: string;
-        user: { id: string; email: string; firstName?: string; lastName?: string; companyId?: string | null };
+        user: { id: string; email: string; firstName?: string; lastName?: string; phone?: string; street?: string; city?: string; postalCode?: string; country?: string; companyId?: string | null; company?: { name: string; vatId: string; taxId: string; registration: string; email: string; phone: string } | null };
       };
 
       localStorage.setItem('authToken', data.token);

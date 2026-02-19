@@ -96,9 +96,6 @@ const KosikPage = () => {
     name: "",
     vatId: "",
     taxId: "",
-    registration: "",
-    email: "",
-    phone: "",
   });
   const [showCompanyInfo, setShowCompanyInfo] = useState(false);
   const [authUserId, setAuthUserId] = useState<string | null>(null);
@@ -130,9 +127,6 @@ const KosikPage = () => {
             name: user.company.name || "",
             vatId: user.company.vatId || "",
             taxId: user.company.taxId || "",
-            registration: user.company.registration || "",
-            email: user.company.email || "",
-            phone: user.company.phone || "",
           });
         }
       } catch {
@@ -614,10 +608,9 @@ const KosikPage = () => {
                       <div className="px-5 pb-5 space-y-3 border-t border-gray-100 pt-4">
                         <input type="text" placeholder="Názov firmy" value={companyInfo.name} onChange={(e) => setCompanyInfo({ ...companyInfo, name: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] text-sm" />
                         <div className="grid grid-cols-2 gap-3">
-                          <input type="text" placeholder="IČ DPH" value={companyInfo.vatId} onChange={(e) => setCompanyInfo({ ...companyInfo, vatId: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] text-sm" />
+                          <input type="text" placeholder="IČO" value={companyInfo.vatId} onChange={(e) => setCompanyInfo({ ...companyInfo, vatId: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] text-sm" />
                           <input type="text" placeholder="DIČ" value={companyInfo.taxId} onChange={(e) => setCompanyInfo({ ...companyInfo, taxId: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] text-sm" />
                         </div>
-                        <input type="text" placeholder="IČO" value={companyInfo.registration} onChange={(e) => setCompanyInfo({ ...companyInfo, registration: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] text-sm" />
                       </div>
                     )}
                   </div>
