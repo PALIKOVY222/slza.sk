@@ -287,20 +287,26 @@ const AdminPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Admin - Objednávky</h1>
-          <div className="flex gap-4">
+        <div className="flex flex-wrap justify-between items-center mb-8 gap-3">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin – Objednávky</h1>
+          <div className="flex flex-wrap gap-2 sm:gap-4">
+            <a
+              href="/"
+              className="px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium"
+            >
+              ← Stránka
+            </a>
             <a
               href="/admin/dashboard"
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              className="px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
             >
               Produkty
             </a>
             <button
               onClick={handleLogout}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
             >
-              Odhlásiť sa
+              Odhlásiť
             </button>
           </div>
         </div>
@@ -354,7 +360,7 @@ const AdminPage = () => {
                   </div>
 
                   <div className="border-t pt-4">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-4">
                       <div>
                         <p className="text-gray-600 font-medium">Zákazník:</p>
                         <p className="text-gray-900">
@@ -410,7 +416,7 @@ const AdminPage = () => {
                                 updateOrderStatus(order.id, status);
                               }}
                               disabled={updatingStatus || order.status === status}
-                              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                              className={`px-3 py-1.5 rounded text-xs sm:text-sm font-medium transition-colors ${
                                 order.status === status
                                   ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                                   : 'bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50'

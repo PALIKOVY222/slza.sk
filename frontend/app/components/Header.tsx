@@ -162,9 +162,9 @@ const Header = () => {
       
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[9999]">
-          {/* Background overlay – pointer-events-none so it never blocks children */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518] pointer-events-none" />
+        <div className="lg:hidden fixed inset-0 z-[9999] pointer-events-auto">
+          {/* Background overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#111518] via-[#1a1d21] to-[#111518]" />
           
           {/* Content */}
           <div className="relative z-10 flex flex-col h-full">
@@ -179,9 +179,10 @@ const Header = () => {
               </a>
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 active:bg-white/30 cursor-pointer"
+                onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(false); }}
+                className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 active:bg-white/30 cursor-pointer touch-manipulation"
                 aria-label="Zavrieť menu"
+                style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"/>

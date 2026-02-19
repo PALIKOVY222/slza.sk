@@ -1,24 +1,10 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const SMTP_HOST = process.env.SMTP_HOST;
-const SMTP_PORT = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM || 'no-reply@slza.sk';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || 'info@slza.sk';
+const ADMIN_EMAIL = process.env.EMAIL_TO || process.env.ADMIN_EMAIL || 'kovac.jr@slza.sk';
 
-const transporter = SMTP_HOST
-  ? nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: SMTP_USER
-        ? {
-            user: SMTP_USER,
-            pass: SMTP_PASS
-          }
-        : undefined
-    })
-  : null;
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
 export async function sendInvoiceEmail(params: {
   to: string;
@@ -27,15 +13,15 @@ export async function sendInvoiceEmail(params: {
   orderNumber: string;
   pdfBuffer: Buffer;
 }) {
-  if (!transporter) {
-    throw new Error('SMTP not configured');
+  if (!resend) {
+    throw new Error('Resend not configured – RESEND_API_KEY missing');
   }
 
-  await transporter.sendMail({
-    from: SMTP_FROM,
+  await resend.emails.send({
+    from: EMAIL_FROM,
     to: params.to,
-    subject: `Faktúra ${params.invoiceNumber} – SLZA`,
-    text: `Dobrý deň ${params.name},\n\nĎakujeme za objednávku ${params.orderNumber}. V prílohe nájdete faktúru ${params.invoiceNumber}.\n\nSLZA`,
+    subject: `Faktúra ${params.invoiceNumber} – SLZA Print`,
+    text: `Dobrý deň ${params.name},\n\nĎakujeme za objednávku ${params.orderNumber}. V prílohe nájdete faktúru ${params.invoiceNumber}.\n\nSLZA Print`,
     attachments: [
       {
         filename: `${params.invoiceNumber}.pdf`,
@@ -54,8 +40,8 @@ export async function sendOrderConfirmationEmail(params: {
   paymentMethod: string;
   shippingMethod: string;
 }) {
-  if (!transporter) {
-    console.warn('SMTP not configured - skipping email');
+  if (!resend) {
+    console.warn('Resend not configured (RESEND_API_KEY missing) – skipping customer email');
     return;
   }
 
@@ -121,8 +107,8 @@ export async function sendOrderConfirmationEmail(params: {
     </div>
   `;
 
-  await transporter.sendMail({
-    from: SMTP_FROM,
+  await resend.emails.send({
+    from: EMAIL_FROM,
     to: params.to,
     subject: `Potvrdenie objednávky ${params.orderNumber} – SLZA Print`,
     html
@@ -136,12 +122,12 @@ export async function sendAdminOrderNotification(params: {
   total: number;
   items: Array<{ productName: string; quantity: number }>;
 }) {
-  if (!transporter) {
-    console.warn('SMTP not configured - skipping email');
+  if (!resend) {
+    console.warn('Resend not configured (RESEND_API_KEY missing) – skipping admin email');
     return;
   }
 
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_TO || 'kovac.jr@slza.sk';
+  const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://slza.sk';
 
   const itemsHtml = params.items
     .map((item) => `<li>${item.productName} (${item.quantity}x)</li>`)
@@ -160,14 +146,14 @@ export async function sendAdminOrderNotification(params: {
       </ul>
       
       <p style="margin-top: 30px;">
-        <a href="http://localhost:3000/admin" style="background-color: #0087E3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Zobraziť v admin paneli</a>
+        <a href="${siteUrl}/admin" style="background-color: #0087E3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Zobraziť v admin paneli</a>
       </p>
     </div>
   `;
 
-  await transporter.sendMail({
-    from: SMTP_FROM,
-    to: adminEmail,
+  await resend.emails.send({
+    from: EMAIL_FROM,
+    to: ADMIN_EMAIL,
     subject: `Nová objednávka ${params.orderNumber} – SLZA Print`,
     html
   });
