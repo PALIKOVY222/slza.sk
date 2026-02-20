@@ -108,7 +108,11 @@ model Order {
   customerName      String
   customerPhone     String?
   note              String?
-  
+
+  // Discount
+  discountCode      String?
+  discountAmount    Float?       @default(0)
+
   // Payment
   paymentMethod     String?      // card, bank_transfer, cash_on_delivery
   paymentStatus     String?      @default("pending") // pending, paid, failed

@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
       shippingAddress,
       items,
       totals,
+      discount,
       uploads,
       payment,
       shipping: shippingInfo,
@@ -103,6 +104,11 @@ export async function POST(req: NextRequest) {
       payment?: {
         method: string;
         status?: string;
+      };
+      discount?: {
+        code: string;
+        percent: number;
+        amount: number;
       };
       shipping?: {
         method: string;
@@ -198,6 +204,8 @@ export async function POST(req: NextRequest) {
             customerName: customer.name,
             customerPhone: customer.phone,
             note,
+            discountCode: discount?.code,
+            discountAmount: discount?.amount ?? 0,
             paymentMethod: payment?.method,
             paymentStatus: payment?.status || 'pending',
             shippingMethod: shippingInfo?.method,

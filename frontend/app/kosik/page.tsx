@@ -60,6 +60,9 @@ const KosikPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [discountCode, setDiscountCode] = useState("");
+  const [appliedDiscount, setAppliedDiscount] = useState<{ code: string; percent: number } | null>(null);
+  const [discountError, setDiscountError] = useState<string | null>(null);
 
   const formatOptionValue = (value: unknown): string => {
     if (value == null) return "";
@@ -161,11 +164,34 @@ const KosikPage = () => {
     );
   };
 
+  const VALID_CODES: Record<string, number> = { NOVYESHOP: 10, SLZA10: 10 };
+
+  const applyDiscountCode = () => {
+    const code = discountCode.trim().toUpperCase();
+    if (!code) { setDiscountError("Zadajte zľavový kód"); return; }
+    const percent = VALID_CODES[code];
+    if (percent) {
+      setAppliedDiscount({ code, percent });
+      setDiscountError(null);
+    } else {
+      setDiscountError("Neplatný zľavový kód");
+      setAppliedDiscount(null);
+    }
+  };
+
+  const removeDiscount = () => {
+    setAppliedDiscount(null);
+    setDiscountCode("");
+    setDiscountError(null);
+  };
+
   const itemsTotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
+  const discountAmount = appliedDiscount ? itemsTotal * (appliedDiscount.percent / 100) : 0;
+  const subtotalAfterDiscount = itemsTotal - discountAmount;
   const selectedPickupPoint = PICKUP_POINTS.find(p => p.id === shippingMethod);
   const shippingCost = selectedPickupPoint?.price || 0;
-  const vatTotal = itemsTotal * 0.23;
-  const total = itemsTotal + vatTotal + shippingCost;
+  const vatTotal = subtotalAfterDiscount * 0.23;
+  const total = subtotalAfterDiscount + vatTotal + shippingCost;
 
   const handleCheckout = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -266,8 +292,13 @@ const KosikPage = () => {
             pickupPointId: selectedPickup?.id,
             pickupPointName: selectedPickup?.name,
           },
+          discount: appliedDiscount ? {
+            code: appliedDiscount.code,
+            percent: appliedDiscount.percent,
+            amount: discountAmount,
+          } : undefined,
           totals: {
-            subtotal: itemsTotal,
+            subtotal: subtotalAfterDiscount,
             vatTotal,
             total,
             vatRate: 0.23,
@@ -409,12 +440,52 @@ const KosikPage = () => {
                 })}
               </div>
 
+              {/* Discount code */}
               <div className="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
+                <h3 className="text-sm font-bold text-[#111518] mb-3">Zľavový kód</h3>
+                {appliedDiscount ? (
+                  <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-xl px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      <span className="text-sm font-semibold text-green-700">{appliedDiscount.code}</span>
+                      <span className="text-sm text-green-600">(-{appliedDiscount.percent}%)</span>
+                    </div>
+                    <button onClick={removeDiscount} className="text-gray-400 hover:text-red-500 transition-colors p-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Zadajte kód"
+                        value={discountCode}
+                        onChange={(e) => { setDiscountCode(e.target.value); setDiscountError(null); }}
+                        onKeyDown={(e) => { if (e.key === 'Enter') applyDiscountCode(); }}
+                        className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm uppercase"
+                      />
+                      <button onClick={applyDiscountCode} className="px-6 py-3 bg-[#0087E3] text-white rounded-xl text-sm font-semibold hover:bg-[#006bb3] transition-colors">
+                        Použiť
+                      </button>
+                    </div>
+                    {discountError && <p className="text-xs text-red-500 mt-2">{discountError}</p>}
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm text-gray-500">
                     <span>Produkty</span>
                     <span>{itemsTotal.toFixed(2)} €</span>
                   </div>
+                  {appliedDiscount && (
+                    <div className="flex justify-between text-sm text-green-600 font-medium">
+                      <span>Zľava {appliedDiscount.percent}% ({appliedDiscount.code})</span>
+                      <span>-{discountAmount.toFixed(2)} €</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm text-gray-500">
                     <span>DPH (23%)</span>
                     <span>{vatTotal.toFixed(2)} €</span>
@@ -556,6 +627,12 @@ const KosikPage = () => {
                       <span>Suma bez DPH:</span>
                       <span>{itemsTotal.toFixed(2)} €</span>
                     </div>
+                    {appliedDiscount && (
+                      <div className="flex justify-between text-sm text-green-600 font-medium">
+                        <span>Zľava {appliedDiscount.percent}%:</span>
+                        <span>-{discountAmount.toFixed(2)} €</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm text-gray-500">
                       <span>DPH 23 %:</span>
                       <span>{vatTotal.toFixed(2)} €</span>
@@ -647,6 +724,12 @@ const KosikPage = () => {
                       <span>Suma bez DPH:</span>
                       <span>{itemsTotal.toFixed(2)} €</span>
                     </div>
+                    {appliedDiscount && (
+                      <div className="flex justify-between text-sm text-green-600 font-medium">
+                        <span>Zľava {appliedDiscount.percent}%:</span>
+                        <span>-{discountAmount.toFixed(2)} €</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm text-gray-500">
                       <span>DPH 23 %:</span>
                       <span>{vatTotal.toFixed(2)} €</span>
@@ -744,13 +827,19 @@ const KosikPage = () => {
                       <span>Suma bez DPH:</span>
                       <span>{itemsTotal.toFixed(2)} €</span>
                     </div>
+                    {appliedDiscount && (
+                      <div className="flex justify-between text-sm text-green-600 font-medium">
+                        <span>Zľava {appliedDiscount.percent}%:</span>
+                        <span>-{discountAmount.toFixed(2)} €</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm text-gray-500">
                       <span>DPH 23 %:</span>
                       <span>{vatTotal.toFixed(2)} €</span>
                     </div>
                     <div className="flex justify-between text-sm text-gray-500">
                       <span>Doprava:</span>
-                      <span>Zadarmo</span>
+                      <span>{shippingCost > 0 ? `${shippingCost.toFixed(2)} €` : 'Zadarmo'}</span>
                     </div>
                     <div className="border-t pt-3 mt-2 flex justify-between items-center">
                       <span className="text-base font-bold text-[#111518]">Spolu:</span>

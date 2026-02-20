@@ -1,11 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import SplitText from './SplitText';
 
 const Hero = () => {
+  const [copied, setCopied] = useState(false);
+
+  const copyCode = () => {
+    navigator.clipboard.writeText('NOVYESHOP');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 lg:pb-24 mb-0 relative overflow-visible" id="home">
+      {/* Promo banner */}
+      <div className="absolute top-20 md:top-24 left-0 right-0 z-20">
+        <div className="max-w-[1320px] mx-auto px-5">
+          <div className="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full px-4 py-2 sm:px-6 sm:py-2.5 inline-flex items-center gap-2 sm:gap-3 shadow-lg animate-pulse">
+            <span className="text-xs sm:text-sm font-bold text-black">NOVY ESHOP</span>
+            <span className="text-xs sm:text-sm text-black/80">|</span>
+            <span className="text-xs sm:text-sm font-semibold text-black">10% zlava s kodom</span>
+            <button onClick={copyCode} className="bg-black/90 text-yellow-400 px-3 py-1 rounded-full text-xs sm:text-sm font-bold hover:bg-black transition-colors">
+              {copied ? 'Skopirovane!' : 'NOVYESHOP'}
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Desktop Layout */}
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">
         <div className="flex items-center justify-between min-h-[600px] relative">
@@ -26,7 +48,7 @@ const Hero = () => {
             />
             <SplitText
               text="Imagine.design.print"
-              className="text-[56px] font-black mb-10 leading-tight text-white"
+              className="text-[56px] font-black mb-6 leading-tight text-white"
               delay={50}
               duration={1.25}
               ease="power3.out"
@@ -38,8 +60,15 @@ const Hero = () => {
               textAlign="left"
               tag="h1"
             />
-            <div className="flex gap-[30px] justify-start items-center">
-              <a href="/produkty" className="bg-white text-[#111518] py-[18px] px-10 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-[#f0f0f0]">Eshop</a>
+            <p className="text-lg text-white/80 mb-8 max-w-[500px] leading-relaxed">
+              Spustili sme novy online obchod! Objednavajte vizitky, letaky, bannery, plagaty a vela dalsieho priamo z pohodlia domova.
+            </p>
+            <div className="flex gap-4 justify-start items-center flex-wrap">
+              <a href="/produkty" className="bg-white text-[#111518] py-[18px] px-10 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-[#f0f0f0]">Nakupovat</a>
+              <button onClick={copyCode} className="border-2 border-white/40 text-white py-[16px] px-8 text-base font-semibold rounded-[5px] inline-flex items-center gap-2 transition-all duration-300 hover:bg-white/10">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h10v10M7 17L17 7" /></svg>
+                {copied ? 'Kod skopirovany!' : 'Kod: NOVYESHOP -10%'}
+              </button>
             </div>
           </div>
           <div className="flex-[0_0_600px] flex items-end justify-end relative z-[1] -mb-[50px]">
@@ -50,15 +79,15 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Mobile Layout - presne ako screenshot */}
+      {/* Mobile Layout */}
       <div className="lg:hidden px-5 text-center relative min-h-[500px] flex flex-col justify-center">
         {/* Maskot vpravo nahoře */}
         <div className="absolute top-0 right-0 w-[200px] z-[1]">
           <img src="/images/nemo.png" alt="Nemo mascot" className="w-full h-auto" />
         </div>
-        
+
         {/* Text content - centrovaný */}
-        <div className="relative z-[2] pt-24">
+        <div className="relative z-[2] pt-28">
           <SplitText
             text="DIGITÁLNA A OFSETOVÁ TLAČ"
             className="text-xs font-semibold uppercase mb-4 text-white/90 tracking-wide"
@@ -75,7 +104,7 @@ const Hero = () => {
           />
           <SplitText
             text="Imagine.design.print"
-            className="text-3xl font-black mb-8 leading-tight text-white"
+            className="text-3xl font-black mb-4 leading-tight text-white"
             delay={50}
             duration={1.25}
             ease="power3.out"
@@ -87,10 +116,17 @@ const Hero = () => {
             textAlign="center"
             tag="h1"
           />
-          
+          <p className="text-sm text-white/80 mb-6 max-w-[320px] mx-auto leading-relaxed">
+            Spustili sme novy online obchod! Objednavajte priamo z pohodlia domova.
+          </p>
+
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-            <a href="/produkty" className="bg-white text-[#111518] py-4 px-12 text-base font-semibold rounded-lg w-full sm:w-auto max-w-[250px] inline-block">Eshop</a>
+          <div className="flex flex-col gap-3 justify-center items-center mb-6">
+            <a href="/produkty" className="bg-white text-[#111518] py-4 px-12 text-base font-semibold rounded-lg w-full max-w-[280px] inline-block">Nakupovat</a>
+            <button onClick={copyCode} className="border-2 border-white/40 text-white py-3 px-8 text-sm font-semibold rounded-lg w-full max-w-[280px] inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
+              {copied ? 'Skopirovane!' : 'Kod: NOVYESHOP -10%'}
+            </button>
           </div>
         </div>
       </div>
