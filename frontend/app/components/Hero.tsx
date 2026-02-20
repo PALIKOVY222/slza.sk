@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SplitText from './SplitText';
 
 const Hero = () => {
@@ -13,20 +13,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-[#0087E3] text-white pt-32 md:pt-40 pb-2 lg:pb-24 mb-0 relative overflow-visible" id="home">
-      {/* Promo banner */}
-      <div className="absolute top-20 md:top-24 left-0 right-0 z-20">
-        <div className="max-w-[1320px] mx-auto px-5">
-          <div className="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full px-4 py-2 sm:px-6 sm:py-2.5 inline-flex items-center gap-2 sm:gap-3 shadow-lg animate-pulse">
-            <span className="text-xs sm:text-sm font-bold text-black">NOVY ESHOP</span>
-            <span className="text-xs sm:text-sm text-black/80">|</span>
-            <span className="text-xs sm:text-sm font-semibold text-black">10% zlava s kodom</span>
-            <button onClick={copyCode} className="bg-black/90 text-yellow-400 px-3 py-1 rounded-full text-xs sm:text-sm font-bold hover:bg-black transition-colors">
-              {copied ? 'Skopirovane!' : 'NOVYESHOP'}
-            </button>
-          </div>
-        </div>
-      </div>
+    <section className="bg-[#0087E3] text-white pt-44 md:pt-52 pb-2 lg:pb-24 mb-0 relative overflow-visible" id="home">
 
       {/* Desktop Layout */}
       <div className="hidden lg:block max-w-[1320px] mx-auto px-5">

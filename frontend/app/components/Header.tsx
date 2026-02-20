@@ -3,6 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+const PromoBanner = () => {
+  const [copied, setCopied] = useState(false);
+  const copyCode = () => {
+    navigator.clipboard.writeText('NOVYESHOP');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <div className="bg-gradient-to-r from-yellow-400 to-orange-500 w-full py-2 text-center">
+      <button onClick={copyCode} className="inline-flex items-center gap-2 sm:gap-3 cursor-pointer bg-transparent border-none p-0">
+        <span className="text-xs sm:text-sm font-bold text-black">NOVÝ ESHOP</span>
+        <span className="text-black/50 text-xs">|</span>
+        <span className="text-xs sm:text-sm font-semibold text-black">10% zľava s kódom</span>
+        <span className="bg-black/90 text-yellow-400 px-3 py-0.5 rounded-full text-xs sm:text-sm font-bold">
+          {copied ? 'Skopirovane!' : 'NOVYESHOP'}
+        </span>
+      </button>
+    </div>
+  );
+};
+
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -92,8 +113,9 @@ const Header = () => {
 
   return (
     <>
-    <header className="bg-transparent absolute top-0 left-0 right-0 z-[1000] py-5">
-      <div className="max-w-[1320px] mx-auto px-5 flex justify-between items-center">
+    <header className="absolute top-0 left-0 right-0 z-[1000]">
+      <PromoBanner />
+      <div className="max-w-[1320px] mx-auto px-5 flex justify-between items-center py-5">
         <div className="logo flex-1">
           <a href="/" aria-label="Domov" className="inline-flex items-center">
             <img src="/images/slza_logo.svg" alt="SLZA Print" className="h-50 w-auto" />
