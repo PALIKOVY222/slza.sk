@@ -324,7 +324,7 @@ const KosikPage = () => {
       <Header />
 
       {/* Hero */}
-      <section className="bg-[#0087E3] pt-44 sm:pt-48 lg:pt-52 pb-8 sm:pb-10 lg:pb-12">
+      <section className="bg-[#0087E3] pt-52 sm:pt-52 lg:pt-52 pb-8 sm:pb-10 lg:pb-12">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-5 text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
             Nákupný košík
@@ -465,7 +465,7 @@ const KosikPage = () => {
                         onKeyDown={(e) => { if (e.key === 'Enter') applyDiscountCode(); }}
                         className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-[#0087E3] focus:ring-2 focus:ring-[#0087E3]/20 text-sm uppercase"
                       />
-                      <button onClick={applyDiscountCode} className="px-6 py-3 bg-[#0087E3] text-white rounded-xl text-sm font-semibold hover:bg-[#006bb3] transition-colors">
+                      <button onClick={applyDiscountCode} className="flex-shrink-0 px-4 py-3 bg-[#0087E3] text-white rounded-xl text-sm font-semibold hover:bg-[#006bb3] transition-colors whitespace-nowrap">
                         Použiť
                       </button>
                     </div>
