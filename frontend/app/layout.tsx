@@ -4,6 +4,10 @@ import CookieBanner from "./components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://slza.sk'),
+  icons: {
+    icon: '/icon.svg',
+    apple: '/icon.svg',
+  },
   title: {
     default: "SLZA Print - Tlačiareň na Liptove | Digitálna a Ofsetová Tlač",
     template: "%s | SLZA Print"
