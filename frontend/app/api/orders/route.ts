@@ -203,9 +203,9 @@ export async function POST(req: NextRequest) {
             customerEmail: customer.email,
             customerName: customer.name,
             customerPhone: customer.phone,
-            note,
-            discountCode: discount?.code,
-            discountAmount: discount?.amount ?? 0,
+            note: discount?.code
+              ? `[Zľava: ${discount.code} -${discount.percent}% (-${discount.amount.toFixed(2)}€)]${note ? ` ${note}` : ''}`
+              : note,
             paymentMethod: payment?.method,
             paymentStatus: payment?.status || 'pending',
             shippingMethod: shippingInfo?.method,
