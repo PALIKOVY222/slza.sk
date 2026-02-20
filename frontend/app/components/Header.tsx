@@ -5,21 +5,22 @@ import { createPortal } from 'react-dom';
 
 const PromoBanner = () => {
   const [copied, setCopied] = useState(false);
-  const copyCode = () => {
+  const copyCode = (e: React.MouseEvent) => {
+    e.preventDefault();
     navigator.clipboard.writeText('NOVYESHOP');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
   return (
     <div className="bg-gradient-to-r from-yellow-400 to-orange-500 w-full py-2 text-center">
-      <button onClick={copyCode} className="inline-flex items-center gap-2 sm:gap-3 cursor-pointer bg-transparent border-none p-0">
-        <span className="text-xs sm:text-sm font-bold text-black">NOVÝ ESHOP</span>
+      <div className="inline-flex items-center gap-2 sm:gap-3">
+        <a href="/produkty" className="text-xs sm:text-sm font-bold text-black hover:underline">NOVÝ ESHOP</a>
         <span className="text-black/50 text-xs">|</span>
         <span className="text-xs sm:text-sm font-semibold text-black">10% zľava s kódom</span>
-        <span className="bg-black/90 text-yellow-400 px-3 py-0.5 rounded-full text-xs sm:text-sm font-bold">
-          {copied ? 'Skopirovane!' : 'NOVYESHOP'}
-        </span>
-      </button>
+        <button onClick={copyCode} className="bg-black/90 text-yellow-400 px-3 py-0.5 rounded-full text-xs sm:text-sm font-bold hover:bg-black transition-colors cursor-pointer border-none">
+          {copied ? 'Skopírované!' : 'NOVYESHOP'}
+        </button>
+      </div>
     </div>
   );
 };

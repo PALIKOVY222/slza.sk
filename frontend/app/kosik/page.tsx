@@ -503,7 +503,7 @@ const KosikPage = () => {
 
           ) : step === 2 ? (
             /* ─── STEP 2: Delivery & Payment ─── */
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
               <div className="lg:col-span-2">
                 {/* Pickup points */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 mb-5">
@@ -609,15 +609,14 @@ const KosikPage = () => {
                 {submitError && <div className="text-sm text-red-600 bg-red-50 rounded-lg p-3 mt-3">{submitError}</div>}
               </div>
 
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
+              {/* Sidebar – skrytá na mobile */}
+              <div className="hidden lg:block lg:col-span-1">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:sticky lg:top-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex gap-3 mb-4">
                       <img src={item.image} alt={item.productName} className="w-12 h-12 rounded-lg object-contain bg-gray-50 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-[#111518] truncate">{item.productName}</p>
-                        <button className="text-xs text-gray-400 hover:text-[#0087E3]">Zobraziť detail</button>
                       </div>
                       <p className="text-sm font-bold text-[#111518]">{(item.price * item.quantity).toFixed(2)} €</p>
                     </div>
@@ -648,7 +647,7 @@ const KosikPage = () => {
 
           ) : step === 3 ? (
             /* ─── STEP 3: Contact info ─── */
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
               <div className="lg:col-span-2">
                 <form id="checkout-form" onSubmit={(e) => { e.preventDefault(); setStep(4); }} className="space-y-5">
                   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
@@ -707,8 +706,8 @@ const KosikPage = () => {
                 </form>
               </div>
 
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
+              {/* Sidebar – skrytá na mobile */}
+              <div className="hidden lg:block lg:col-span-1">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:sticky lg:top-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex gap-3 mb-4">
@@ -745,7 +744,7 @@ const KosikPage = () => {
 
           ) : step === 4 ? (
             /* ─── STEP 4: Summary ─── */
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
               <div className="lg:col-span-2 space-y-5">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6">
                   <h3 className="text-lg font-bold text-[#111518] mb-4">Zhrnutie objednávky</h3>
@@ -819,8 +818,8 @@ const KosikPage = () => {
                 {submitError && <div className="text-sm text-red-600 bg-red-50 rounded-lg p-3 mt-3">{submitError}</div>}
               </div>
 
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
+              {/* Sidebar – viditeľná aj na mobile v kroku 4 */}
+              <div className="lg:col-span-1 order-first lg:order-none">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 lg:sticky lg:top-4">
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm text-gray-500">

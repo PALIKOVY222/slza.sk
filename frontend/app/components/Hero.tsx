@@ -48,13 +48,13 @@ const Hero = () => {
               tag="h1"
             />
             <p className="text-lg text-white/80 mb-8 max-w-[500px] leading-relaxed">
-              Spustili sme novy online obchod! Objednavajte vizitky, letaky, bannery, plagaty a vela dalsieho priamo z pohodlia domova.
+              Spustili sme nový online obchod! Objednávajte vizitky, letáky, bannery, plagáty a veľa ďalšieho priamo z pohodlia domova.
             </p>
             <div className="flex gap-4 justify-start items-center flex-wrap">
-              <a href="/produkty" className="bg-white text-[#111518] py-[18px] px-10 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-[#f0f0f0]">Nakupovat</a>
+              <a href="/produkty" className="bg-white text-[#111518] py-[18px] px-10 text-base font-semibold rounded-[5px] inline-block transition-all duration-300 hover:bg-[#f0f0f0]">Nakupovať</a>
               <button onClick={copyCode} className="border-2 border-white/40 text-white py-[16px] px-8 text-base font-semibold rounded-[5px] inline-flex items-center gap-2 transition-all duration-300 hover:bg-white/10">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h10v10M7 17L17 7" /></svg>
-                {copied ? 'Kod skopirovany!' : 'Kod: NOVYESHOP -10%'}
+                {copied ? 'Kód skopírovaný!' : 'Kód: NOVYESHOP -10%'}
               </button>
             </div>
           </div>
@@ -104,15 +104,15 @@ const Hero = () => {
             tag="h1"
           />
           <p className="text-sm text-white/80 mb-6 max-w-[320px] mx-auto leading-relaxed">
-            Spustili sme novy online obchod! Objednavajte priamo z pohodlia domova.
+            Spustili sme nový online obchod! Objednávajte priamo z pohodlia domova.
           </p>
 
           {/* Buttons */}
           <div className="flex flex-col gap-3 justify-center items-center mb-6">
-            <a href="/produkty" className="bg-white text-[#111518] py-4 px-12 text-base font-semibold rounded-lg w-full max-w-[280px] inline-block">Nakupovat</a>
+            <a href="/produkty" className="bg-white text-[#111518] py-4 px-12 text-base font-semibold rounded-lg w-full max-w-[280px] inline-block">Nakupovať</a>
             <button onClick={copyCode} className="border-2 border-white/40 text-white py-3 px-8 text-sm font-semibold rounded-lg w-full max-w-[280px] inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
-              {copied ? 'Skopirovane!' : 'Kod: NOVYESHOP -10%'}
+              {copied ? 'Skopírované!' : 'Kód: NOVYESHOP -10%'}
             </button>
           </div>
         </div>
